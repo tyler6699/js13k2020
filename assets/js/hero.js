@@ -11,6 +11,17 @@ function hero(w, h, x, y, angle, type, scale) {
   this.levelUpTime=0;
   
   this.update = function(delta) {  
+    if(this.e.idle > 3){
+      this.e.sx=128;
+      this.e.sy=0;
+      if(this.e.showTextTime<=0){
+        this.e.showText="Z";
+        this.e.showTextTime=2;
+      }
+    } else {
+      this.e.sx=96;
+      this.e.sy=16;
+    }
     this.time+=delta;
     this.e.gun.drawBullets(delta);
     this.e.update(delta);
@@ -62,6 +73,7 @@ function hero(w, h, x, y, angle, type, scale) {
   // check for each pixel if the hero can move, starting with full amount
   // The array contains tiles and mobs (Entities)
   this.gMove = function(xx,yy){
+    this.e.idle=0;
     rec = cloneRectanlge(this.e.hb);
     rec.x += xx * this.speed;
     rec.y += yy * this.speed;
@@ -86,7 +98,10 @@ function hero(w, h, x, y, angle, type, scale) {
               playSound(NOISEFX,.5);
               break;
             } else if(e.isAmmo() && !e.broke){ // AMMO
-              this.e.gun.ammo += randomNum(10,35);
+              ad=randomNum(10,35);
+              this.e.gun.ammo += ad;
+              this.e.showTextTime=1;
+              this.e.showText="+"+ad;
               e.sy=16;
               e.sx=64;
               e.broke = true;

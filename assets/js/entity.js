@@ -101,7 +101,8 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         cart.shakeTime-=delta/1000;
         ctx.translate(cart.shake,cart.shake);
       }
-    
+      
+      ctx.save();
       // Animate Image
       if (this.image == null) {
         ctx.fillStyle = this.colour;
@@ -116,6 +117,7 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         } 
         ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w * s, h * s);
       }
+      ctx.restore();
       
       // Moving Doors
       if(this.type2 != null && this.mvY != 0){
@@ -123,11 +125,11 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         ctx.drawImage(img, 0, 16, w, h, hw, hh, w * s, h * s);
         ctx.translate(0,48-this.mvY);
         ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w * s, h * s);
-      }else if(this.type3 != null && this.mvY != 0){
-          ctx.translate(0,64-(48-this.mvY));
-          ctx.drawImage(img, 112, 16, w, h, hw, hh, w * s, h * s);
-          ctx.translate(0,-64+(48-this.mvY));
-          ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w * s, h * s);
+      } else if(this.type3 != null && this.mvY != 0){
+        ctx.translate(0,64-(48-this.mvY));
+        ctx.drawImage(img, 112, 16, w, h, hw, hh, w * s, h * s);
+        ctx.translate(0,-64+(48-this.mvY));
+        ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w * s, h * s);
       } else if (this.type2 != null && this.renT2) {
         ctx.globalAlpha = 1;
         ctx.translate(0,-48);
@@ -140,7 +142,8 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         gradient = ctx.createLinearGradient(0, 0, canvasW, 0);
         gradient.addColorStop("0", "#"+COL2);
         gradient.addColorStop(".1", "#"+COL1);
-        ctx.font = "italic 25px Arial";
+        s = 25+(this.showTextTime*5);
+        ctx.font = "italic "+s+"px Arial";
         ctx.fillStyle = gradient;
         ctx.fillText(this.showText, 0, this.showTextY+(10*this.showTextTime));
       }

@@ -37,16 +37,6 @@ function Gun(){
       
       cart.shakeTime=.2;
       playSound(SHOOT,.5);
-      // Add more bullets that are a fixed distance appart
-      // 1 degree is 0.0174533 radians
-      // xx = ox + radius * Math.cos(angle+0.349066);
-      // yy = oy + radius * Math.sin(angle+0.349066);
-      // this.bullets.push(new Bullet(ox,oy,xx,yy));
-      // 
-      // xx = ox + radius * Math.cos(angle-0.349066);
-      // yy = oy + radius * Math.sin(angle-0.349066);
-      // this.bullets.push(new Bullet(ox,oy,xx,yy));
-
       this.ammo--;
     }
   }
