@@ -2,31 +2,37 @@ function gameCode() {
   xOffset = 5;
   yOffset = 5;
   this.scale = 4;
-
-  this.hero = new entity(30, 30, 200, 300, types.HERO, "red", this.scale, xOffset, yOffset);
+  this.hero = new entity(30, 30, canvasW/2, canvasH/2, types.HERO, "red", this.scale, xOffset, yOffset);
   this.hero.image.src = "assets/images/square.png";
 
   this.entities = [];
   this.speed = 5;
 
   // Render
-  this.update = function(delta) {
+  this.update = function(delta, time) {
+    mainGame.context.fillStyle='#000';
+    for(let i=2e3;i--;){
+      x = (Math.sin(i)*1e9-time/2e3*(i+1e3)/50)%(mainGame.canvas.width+9)-9;
+      y = i*9%mainGame.canvas.height;
+      s = i%5;
+      mainGame.context.fillRect(x,y,s,s);
+    }
     
     // Controls
     if (left()) {
-      // this.hero.x -= this.speed;
+      this.hero.x -= this.speed;
     }
 
     if (right()) {
-      // this.hero.x += this.speed;
+      this.hero.x += this.speed;
     }
 
     if (up()) {
-      // this.hero.y -= this.speed;
+      this.hero.y -= this.speed;
     }
 
     if (down()) {
-      // this.hero.y += this.speed;
+      this.hero.y += this.speed;
     }
 
     if (space()) {
@@ -48,6 +54,23 @@ function gameCode() {
     }
 
     // Hero
-    //this.hero.update(delta);
+    if(processClick){
+      processClick = false;
+      this.hero.x = clickedAt.x + this.hero.mhWidth - 5;
+      this.hero.y = clickedAt.y + this.hero.mhHeight - 5;
+    }
+    this.hero.update(delta);
+    
+    // Mouse
+    mainGame.canvas.style.cursor='none'; 
+    let mx = mousePos.x;
+    let my = mousePos.y;
+    let mw = 2;
+    let mh = 15;
+    mainGame.context.globalCompositeOperation = 'difference';
+    mainGame.context.fillStyle='#444'
+    mainGame.context.fillRect(mx-mw,my-mh,mw*2,mh*2);
+    mainGame.context.fillRect(mx-mh,my-mw,mh*2,mw*2);
+    mainGame.context.globalCompositeOperation = 'source-over';
   }
 }

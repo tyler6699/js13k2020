@@ -20,3 +20,13 @@ function rectColiding(rec1, rec2) {
     rec1.y < rec2.y + rec2.h &&
     rec1.y + rec1.h > rec2.y)
 }
+
+function vec2(x,y){
+  this.x = x;
+  this.y = y;
+  
+  this.set = function(x,y) {
+    this.x = x;
+    this.y = y;
+  }
+}

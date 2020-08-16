@@ -53,14 +53,14 @@ function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffset
         if (!this.animation.pauseAnimation) {
           this.animation.getKeyFrame(delta);
         }
-        ctx.drawImage(this.image, this.width * this.animation.currentFrame, 0, this.width, this.height, this.mhWidth * this.scale, this.mhHeight * this.scale, this.width * this.scale, this.height * this.scale);
+        ctx.drawImage(this.image, this.width * this.animation.currentFrame, 0, this.width, this.height, 0, 0, this.width * this.scale, this.height * this.scale);
         // No Image (Coloured Shape)
       } else if (this.image == null) {
         ctx.fillStyle = this.colour;
-        ctx.fillRect(this.mhWidth * this.scale, this.mhHeight * this.scale, this.width * this.scale, this.height * this.scale);
+        ctx.fillRect((this.mhWidth *.5) * this.scale, (this.mhHeight * .5) * this.scale, (this.width * .5) * this.scale, (this.height * .5) * this.scale);
         // Image
       } else {
-        ctx.drawImage(this.image, 0, 0, this.width, this.height, this.mhWidth * this.scale, this.mhHeight * this.scale, this.width * this.scale, this.height * this.scale);
+        ctx.drawImage(this.image, 0, 0, this.width, this.height, 0, 0, this.width * this.scale, this.height * this.scale);
       }
 
       ctx.restore();

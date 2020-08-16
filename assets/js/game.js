@@ -1,17 +1,21 @@
 // ╔═══════════════════════════════╗
 // ║ JS13K Entry by @CarelessLabs  ║
 // ╚═══════════════════════════════╝
-
 var debug = false;
 var mainGame;
 var controllers = [];
-var canvasW = 600;
-var canvasH = 400;
+var canvasW = 1200;
+var canvasH = 800;
 var gameStarted = false;
 var delta = 0.0;
 var prevDelta = Date.now();
 var currentDelta = Date.now();
 var timeElapsed = 0;
+var mousePos = new vec2(0,0);
+var clickedAt = new vec2(0,0);
+var processClick = false;
+var scale = 1.33;
+
 // The Game
 var gameCode = new gameCode();
 
@@ -26,7 +30,7 @@ var mainGame = {
     this.canvas.width = canvasW;
     this.canvas.height = canvasH;
     this.context = this.canvas.getContext("2d");
-    this.context.scale(1, 1)
+    this.context.scale(1, 1);
 
     // PixelArt Sharp
     this.context.mozImageSmoothingEnabled = false;
@@ -56,6 +60,13 @@ var mainGame = {
       e.preventDefault();
       mainGame.keys = (mainGame.keys || []);
       mainGame.keys[e.button] = false;
+      clickedAt.set(mousePos.x, mousePos.y);
+      processClick = true;
+    })
+    window.addEventListener('mousemove', function(e) {
+      e.preventDefault();
+      var rect = mainGame.canvas.getBoundingClientRect();
+      this.mousePos.set((e.clientX - rect.left) * scale, (e.clientY - rect.top) * scale);
     })
     // Disable right click context menu
     this.canvas.oncontextmenu = function(e) {
@@ -89,7 +100,7 @@ function updateGameArea() {
     mainGame.clear();
   } else {
     mainGame.clear();
-    gameCode.update(delta / 1000);
+    gameCode.update(delta / 1e3, timeElapsed);
   }
 }
 
