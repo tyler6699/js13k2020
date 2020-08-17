@@ -1,4 +1,4 @@
 const types = {
-  WALL: 'wall',
-  HERO: 'hero'
+  WALL: 'WALL',
+  HERO: 'HERO'
 }

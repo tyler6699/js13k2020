@@ -11,5 +11,4 @@ function animation(numberFrames, frameDuration, loop) {
     this.currentFrame = Math.floor(this.timeElapsed / this.frameDuration);
     this.currentFrame = this.currentFrame % this.numberFrames;
   }
-
 }

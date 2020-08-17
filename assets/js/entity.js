@@ -1,4 +1,4 @@
-function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, image = "") {
+function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, imageSrc = "") {
   this.scale = scale;
   this.type = type;
   this.width = w;
@@ -16,6 +16,7 @@ function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffset
   this.active = true;
   this.colour = colour;
   this.image = new Image();
+  this.image.src = imageSrc;
   this.animated = false;
   this.anination = null;
   this.hitboxOffsetX = hitboxOffsetX;

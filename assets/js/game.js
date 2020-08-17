@@ -17,7 +17,7 @@ var processClick = false;
 var scale = 1.33;
 
 // The Game
-var gameCode = new gameCode();
+var cart = new Cart();
 
 // Called by body onload on index page
 function startGame() {
@@ -100,7 +100,7 @@ function updateGameArea() {
     mainGame.clear();
   } else {
     mainGame.clear();
-    gameCode.update(delta / 1e3, timeElapsed);
+    cart.update(delta / 1e3, timeElapsed);
   }
 }
 

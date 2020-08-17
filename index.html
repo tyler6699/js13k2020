@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script type="application/javascript">
     version = Math.floor(Math.random() * 1000);
-    var files = ["enums","utility","animation","entity", "gamecode", "game", "keys"];
+    var files = ["enums","animation","tile","utility","level","animation","entity","cart", "game", "keys"];
     for (f of files) {
       document.write("<script type='application/javascript' src='assets/js/" + f + ".js?" + version + "'\><\/script>");
     }
   </script>
-  <link rel="stylesheet" href="assets/css/game.css" />
+  <link rel="stylesheet" href="assets/css/game.css?v=3" />
 </head>
 <body onload="startGame()">
   <h1>JS13k 2020</h1>

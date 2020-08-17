@@ -1,4 +1,5 @@
 // Useful Functions and classes
+//
 
 function rectanlge(x, y, w, h) {
   this.x = x;
