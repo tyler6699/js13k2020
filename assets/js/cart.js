@@ -12,6 +12,8 @@ function Cart() {
 
   // Render
   this.update = function(delta, time) {
+    controllers = navigator.getGamepads();
+        
     // Controls
     if (left()) {
       this.hero.x -= this.speed;
@@ -64,8 +66,10 @@ function Cart() {
     // Hero
     if(processClick){
       processClick = false;
-      this.hero.x = clickedAt.x + this.hero.mhWidth - 5;
-      this.hero.y = clickedAt.y + this.hero.mhHeight - 5;
+      console.log(clickIndex);
+      this.level.tiles[clickIndex].entity.active = false;
+      //this.hero.x = clickedAt.x + this.hero.mhWidth - 5;
+      //this.hero.y = clickedAt.y + this.hero.mhHeight - 5;
     }
     this.hero.update(delta);
     

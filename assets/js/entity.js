@@ -21,6 +21,7 @@ function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffset
   this.anination = null;
   this.hitboxOffsetX = hitboxOffsetX;
   this.hitboxOffsetY = hitboxOffsetY;
+  this.alpha = 1;
 
   this.setHitbox = function() {
     this.hitbox = new rectanlge(0, 0, 0, 0);
@@ -61,6 +62,7 @@ function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffset
         ctx.fillRect((this.mhWidth *.5) * this.scale, (this.mhHeight * .5) * this.scale, (this.width * .5) * this.scale, (this.height * .5) * this.scale);
         // Image
       } else {
+        ctx.globalAlpha = this.alpha;
         ctx.drawImage(this.image, 0, 0, this.width, this.height, 0, 0, this.width * this.scale, this.height * this.scale);
       }
 

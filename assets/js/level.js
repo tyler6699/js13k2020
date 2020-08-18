@@ -39,17 +39,24 @@ function level(canvasW, canvasH, id) {
     this.tiles = [];
     this.backTiles = [];
     levelArray = this.levels[id];
-    var rows = 5;
-    var cols = 5;
+    var rows = 13;
+    var cols = 19;
 
     for (row = 0; row < rows; row++) {
       for (col = 0; col < cols; col++) {
         xx = col * tileSize * scale;
         yy = row * tileSize * scale;
         var tile;
-        var type = 0;
-        tile = new Tile(tileSize, xx, yy, type, true, col, row);
-        this.tiles.push(tile);
+        var type = types.WALL;
+        if(row == 0 || col == 0 || row == 12 || col == 18){
+          tile = new Tile(tileSize, xx, yy, type, false, col, row);
+          tile.entity.active = false;
+          this.tiles.push(tile);  
+        } else {
+          tile = new Tile(tileSize, xx, yy, type, false, col, row);
+          this.tiles.push(tile);  
+        }
+        
 
         // Decor Tiles
         //if(Math.random() > .8){

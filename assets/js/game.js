@@ -4,8 +4,8 @@
 var debug = false;
 var mainGame;
 var controllers = [];
-var canvasW = 1200;
-var canvasH = 800;
+var canvasW = 1216;
+var canvasH = 832;
 var gameStarted = false;
 var delta = 0.0;
 var prevDelta = Date.now();
@@ -13,6 +13,9 @@ var currentDelta = Date.now();
 var timeElapsed = 0;
 var mousePos = new vec2(0,0);
 var clickedAt = new vec2(0,0);
+var clickIndex;
+var clickRow;
+var clickCol;
 var processClick = false;
 var scale = 1.33;
 
@@ -61,12 +64,16 @@ var mainGame = {
       mainGame.keys = (mainGame.keys || []);
       mainGame.keys[e.button] = false;
       clickedAt.set(mousePos.x, mousePos.y);
+      // Grid Clicked 64 ( Tiles are 16 * scale of 4 = 64)
+      clickRow = Math.floor(clickedAt.y / 64);
+      clickCol = Math.floor(clickedAt.x / 64);
+      clickIndex = clickCol + (19*clickRow);
       processClick = true;
     })
     window.addEventListener('mousemove', function(e) {
       e.preventDefault();
       var rect = mainGame.canvas.getBoundingClientRect();
-      this.mousePos.set((e.clientX - rect.left) * scale, (e.clientY - rect.top) * scale);
+      mousePos.set((e.clientX - rect.left) * scale, (e.clientY - rect.top) * scale);
     })
     // Disable right click context menu
     this.canvas.oncontextmenu = function(e) {
@@ -75,7 +82,6 @@ var mainGame = {
     window.addEventListener("gamepadconnected", function(e) {
       var gp = navigator.getGamepads()[e.gamepad.index];
       console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.", gp.index, gp.id, gp.buttons.length, gp.axes.length);
-      controllers[e.gamepad.index] = e.gamepad;
     });
   },
   stop: function() {
