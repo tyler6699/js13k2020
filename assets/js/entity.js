@@ -1,4 +1,4 @@
-function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, imageSrc = "") {
+function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, imageSrc = "") {
   this.scale = scale;
   this.type = type;
   this.width = w;
@@ -10,7 +10,7 @@ function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffset
   this.hWidth = w / 2;
   this.hHeight = h / 2;
   this.yOffset = 0;
-  this.angle = 0;
+  this.angle = angle;
   this.x = x;
   this.y = y;
   this.active = true;
@@ -22,6 +22,36 @@ function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffset
   this.hitboxOffsetX = hitboxOffsetX;
   this.hitboxOffsetY = hitboxOffsetY;
   this.alpha = 1;
+  
+  // ATLAS Positions
+  this.sx=0;
+  this.sy=0;
+  
+  if(this.type == types.WALL_R){
+    this.sx=80;
+  } else if(this.type == types.WALL_RT){
+    this.sx=128;
+  } else if(this.type == types.WALL_LT){
+    this.sx=16;
+    this.sy=16;
+  } else if(this.type == types.WALL_L){
+    this.sx=64;
+  } else if(this.type == types.WALL_T){
+    this.sy=16;
+  } else if(this.type == types.WALL_B){
+    this.sx=112;
+  } else if(this.type == types.WALL_BR){
+    this.sx=32;
+    this.sy=16;
+  } else if(this.type == types.WALL_BL){
+    this.sx=48;
+    this.sy=16;
+  } else if (this.type == types.FLOOR){
+    this.sx=48;
+    this.alpha = .4;
+  } else if (this.type == types.AIR){
+    this.sx=144;
+  }
 
   this.setHitbox = function() {
     this.hitbox = new rectanlge(0, 0, 0, 0);
@@ -48,8 +78,7 @@ function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffset
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.x, this.y);
-      ctx.rotate(this.angle);
-
+      
       // Animate Image
       if (this.animated) {
         if (!this.animation.pauseAnimation) {
@@ -63,7 +92,7 @@ function entity(w, h, x, y, type, colour, scale, hitboxOffsetX = 0, hitboxOffset
         // Image
       } else {
         ctx.globalAlpha = this.alpha;
-        ctx.drawImage(this.image, 0, 0, this.width, this.height, 0, 0, this.width * this.scale, this.height * this.scale);
+        ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, 0, 0, this.width * this.scale, this.height * this.scale);
       }
 
       ctx.restore();

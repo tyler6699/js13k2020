@@ -48,21 +48,32 @@ function level(canvasW, canvasH, id) {
         yy = row * tileSize * scale;
         var tile;
         var type = types.WALL;
+        var angle = 0;
+        
         if(row == 0 || col == 0 || row == 12 || col == 18){
-          tile = new Tile(tileSize, xx, yy, type, false, col, row);
-          tile.entity.active = false;
-          this.tiles.push(tile);  
+          type = types.AIR;
+        } else if (row==1 && col == 1) {
+          type = types.WALL_RT;
+        } else if (row==1 && col > 1 && col < 17) {
+          type = types.WALL_T;
+        } else if (row==1 && col == 17) {
+          type = types.WALL_LT;
+        } else if (row==11 && col == 17) {
+          type = types.WALL_BR;
+        } else if (row==11 && col == 1) {
+          type = types.WALL_BL;
+        } else if (row==11 && col > 1 && col < 17) {
+          type = types.WALL_B;
+        } else if(col == 17) {
+          type = types.WALL_R;
+        } else if(col == 1){
+          type = types.WALL_L;
         } else {
-          tile = new Tile(tileSize, xx, yy, type, false, col, row);
-          this.tiles.push(tile);  
+          type = types.FLOOR
         }
         
-
-        // Decor Tiles
-        //if(Math.random() > .8){
-        //  tile = new Tile(tileSize, xx, yy, types.WALL, false, col, row);
-        //  this.backTiles.push(tile);
-        //}
+        tile = new Tile(tileSize, xx, yy, angle, type, false, col, row);
+        this.tiles.push(tile);  
       }
     }
   }

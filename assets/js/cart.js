@@ -2,8 +2,9 @@ function Cart() {
   xOffset = 5;
   yOffset = 5;
   this.scale = 4;
-  this.hero = new entity(30, 30, canvasW/2, canvasH/2, types.HERO, "red", this.scale, xOffset, yOffset);
-  this.hero.image.src = "assets/images/square.png";
+  this.hero = new entity(10, 10, canvasW/2, canvasH/2, 0, types.HERO, "red", this.scale, xOffset, yOffset);
+  this.hero.image.src = "atlas.png";
+  this.hero.sx = 16;
   this.entities = [];
   this.speed = 5;
   this.level = new level(canvasW, canvasH, 0);
