@@ -2,7 +2,7 @@ function Cart() {
   xOffset = 5;
   yOffset = 5;
   this.scale = 4;
-  this.hero = new entity(10, 10, canvasW/2, canvasH/2, 0, types.HERO, "red", this.scale, xOffset, yOffset);
+  this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "red", this.scale, xOffset, yOffset);
   this.hero.image.src = "atlas.png";
   this.hero.sx = 16;
   this.entities = [];
@@ -14,7 +14,7 @@ function Cart() {
   // Render
   this.update = function(delta, time) {
     controllers = navigator.getGamepads();
-        
+
     // Controls
     if (left()) {
       this.hero.x -= this.speed;
@@ -33,13 +33,13 @@ function Cart() {
     }
 
     if (space()) {
-    
+
     }
 
     //
     // Render
     //
-    
+
     // Star Field
     mainGame.context.fillStyle='#FFF';
     for(let i=2e3;i--;){
@@ -48,10 +48,10 @@ function Cart() {
       s = i%5;
       mainGame.context.fillRect(x,y,s,s);
     }
-    
+
     this.level.tick(this.hero);
     this.level.draw(this.hero);
-    
+
     // Entities
     for (entity in this.entities) {
       e = this.entities[entity]
@@ -73,9 +73,9 @@ function Cart() {
       //this.hero.y = clickedAt.y + this.hero.mhHeight - 5;
     }
     this.hero.update(delta);
-    
+
     // Mouse
-    mainGame.canvas.style.cursor='none'; 
+    mainGame.canvas.style.cursor='none';
     let mx = mousePos.x;
     let my = mousePos.y;
     let mw = 2;
