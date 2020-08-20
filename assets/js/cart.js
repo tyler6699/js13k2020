@@ -35,7 +35,13 @@ function Cart() {
     if (space()) {
 
     }
-
+    
+    // Set Hero Current Tile
+    heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / 64);
+    heroCol = Math.floor((this.hero.x - this.hero.mhWidthScaled) / 64);
+    this.currentTile = this.level.tiles[heroCol + (19*heroRow)];
+    // TODO Check collisions with surrounding tiles
+    
     //
     // Render
     //
@@ -67,10 +73,9 @@ function Cart() {
     // Hero
     if(processClick){
       processClick = false;
-      console.log(clickIndex);
-      this.level.tiles[clickIndex].entity.active = false;
-      //this.hero.x = clickedAt.x + this.hero.mhWidth - 5;
-      //this.hero.y = clickedAt.y + this.hero.mhHeight - 5;
+      t = this.level.tiles[clickIndex];
+      t.entity.type ++;
+      t.change();
     }
     this.hero.update(delta);
 

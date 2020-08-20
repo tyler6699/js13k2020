@@ -34,7 +34,6 @@ function level(canvasW, canvasH, id) {
   }
 
   this.reset = function(hero, scale){
-    //this.active = false;
     var id = hero != null ? hero.currentLevel : 0;
     this.tiles = [];
     this.backTiles = [];
@@ -50,6 +49,7 @@ function level(canvasW, canvasH, id) {
         var type = types.WALL;
         var angle = 0;
         
+        // Create a room
         if(row == 0 || col == 0 || row == 12 || col == 18){
           type = types.AIR;
         } else if (row==1 && col == 1) {

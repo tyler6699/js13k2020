@@ -22,37 +22,12 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.hitboxOffsetX = hitboxOffsetX;
   this.hitboxOffsetY = hitboxOffsetY;
   this.alpha = 1;
+  this.currentTile=0;
   
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
   
-  if(this.type == types.WALL_R){
-    this.sx=80;
-  } else if(this.type == types.WALL_RT){
-    this.sx=128;
-  } else if(this.type == types.WALL_LT){
-    this.sx=16;
-    this.sy=16;
-  } else if(this.type == types.WALL_L){
-    this.sx=64;
-  } else if(this.type == types.WALL_T){
-    this.sy=16;
-  } else if(this.type == types.WALL_B){
-    this.sx=112;
-  } else if(this.type == types.WALL_BR){
-    this.sx=32;
-    this.sy=16;
-  } else if(this.type == types.WALL_BL){
-    this.sx=48;
-    this.sy=16;
-  } else if (this.type == types.FLOOR){
-    this.sx=48;
-    this.alpha = .4;
-  } else if (this.type == types.AIR){
-    this.sx=144;
-  }
-
   this.setHitbox = function() {
     this.hitbox = new rectanlge(0, 0, 0, 0);
     this.hitbox.x = this.x + this.mhWidthScaled + (this.hitboxOffsetX * this.scale);
@@ -96,6 +71,37 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       }
 
       ctx.restore();
+    }
+  }
+  
+  this.setType = function(){
+    this.alpha = 1;
+    this.sy=0;
+    this.sx=0;
+    if(this.type == types.WALL_R){
+      this.sx=80;
+    } else if(this.type == types.WALL_RT){
+      this.sx=128;
+    } else if(this.type == types.WALL_LT){
+      this.sx=16;
+      this.sy=16;
+    } else if(this.type == types.WALL_L){
+      this.sx=64;
+    } else if(this.type == types.WALL_T){
+      this.sy=16;
+    } else if(this.type == types.WALL_B){
+      this.sx=112;
+    } else if(this.type == types.WALL_BR){
+      this.sx=32;
+      this.sy=16;
+    } else if(this.type == types.WALL_BL){
+      this.sx=48;
+      this.sy=16;
+    } else if (this.type == types.FLOOR){
+      this.sx=48;
+      this.alpha = .4;
+    } else if (this.type == types.AIR){
+      this.sx=144;
     }
   }
 }
