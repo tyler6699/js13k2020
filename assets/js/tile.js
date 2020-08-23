@@ -1,7 +1,6 @@
 function Tile(size, x, y, angle, type, solid, column, row) {
   this.entity = new entity(size, size, x, y, angle, type, "BLACK", 4, hitboxOffsetX = 0, hitboxOffsetY = 0, image = "atlas.png");
   this.entity.setType();
-  this.isSolid = solid;
   this.column = column;
   this.row = row;
   this.active = true;
@@ -21,30 +20,39 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     switch(this.entity.type) {
       case types.WALL_R:
         this.entity.type = types.WALL_R;
+        this.entity.isSolid = true;
         break;
       case types.WALL_L:
         this.entity.type = types.WALL_L;
+        this.entity.isSolid = true;
         break;
       case types.WALL_T:
         this.entity.type = types.WALL_T;
+        this.entity.isSolid = true;
         break;
       case types.WALL_B:
         this.entity.type = types.WALL_B;
+        this.entity.isSolid = true;
         break;
       case types.WALL_RT:
         this.entity.type = types.WALL_RT;
+        this.entity.isSolid = true;
         break;
       case types.WALL_LT:
         this.entity.type = types.WALL_LT;
+        this.entity.isSolid = true;
         break;
       case types.WALL_BR:
         this.entity.type = types.WALL_BR;
+        this.entity.isSolid = true;
         break;
       case types.WALL_BL:
       this.entity.type = types.WALL_BL;
+      this.entity.isSolid = true;
         break;
       case types.FLOOR:
         this.entity.type = types.FLOOR;
+        this.entity.isSolid = false;
         break;
     }
     

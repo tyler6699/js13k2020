@@ -14,22 +14,63 @@ function Cart() {
   // Render
   this.update = function(delta, time) {
     controllers = navigator.getGamepads();
-
+    
     // Controls
     if (left()) {
-      this.hero.x -= this.speed;
+      rec = cloneRectanlge(this.hero.hitbox);
+      rec.x -= this.speed;
+      canMove = true;
+      for (var t = 0; t < this.hero.collisionArray.length; t++) {
+        tile = this.hero.collisionArray[t];
+        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
+          console.log(tile);
+          canMove = false;
+          break;
+        }
+      }
+      if(canMove) this.hero.x -= this.speed;
     }
 
     if (right()) {
-      this.hero.x += this.speed;
+      canMove = true;
+      rec = cloneRectanlge(this.hero.hitbox);
+      rec.x += this.speed;
+      for (var t = 0; t < this.hero.collisionArray.length; t++) {
+        tile = this.hero.collisionArray[t];
+        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
+          canMove = false;
+          break;
+        }
+      }
+      if(canMove) this.hero.x += this.speed;
     }
 
     if (up()) {
-      this.hero.y -= this.speed;
+      rec = cloneRectanlge(this.hero.hitbox);
+      rec.y -= this.speed;
+      canMove = true;
+      for (var t = 0; t < this.hero.collisionArray.length; t++) {
+        tile = this.hero.collisionArray[t];
+        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
+          canMove = false;
+          break;
+        }
+      }
+      if(canMove) this.hero.y -= this.speed;
     }
 
     if (down()) {
-      this.hero.y += this.speed;
+      rec = cloneRectanlge(this.hero.hitbox);
+      rec.y += this.speed;
+      canMove = true;
+      for (var t = 0; t < this.hero.collisionArray.length; t++) {
+        tile = this.hero.collisionArray[t];
+        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
+          canMove = false;
+          break;
+        }
+      }
+      if(canMove) this.hero.y += this.speed;
     }
 
     if (space()) {
@@ -37,14 +78,25 @@ function Cart() {
     }
     
     // Set Hero Current Tile
+    // Set Hero Centre.....TODO: THIS
     heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / 64);
     heroCol = Math.floor((this.hero.x - this.hero.mhWidthScaled) / 64);
-    this.currentTile = this.level.tiles[heroCol + (19*heroRow)];
-    // TODO Check collisions with surrounding tiles
+    heroTileIndex = heroCol + (19*heroRow);
+    this.currentTile = this.level.tiles[heroTileIndex];
+    this.hero.collisionArray = [];
     
-    //
+    // Add surrounding tiles
+    if(heroTileIndex) this.hero.collisionArray.push(this.level.tiles[heroTileIndex-1]);  // LEFT
+    this.hero.collisionArray.push(this.level.tiles[heroTileIndex+1]);  // RIGHT
+    this.hero.collisionArray.push(this.level.tiles[heroTileIndex+18]); // TOP LEFT
+    this.hero.collisionArray.push(this.level.tiles[heroTileIndex+19]); // ABOVE
+    this.hero.collisionArray.push(this.level.tiles[heroTileIndex+20]); // TOP RIGHT
+    this.hero.collisionArray.push(this.level.tiles[heroTileIndex-18]); // BOTTOM LEFT
+    this.hero.collisionArray.push(this.level.tiles[heroTileIndex-19]); // BELOW
+    this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
+    //console.log(this.hero.collisionArray);
+    
     // Render
-    //
 
     // Star Field
     mainGame.context.fillStyle='#FFF';
@@ -74,8 +126,9 @@ function Cart() {
     if(processClick){
       processClick = false;
       t = this.level.tiles[clickIndex];
-      t.entity.type ++;
-      t.change();
+      t.entity.isSolid = true;
+      //t.entity.type ++;
+      //t.change();
     }
     this.hero.update(delta);
 

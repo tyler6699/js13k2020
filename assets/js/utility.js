@@ -14,6 +14,19 @@ function rectanlge(x, y, w, h) {
   this.h = h;
 }
 
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function cloneRectanlge(rec) {
+  return new rectanlge(rec.x, rec.y, rec.w, rec.h);
+}
+
 function rectColiding(rx, ry, rw, rh, r2x, r2y, r2w, r2h) {
   return (rx < r2x + r2w &&
     rx + rw > r2x &&

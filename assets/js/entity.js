@@ -23,6 +23,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.hitboxOffsetY = hitboxOffsetY;
   this.alpha = 1;
   this.currentTile=0;
+  this.collisionArray = [];
+  this.isSolid = false;
   
   // ATLAS Positions
   this.sx=0;
@@ -33,13 +35,13 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     this.hitbox.x = this.x + this.mhWidthScaled + (this.hitboxOffsetX * this.scale);
     this.hitbox.y = this.y + this.mhHeightScaled + (this.hitboxOffsetY * this.scale);
     this.hitbox.w = (this.width * this.scale) - (this.hitboxOffsetX * this.scale);
-    this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetY * this.scale);
+    this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetX * this.scale);
   }
   this.setHitbox();
 
   this.updateHitbox = function() {
-    this.hitbox.x = this.x + this.mhWidthScaled + (this.hitboxOffsetX * this.scale);
-    this.hitbox.y = this.y + this.mhHeightScaled + (this.hitboxOffsetY * this.scale);
+    this.hitbox.x = this.x + ((this.hitboxOffsetX * this.scale)/2);
+    this.hitbox.y = this.y + ((this.hitboxOffsetX * this.scale)/2);
   }
 
   // Render
@@ -47,9 +49,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     this.updateHitbox();
 
     if (this.active) {
-      this.hitbox.x = this.x + (this.mhWidth * this.scale);
-      this.hitbox.y = this.y + (this.mhHeight * this.scale);
-
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.x, this.y);
@@ -67,9 +66,9 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         // Image
       } else {
         ctx.globalAlpha = this.alpha;
-        ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, 0, 0, this.width * this.scale, this.height * this.scale);
+        ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale);  
       }
-
+      
       ctx.restore();
     }
   }
@@ -80,28 +79,38 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     this.sx=0;
     if(this.type == types.WALL_R){
       this.sx=80;
+      this.isSolid = true;
     } else if(this.type == types.WALL_RT){
       this.sx=128;
+      this.isSolid = true;
     } else if(this.type == types.WALL_LT){
       this.sx=16;
       this.sy=16;
+      this.isSolid = true;
     } else if(this.type == types.WALL_L){
       this.sx=64;
+      this.isSolid = true;
     } else if(this.type == types.WALL_T){
       this.sy=16;
+      this.isSolid = true;
     } else if(this.type == types.WALL_B){
       this.sx=112;
+      this.isSolid = true;
     } else if(this.type == types.WALL_BR){
       this.sx=32;
       this.sy=16;
+      this.isSolid = true;
     } else if(this.type == types.WALL_BL){
       this.sx=48;
       this.sy=16;
+      this.isSolid = true;
     } else if (this.type == types.FLOOR){
       this.sx=48;
       this.alpha = .4;
+      this.isSolid = false;
     } else if (this.type == types.AIR){
       this.sx=144;
+      this.isSolid = false;
     }
   }
 }

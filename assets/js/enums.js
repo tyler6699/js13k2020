@@ -12,24 +12,24 @@ const types = {
   HERO: 10
 }
 
-function getEnumKeys(enumType) {
-  return Object.keys(enumType);
+function getEnumKeys(e) {
+  return Object.keys(e);
 }
 
-function getEnumValues(enumType) {
-  return getEnumKeys(enumType).map(function(key) {
-    return enumType[key];
+function getEnumValues(e) {
+  return getEnumKeys(e).map(function(key) {
+    return e[key];
   });
 }
 
-function getValueByName(enumType, key) {
-  return enumType[getEnumKeys(enumType).filter(function(k) {
+function getValueByName(e, key) {
+  return e[getEnumKeys(e).filter(function(k) {
     return key === k;
   }).pop() || ''];
 }
 
-function getNameByValue(enumType, value) {
-  return getEnumKeys(enumType).filter(function(k) {
-    return enumType[k] === value;
+function getNameByValue(e, val) {
+  return getEnumKeys(e).filter(function(k) {
+    return e[k] === val;
   }).pop() || null;
 }
