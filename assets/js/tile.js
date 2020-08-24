@@ -54,6 +54,22 @@ function Tile(size, x, y, angle, type, solid, column, row) {
         this.entity.type = types.FLOOR;
         this.entity.isSolid = false;
         break;
+      case types.TABLE:
+        this.entity.type = types.TABLE;
+        this.entity.isSolid = true;
+        break;
+      case types.CHAIR_B:
+        this.entity.type = types.CHAIR_B;
+        this.entity.isSolid = false;
+        break;
+      case types.CHAIR_T:
+        this.entity.type = types.CHAIR_T;
+        this.entity.isSolid = false;
+        break;
+      case types.PC:
+        this.entity.type = types.PC;
+        this.entity.isSolid = false;
+        break;
     }
     
     this.entity.setType();

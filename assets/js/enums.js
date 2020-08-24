@@ -9,7 +9,12 @@ const types = {
   WALL_BL: 7,
   FLOOR: 8,
   AIR: 9,
-  HERO: 10
+  HERO: 10,
+  TABLE: 11,
+  CHAIR_T: 12,
+  CHAIR_B: 13,
+  PC: 14,
+  PC_B: 15
 }
 
 function getEnumKeys(e) {

@@ -122,14 +122,34 @@ function Cart() {
       e.update(delta);
     }
 
-    // Hero
+    // TESTING ITEMS
     if(processClick){
       processClick = false;
       t = this.level.tiles[clickIndex];
-      t.entity.isSolid = true;
-      //t.entity.type ++;
-      //t.change();
+      
+      if(t.entity.type == types.FLOOR){
+          t.entity.isSolid = true;
+          t.entity.type = types.TABLE;  
+      } else if(t.entity.type == types.TABLE){
+        // check if table is above or below
+        tileIndex = t.column + (19*t.row);
+
+        if(this.level.tiles[tileIndex+19].entity.type == types.TABLE){
+          t.entity.isSolid = false;
+          t.entity.type = types.CHAIR_B; 
+          this.level.tiles[tileIndex+19].entity.hasPC_T = true; 
+          this.level.tiles[tileIndex+19].entity.hasPC_B = false; 
+        } else if(this.level.tiles[tileIndex-19].entity.type == types.TABLE){
+          t.entity.isSolid = false;
+          t.entity.type = types.CHAIR_T;  
+          this.level.tiles[tileIndex-19].entity.hasPC_T = false; 
+          this.level.tiles[tileIndex-19].entity.hasPC_B = true; 
+        }
+        
+      }  
+      t.change();
     }
+    
     this.hero.update(delta);
 
     // Mouse

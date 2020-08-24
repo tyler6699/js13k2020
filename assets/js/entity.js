@@ -26,6 +26,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.collisionArray = [];
   this.isSolid = false;
   
+  // DECOR
+  this.hasPC_B = false;
+  this.hasPC_T = false
+  
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -69,6 +73,17 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale);  
       }
       
+      if(this.type == types.TABLE){
+        ctx.globalAlpha = 1;
+        if(this.hasPC_B){
+          ctx.translate(0, -30);
+          ctx.drawImage(this.image, 112, 16, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale); 
+        } else if (this.hasPC_T){
+          ctx.translate(0, -20);
+          ctx.drawImage(this.image, 128, 16, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale); 
+        }
+      }
+      
       ctx.restore();
     }
   }
@@ -110,6 +125,22 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       this.isSolid = false;
     } else if (this.type == types.AIR){
       this.sx=144;
+      this.isSolid = false;
+    } else if (this.type == types.TABLE){
+      this.sx=64;
+      this.sy=16;
+      this.isSolid = true;
+    } else if (this.type == types.CHAIR_T){
+      this.sx=80;
+      this.sy=16;
+      this.isSolid = false;
+    } else if (this.type == types.CHAIR_B){
+      this.sx=96;
+      this.sy=16;
+      this.isSolid = false;
+    } else if (this.type == types.PC){
+      this.sx=112;
+      this.sy=16;
       this.isSolid = false;
     }
   }
