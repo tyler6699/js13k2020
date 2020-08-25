@@ -134,16 +134,26 @@ function Cart() {
         // check if table is above or below
         tileIndex = t.column + (19*t.row);
 
+        // Test placing PCS
         if(this.level.tiles[tileIndex+19].entity.type == types.TABLE){
           t.entity.isSolid = false;
           t.entity.type = types.CHAIR_B; 
           this.level.tiles[tileIndex+19].entity.hasPC_T = true; 
           this.level.tiles[tileIndex+19].entity.hasPC_B = false; 
+          if(this.level.tiles[tileIndex+38].entity.type != types.FLOOR){
+              this.level.tiles[tileIndex+38].entity.type = types.FLOOR;
+              this.level.tiles[tileIndex+38].change();
+          }
         } else if(this.level.tiles[tileIndex-19].entity.type == types.TABLE){
+          // CHAIR BELOW TABLE
           t.entity.isSolid = false;
           t.entity.type = types.CHAIR_T;  
           this.level.tiles[tileIndex-19].entity.hasPC_T = false; 
           this.level.tiles[tileIndex-19].entity.hasPC_B = true; 
+          if(this.level.tiles[tileIndex-38].entity.type != types.FLOOR){
+              this.level.tiles[tileIndex-38].entity.type = types.FLOOR;
+              this.level.tiles[tileIndex-38].change();
+          }
         }
         
       }  
