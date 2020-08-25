@@ -136,23 +136,29 @@ function Cart() {
 
         // Test placing PCS
         if(this.level.tiles[tileIndex+19].entity.type == types.TABLE){
+          // CHAIR ABOVE TABLE
+          t1 = this.level.tiles[tileIndex+19];
+          t2 = this.level.tiles[tileIndex+38];
           t.entity.isSolid = false;
           t.entity.type = types.CHAIR_B; 
-          this.level.tiles[tileIndex+19].entity.hasPC_T = true; 
-          this.level.tiles[tileIndex+19].entity.hasPC_B = false; 
-          if(this.level.tiles[tileIndex+38].entity.type != types.FLOOR){
-              this.level.tiles[tileIndex+38].entity.type = types.FLOOR;
-              this.level.tiles[tileIndex+38].change();
+          t1.entity.hasPC_T = true; 
+          t1.entity.hasPC_B = false; 
+          if(t2.entity.type == types.CHAIR_T){
+            t2.entity.type = types.FLOOR;
+            t2.change();
           }
         } else if(this.level.tiles[tileIndex-19].entity.type == types.TABLE){
           // CHAIR BELOW TABLE
+          t1 = this.level.tiles[tileIndex-19];
+          t2 = this.level.tiles[tileIndex-38];
           t.entity.isSolid = false;
           t.entity.type = types.CHAIR_T;  
-          this.level.tiles[tileIndex-19].entity.hasPC_T = false; 
-          this.level.tiles[tileIndex-19].entity.hasPC_B = true; 
-          if(this.level.tiles[tileIndex-38].entity.type != types.FLOOR){
-              this.level.tiles[tileIndex-38].entity.type = types.FLOOR;
-              this.level.tiles[tileIndex-38].change();
+          t1.entity.hasPC_T = false; 
+          t1.entity.hasPC_B = true; 
+          console.log(getNameByValue(types,t2.entity.type));
+          if(t2.entity.type == types.CHAIR_B){
+            t2.entity.type = types.FLOOR;
+            t2.change();
           }
         }
         
