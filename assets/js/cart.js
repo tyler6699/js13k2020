@@ -37,22 +37,28 @@ function Cart() {
     }
     
     // Set Hero Current Tile
-    // Set Hero Centre.....TODO: THIS
+    // TODO: Set Hero Centre
     heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / 64);
     heroCol = Math.floor((this.hero.x - this.hero.mhWidthScaled) / 64);
     heroTileIndex = heroCol + (19*heroRow);
+    if(this.currentTile != null) this.prevTile = this.currentTile;
     this.currentTile = this.level.tiles[heroTileIndex];
-    this.hero.collisionArray = [];
     
-    // Add surrounding tiles
-    if(heroTileIndex) this.hero.collisionArray.push(this.level.tiles[heroTileIndex-1]);  // LEFT
-    this.hero.collisionArray.push(this.level.tiles[heroTileIndex+1]);  // RIGHT
-    this.hero.collisionArray.push(this.level.tiles[heroTileIndex+18]); // TOP LEFT
-    this.hero.collisionArray.push(this.level.tiles[heroTileIndex+19]); // ABOVE
-    this.hero.collisionArray.push(this.level.tiles[heroTileIndex+20]); // TOP RIGHT
-    this.hero.collisionArray.push(this.level.tiles[heroTileIndex-18]); // BOTTOM LEFT
-    this.hero.collisionArray.push(this.level.tiles[heroTileIndex-19]); // BELOW
-    this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
+    if(this.currentTile != this.prevTile){
+      this.hero.collisionArray = [];
+      
+      // Add surrounding tiles
+      if(heroTileIndex) this.hero.collisionArray.push(this.level.tiles[heroTileIndex-1]);  // LEFT
+      this.hero.collisionArray.push(this.level.tiles[heroTileIndex+1]);  // RIGHT
+      this.hero.collisionArray.push(this.level.tiles[heroTileIndex+18]); // TOP LEFT
+      this.hero.collisionArray.push(this.level.tiles[heroTileIndex+19]); // ABOVE
+      this.hero.collisionArray.push(this.level.tiles[heroTileIndex+20]); // TOP RIGHT
+      this.hero.collisionArray.push(this.level.tiles[heroTileIndex-18]); // BOTTOM LEFT
+      this.hero.collisionArray.push(this.level.tiles[heroTileIndex-19]); // BELOW
+      this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
+      console.log("Populated tiles");
+    }
+
     
     // Render
     
