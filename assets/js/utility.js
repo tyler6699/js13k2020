@@ -1,12 +1,5 @@
 // Useful Functions and classes
 
-function buttonPressed(b) {
-  if (typeof(b) == "object") {
-    return b.pressed;
-  }
-  return b == 1.0;
-}
-
 function rectanlge(x, y, w, h) {
   this.x = x;
   this.y = y;

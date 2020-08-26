@@ -18,63 +18,22 @@ function Cart() {
     
     // Controls
     if (left()) {
-      rec = cloneRectanlge(this.hero.hitbox);
-      rec.x -= this.speed;
-      canMove = true;
-      for (var t = 0; t < this.hero.collisionArray.length; t++) {
-        tile = this.hero.collisionArray[t];
-        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
-          canMove = false;
-          break;
-        }
-      }
-      if(canMove) this.hero.x -= this.speed;
+      this.hero.x -= this.getMoveAmount(-this.speed,0);
     }
-
+    
     if (right()) {
-      canMove = true;
-      rec = cloneRectanlge(this.hero.hitbox);
-      rec.x += this.speed;
-      for (var t = 0; t < this.hero.collisionArray.length; t++) {
-        tile = this.hero.collisionArray[t];
-        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
-          canMove = false;
-          break;
-        }
-      }
-      if(canMove) this.hero.x += this.speed;
+      this.hero.x += this.getMoveAmount(this.speed,0);
     }
 
     if (up()) {
-      rec = cloneRectanlge(this.hero.hitbox);
-      rec.y -= this.speed;
-      canMove = true;
-      for (var t = 0; t < this.hero.collisionArray.length; t++) {
-        tile = this.hero.collisionArray[t];
-        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
-          canMove = false;
-          break;
-        }
-      }
-      if(canMove) this.hero.y -= this.speed;
+      this.hero.y -= this.getMoveAmount(0,-this.speed);
     }
 
     if (down()) {
-      rec = cloneRectanlge(this.hero.hitbox);
-      rec.y += this.speed;
-      canMove = true;
-      for (var t = 0; t < this.hero.collisionArray.length; t++) {
-        tile = this.hero.collisionArray[t];
-        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
-          canMove = false;
-          break;
-        }
-      }
-      if(canMove) this.hero.y += this.speed;
+      this.hero.y += this.getMoveAmount(0,this.speed);
     }
 
     if (space()) {
-
     }
     
     // Set Hero Current Tile
@@ -174,5 +133,25 @@ function Cart() {
     mainGame.context.fillRect(mx-mw,my-mh,mw*2,mh*2);
     mainGame.context.fillRect(mx-mh,my-mw,mh*2,mw*2);
     mainGame.context.globalCompositeOperation = 'source-over';
+  }
+  
+  // check for each pixel if the hero can move (1,2,3,4,5)
+  this.getMoveAmount = function(xx,yy){      
+    rec = cloneRectanlge(this.hero.hitbox);
+    rec.x += xx;
+    rec.y += yy;
+    amount = 0;
+    for(var i = 1; i<this.speed; i++){
+      canMove = true;
+      for (var t = 0; t < this.hero.collisionArray.length; t++) {
+        tile = this.hero.collisionArray[t];
+        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
+          canMove = false;
+          break;
+        }
+      }
+      if(canMove) amount ++;
+    }
+    return amount;
   }
 }
