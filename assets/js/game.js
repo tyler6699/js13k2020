@@ -17,7 +17,8 @@ var clickIndex;
 var clickRow;
 var clickCol;
 var processClick = false;
-var scale = 1.33;
+var scaleX = 1.346;
+var scaleY = 1.38;
 
 // The Game
 var cart = new Cart();
@@ -73,7 +74,7 @@ var mainGame = {
     window.addEventListener('mousemove', function(e) {
       e.preventDefault();
       var rect = mainGame.canvas.getBoundingClientRect();
-      mousePos.set((e.clientX - rect.left) * scale, (e.clientY - rect.top) * scale);
+      mousePos.set((e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY);
     })
     // Disable right click context menu
     this.canvas.oncontextmenu = function(e) {

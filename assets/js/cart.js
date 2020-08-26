@@ -10,6 +10,7 @@ function Cart() {
   this.level = new level(canvasW, canvasH, 0);
   this.hero.currentLevel = 0;
   this.level.reset(this.hero, this.scale);
+  this.menu = new Build(this.scale);
 
   // Render
   this.update = function(delta, time) {
@@ -23,7 +24,6 @@ function Cart() {
       for (var t = 0; t < this.hero.collisionArray.length; t++) {
         tile = this.hero.collisionArray[t];
         if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
-          console.log(tile);
           canMove = false;
           break;
         }
@@ -97,7 +97,7 @@ function Cart() {
     //console.log(this.hero.collisionArray);
     
     // Render
-
+    
     // Star Field
     mainGame.context.fillStyle='#FFF';
     for(let i=2e3;i--;){
@@ -113,61 +113,62 @@ function Cart() {
     // Entities
     for (entity in this.entities) {
       e = this.entities[entity]
-      if (e.type == types.WALL) {
-        // Check hit
-        //if (rectColiding(game.hero.hitbox, rainbow.hitbox)) {
-
-        //}
-      }
       e.update(delta);
     }
-
+    
+    if(processClick){
+      // Check if menu items clicked
+      processClick = cart.menu.tick();
+    }
+    
     // TESTING ITEMS
     if(processClick){
       processClick = false;
       t = this.level.tiles[clickIndex];
-      
-      if(t.entity.type == types.FLOOR){
-          t.entity.isSolid = true;
-          t.entity.type = types.TABLE;  
-      } else if(t.entity.type == types.TABLE){
-        // check if table is above or below
-        tileIndex = t.column + (19*t.row);
+      if(t != null){
+        if(t.entity.type == types.FLOOR){
+            t.entity.isSolid = true;
+            t.entity.type = types.TABLE;  
+        } else if(t.entity.type == types.TABLE){
+          // check if table is above or below
+          tileIndex = t.column + (19*t.row);
 
-        // Test placing PCS
-        if(this.level.tiles[tileIndex+19].entity.type == types.TABLE){
-          // CHAIR ABOVE TABLE
-          t1 = this.level.tiles[tileIndex+19];
-          t2 = this.level.tiles[tileIndex+38];
-          t.entity.isSolid = false;
-          t.entity.type = types.CHAIR_B; 
-          t1.entity.hasPC_T = true; 
-          t1.entity.hasPC_B = false; 
-          if(t2.entity.type == types.CHAIR_T){
-            t2.entity.type = types.FLOOR;
-            t2.change();
+          // Test placing PCS
+          if(this.level.tiles[tileIndex+19].entity.type == types.TABLE){
+            // CHAIR ABOVE TABLE
+            t1 = this.level.tiles[tileIndex+19];
+            t2 = this.level.tiles[tileIndex+38];
+            t.entity.isSolid = false;
+            t.entity.type = types.CHAIR_B; 
+            t1.entity.hasPC_T = true; 
+            t1.entity.hasPC_B = false; 
+            if(t2.entity.type == types.CHAIR_T){
+              t2.entity.type = types.FLOOR;
+              t2.change();
+            }
+          } else if(this.level.tiles[tileIndex-19].entity.type == types.TABLE){
+            // CHAIR BELOW TABLE
+            t1 = this.level.tiles[tileIndex-19];
+            t2 = this.level.tiles[tileIndex-38];
+            t.entity.isSolid = false;
+            t.entity.type = types.CHAIR_T;  
+            t1.entity.hasPC_T = false; 
+            t1.entity.hasPC_B = true; 
+            console.log(getNameByValue(types,t2.entity.type));
+            if(t2.entity.type == types.CHAIR_B){
+              t2.entity.type = types.FLOOR;
+              t2.change();
+            }
           }
-        } else if(this.level.tiles[tileIndex-19].entity.type == types.TABLE){
-          // CHAIR BELOW TABLE
-          t1 = this.level.tiles[tileIndex-19];
-          t2 = this.level.tiles[tileIndex-38];
-          t.entity.isSolid = false;
-          t.entity.type = types.CHAIR_T;  
-          t1.entity.hasPC_T = false; 
-          t1.entity.hasPC_B = true; 
-          console.log(getNameByValue(types,t2.entity.type));
-          if(t2.entity.type == types.CHAIR_B){
-            t2.entity.type = types.FLOOR;
-            t2.change();
-          }
-        }
-        
-      }  
-      t.change();
+          
+        }  
+        t.change();
+      }
     }
     
     this.hero.update(delta);
-
+    this.menu.update();
+    
     // Mouse
     mainGame.canvas.style.cursor='none';
     let mx = mousePos.x;

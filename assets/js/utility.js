@@ -27,6 +27,10 @@ function cloneRectanlge(rec) {
   return new rectanlge(rec.x, rec.y, rec.w, rec.h);
 }
 
+function vecToRec(vec2, w, h) {
+  return new rectanlge(vec2.x, vec2.y, w, h);
+}
+
 function rectColiding(rx, ry, rw, rh, r2x, r2y, r2w, r2h) {
   return (rx < r2x + r2w &&
     rx + rw > r2x &&

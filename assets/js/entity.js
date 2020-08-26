@@ -1,4 +1,4 @@
-function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, imageSrc = "") {
+function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, imageSrc = "", isButton = false) {
   this.scale = scale;
   this.type = type;
   this.width = w;
@@ -25,6 +25,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.currentTile=0;
   this.collisionArray = [];
   this.isSolid = false;
+  this.isButton = isButton;
+  this.chairs = 0;
   
   // DECOR
   this.hasPC_B = false;
@@ -36,16 +38,24 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   
   this.setHitbox = function() {
     this.hitbox = new rectanlge(0, 0, 0, 0);
-    this.hitbox.x = this.x + this.mhWidthScaled + (this.hitboxOffsetX * this.scale);
-    this.hitbox.y = this.y + this.mhHeightScaled + (this.hitboxOffsetY * this.scale);
-    this.hitbox.w = (this.width * this.scale) - (this.hitboxOffsetX * this.scale);
-    this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetX * this.scale);
+    if(this.isButton){
+      this.hitbox.w = this.width * 2;
+      this.hitbox.h = this.height * 2;
+    } else {
+      this.hitbox.w = (this.width * this.scale) - (this.hitboxOffsetX * this.scale);
+      this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetX * this.scale);
+    }
   }
   this.setHitbox();
 
   this.updateHitbox = function() {
-    this.hitbox.x = this.x + ((this.hitboxOffsetX * this.scale)/2);
-    this.hitbox.y = this.y + ((this.hitboxOffsetX * this.scale)/2);
+    if(this.isButton){
+      this.hitbox.x = this.x - this.width;
+      this.hitbox.y = this.y - this.height;
+    } else {
+      this.hitbox.x = this.x + ((this.hitboxOffsetX * this.scale)/2);
+      this.hitbox.y = this.y + ((this.hitboxOffsetX * this.scale)/2);
+    }
   }
 
   // Render
@@ -56,6 +66,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.x, this.y);
+      ctx.globalAlpha = this.alpha;
       
       // Animate Image
       if (this.animated) {
@@ -69,7 +80,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         ctx.fillRect((this.mhWidth *.5) * this.scale, (this.mhHeight * .5) * this.scale, (this.width * .5) * this.scale, (this.height * .5) * this.scale);
         // Image
       } else {
-        ctx.globalAlpha = this.alpha;
         ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale);  
       }
       

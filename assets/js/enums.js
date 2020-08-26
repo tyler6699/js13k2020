@@ -14,7 +14,8 @@ const types = {
   CHAIR_T: 12,
   CHAIR_B: 13,
   PC: 14,
-  PC_B: 15
+  PC_B: 15,
+  BOX: 16
 }
 
 function getEnumKeys(e) {
