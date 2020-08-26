@@ -12,7 +12,7 @@ function Cart() {
   this.level.reset(this.hero, this.scale);
   this.menu = new Build(this.scale);
 
-  // Render
+  // Render & Logic
   this.update = function(delta, time) {
     controllers = navigator.getGamepads();
     
@@ -56,7 +56,6 @@ function Cart() {
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex-18]); // BOTTOM LEFT
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex-19]); // BELOW
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
-      console.log("Populated tiles");
     }
 
     
@@ -79,51 +78,8 @@ function Cart() {
       processClick = cart.menu.tick();
     }
     
-    // TESTING ITEMS
-    if(processClick){
-      processClick = false;
-      t = this.level.tiles[clickIndex];
-      if(t != null){
-        if(t.entity.type == types.FLOOR){
-            t.entity.isSolid = true;
-            t.entity.type = types.TABLE;  
-        } else if(t.entity.type == types.TABLE){
-          // check if table is above or below
-          tileIndex = t.column + (19*t.row);
-
-          // Test placing PCS
-          if(this.level.tiles[tileIndex+19].entity.type == types.TABLE){
-            // CHAIR ABOVE TABLE
-            t1 = this.level.tiles[tileIndex+19];
-            t2 = this.level.tiles[tileIndex+38];
-            t.entity.isSolid = false;
-            t.entity.type = types.CHAIR_B; 
-            t1.entity.hasPC_T = true; 
-            t1.entity.hasPC_B = false; 
-            if(t2.entity.type == types.CHAIR_T){
-              t2.entity.type = types.FLOOR;
-              t2.change();
-            }
-          } else if(this.level.tiles[tileIndex-19].entity.type == types.TABLE){
-            // CHAIR BELOW TABLE
-            t1 = this.level.tiles[tileIndex-19];
-            t2 = this.level.tiles[tileIndex-38];
-            t.entity.isSolid = false;
-            t.entity.type = types.CHAIR_T;  
-            t1.entity.hasPC_T = false; 
-            t1.entity.hasPC_B = true; 
-            console.log(getNameByValue(types,t2.entity.type));
-            if(t2.entity.type == types.CHAIR_B){
-              t2.entity.type = types.FLOOR;
-              t2.change();
-            }
-          }
-          
-        }  
-        t.change();
-      }
-    }
-    
+    this.menu.processBuilding(processClick,this.level);
+    processClick = false;
     // HERO
     this.hero.update(delta);
     this.menu.update();

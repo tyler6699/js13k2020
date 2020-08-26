@@ -77,12 +77,20 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         }
         ctx.drawImage(this.image, this.width * this.animation.currentFrame, 0, this.width, this.height, 0, 0, this.width * this.scale, this.height * this.scale);
         // No Image (Coloured Shape)
-      } else if (this.image == null) {
+      } else if (this.image == null || this.isButton) {
         ctx.fillStyle = this.colour;
         ctx.fillRect((this.mhWidth *.5) * this.scale, (this.mhHeight * .5) * this.scale, (this.width * .5) * this.scale, (this.height * .5) * this.scale);
         // Image
       } else {
         ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale);  
+      }
+      
+      if(this.isButton){
+        if(this.type == actions.CHAIR){
+          ctx.drawImage(this.image, 84, 16, 8, 8, -16, -16, 32, 32);  
+        } else if (this.type == actions.DESK){
+          ctx.drawImage(this.image, 64, 16, 16, 16, -16, -16, 32, 32);
+        }  
       }
       
       if(this.type == types.TABLE){
