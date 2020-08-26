@@ -4,16 +4,18 @@ function Build(scale) {
   this.menu.image = null;
   this.menu.alpha = .4;
   this.buttons = [];
-  this.button = new Button(32,32,canvasW-48,100,"#4c5774");
-  this.button.run = function () {
-    cart.hero.chairs ++;
+  
+  // 
+  for(i = 0; i<10;i++){
+    this.buttons.push(new Button(32,32,canvasW-48,50+(i*80),"#4c5774", getValueByIndex(actions,i)));
   }
-
-  this.buttons.push(this.button)
   
   this.update = function(){
     this.menu.update();
-    this.button.update();
+    for(i = 0; i<10;i++){
+      btn = this.buttons[i];
+      btn.update();
+    }
   }
   
   this.tick = function(){
@@ -22,7 +24,7 @@ function Build(scale) {
     for (var i = 0; i < this.buttons.length; i++) {
       b = this.buttons[i];
       if(rectColiding(b.entity.hitbox, clickRec)){
-        b.run();
+        b.processAction();
         return false;
       }
     }

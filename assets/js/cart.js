@@ -94,18 +94,11 @@ function Cart() {
     this.hero.collisionArray.push(this.level.tiles[heroTileIndex-18]); // BOTTOM LEFT
     this.hero.collisionArray.push(this.level.tiles[heroTileIndex-19]); // BELOW
     this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
-    //console.log(this.hero.collisionArray);
     
     // Render
     
     // Star Field
-    mainGame.context.fillStyle='#FFF';
-    for(let i=2e3;i--;){
-      x = (Math.sin(i)*1e9-time/2e3*(i+1e3)/50)%(mainGame.canvas.width+9)-9;
-      y = i*9%mainGame.canvas.height;
-      s = i%5;
-      mainGame.context.fillRect(x,y,s,s);
-    }
+    renderStarField(time);
 
     this.level.tick(this.hero);
     this.level.draw(this.hero);
@@ -166,6 +159,7 @@ function Cart() {
       }
     }
     
+    // HERO
     this.hero.update(delta);
     this.menu.update();
     

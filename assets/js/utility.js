@@ -1,5 +1,5 @@
 // Useful Functions and classes
-//
+
 function buttonPressed(b) {
   if (typeof(b) == "object") {
     return b.pressed;
@@ -53,4 +53,40 @@ function vec2(x,y){
     this.x = x;
     this.y = y;
   }
+}
+
+function renderStarField(time){
+  mainGame.context.fillStyle='#FFF';
+  for(let i=2e3;i--;){
+    x = (Math.sin(i)*1e9-time/2e3*(i+1e3)/50)%(mainGame.canvas.width+9)-9;
+    y = i*9%mainGame.canvas.height;
+    s = i%5;
+    mainGame.context.fillRect(x,y,s,s);
+  }
+}
+
+function getValueByIndex(e,i){
+    return Object.values(e)[i];
+}
+
+function getEnumKeys(e) {
+  return Object.keys(e);
+}
+
+function getEnumValues(e) {
+  return getEnumKeys(e).map(function(key) {
+    return e[key];
+  });
+}
+
+function getValueByName(e, key) {
+  return e[getEnumKeys(e).filter(function(k) {
+    return key === k;
+  }).pop() || ''];
+}
+
+function getNameByValue(e, val) {
+  return getEnumKeys(e).filter(function(k) {
+    return e[k] === val;
+  }).pop() || null;
 }

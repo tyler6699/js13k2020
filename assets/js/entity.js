@@ -49,10 +49,12 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.setHitbox();
 
   this.updateHitbox = function() {
+    // Buttons are rendered the screen size and do not need scaling
     if(this.isButton){
       this.hitbox.x = this.x - this.width;
       this.hitbox.y = this.y - this.height;
     } else {
+      // Images are all scaled up so hitboxes are also scaled up
       this.hitbox.x = this.x + ((this.hitboxOffsetX * this.scale)/2);
       this.hitbox.y = this.y + ((this.hitboxOffsetX * this.scale)/2);
     }
@@ -101,57 +103,73 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.setType = function(){
     this.alpha = 1;
     this.sy=0;
-    this.sx=0;
-    if(this.type == types.WALL_R){
-      this.sx=80;
-      this.isSolid = true;
-    } else if(this.type == types.WALL_RT){
-      this.sx=128;
-      this.isSolid = true;
-    } else if(this.type == types.WALL_LT){
-      this.sx=16;
-      this.sy=16;
-      this.isSolid = true;
-    } else if(this.type == types.WALL_L){
-      this.sx=64;
-      this.isSolid = true;
-    } else if(this.type == types.WALL_T){
-      this.sy=16;
-      this.isSolid = true;
-    } else if(this.type == types.WALL_B){
-      this.sx=112;
-      this.isSolid = true;
-    } else if(this.type == types.WALL_BR){
-      this.sx=32;
-      this.sy=16;
-      this.isSolid = true;
-    } else if(this.type == types.WALL_BL){
-      this.sx=48;
-      this.sy=16;
-      this.isSolid = true;
-    } else if (this.type == types.FLOOR){
-      this.sx=48;
-      this.alpha = .4;
-      this.isSolid = false;
-    } else if (this.type == types.AIR){
-      this.sx=144;
-      this.isSolid = false;
-    } else if (this.type == types.TABLE){
-      this.sx=64;
-      this.sy=16;
-      this.isSolid = true;
-    } else if (this.type == types.CHAIR_T){
-      this.sx=80;
-      this.sy=16;
-      this.isSolid = false;
-    } else if (this.type == types.CHAIR_B){
-      this.sx=96;
-      this.sy=16;
-      this.isSolid = false;
-    } else if (this.type == types.PC){
-      this.sx=112;
-      this.sy=16;
-      this.isSolid = false;
-    }
+    this.sx=0;  
+    
+    switch(this.type) {
+      case types.WALL_R:
+        this.sx=80;
+        this.isSolid = true;
+        break;
+      case types.WALL_RT:
+        this.sx=128;
+        this.isSolid = true;
+        break;
+      case types.WALL_LT:
+        this.sx=16;
+        this.sy=16;
+        this.isSolid = true;
+        break;   
+      case types.WALL_L:
+        this.sx=64;
+        this.isSolid = true;
+        break; 
+      case types.WALL_T:
+        this.sy=16;
+        this.isSolid = true;
+        break;  
+      case types.WALL_B:
+        this.sx=112;
+        this.isSolid = true;
+        break;  
+      case types.WALL_BR:
+        this.sx=32;
+        this.sy=16;
+        this.isSolid = true;
+        break;  
+      case types.WALL_BL:
+        this.sx=48;
+        this.sy=16;
+        this.isSolid = true;
+        break; 
+      case types.FLOOR:
+        this.sx=48;
+        this.alpha = .4;
+        this.isSolid = false;
+        break; 
+      case types.AIR:
+        this.sx=144;
+        this.isSolid = false;
+        break; 
+      case types.TABLE:
+        this.sx=64;
+        this.sy=16;
+        this.isSolid = true;
+        break; 
+      case types.CHAIR_T:
+        this.sx=80;
+        this.sy=16;
+        this.isSolid = false;
+        break; 
+      case types.CHAIR_B:
+        this.sx=96;
+        this.sy=16;
+        this.isSolid = false;
+        break; 
+      case types.PC:
+        this.sx=112;
+        this.sy=16;
+        this.isSolid = false;
+        break; 
+    }  
   }
 }

@@ -18,24 +18,9 @@ const types = {
   BOX: 16
 }
 
-function getEnumKeys(e) {
-  return Object.keys(e);
-}
-
-function getEnumValues(e) {
-  return getEnumKeys(e).map(function(key) {
-    return e[key];
-  });
-}
-
-function getValueByName(e, key) {
-  return e[getEnumKeys(e).filter(function(k) {
-    return key === k;
-  }).pop() || ''];
-}
-
-function getNameByValue(e, val) {
-  return getEnumKeys(e).filter(function(k) {
-    return e[k] === val;
-  }).pop() || null;
+const actions = {
+  CHAIR:0,
+  DESK:1,
+  PC:2,
+  VEND:3
 }
