@@ -33,7 +33,6 @@ function Build(scale) {
   }
   
   this.processBuilding = function(processClick,level){
-    // TESTING ITEMS
     if(processClick){
       processClick = false;
       ci = clickIndex;
@@ -49,16 +48,19 @@ function Build(scale) {
         
         switch(this.currentBuildItem) {
           case actions.CHAIR:
+            console.log(ci);
             // A table between tables
             if(t.isChairB()){
                 if(ta.isTable() && !taa.isChairB()){
                     t.entity.type = types.CHAIR_T;
+                    t.entity.drawTile = true;
                     tb.entity.hasPC_T = false;
                 }
                 break;
             } else if(t.isChairT()){
               if(tb.isTable() && !tbb.isChairT()){  
                   t.entity.type = types.CHAIR_B;
+                  t.entity.drawTile = true;
                   ta.entity.hasPC_B = false;
               }
               break;
@@ -67,10 +69,12 @@ function Build(scale) {
             if(tb.isTable()){
               // CHAIR ABOVE TABLE
               t.entity.isSolid = false;
-              t.entity.type = types.CHAIR_B; 
+              t.entity.type = types.CHAIR_B;
+              t.entity.drawTile = true;
               
               if(tbb.isChairT()){
                tbb.entity.type = types.FLOOR;
+               tbb.entity.drawTile = false;
                tbb.change();
                tb.entity.flipMonitors();
               }
@@ -78,9 +82,11 @@ function Build(scale) {
               // CHAIR BELOW TABLE
               t.entity.isSolid = false;
               t.entity.type = types.CHAIR_T; 
+              t.entity.drawTile = true;
                
               if(taa.isChairB()){
                 taa.entity.type = types.FLOOR;
+                taa.entity.drawTile = false;
                 taa.change();
                 ta.entity.flipMonitors();
               }
@@ -90,6 +96,7 @@ function Build(scale) {
             if(t.entity.type == types.FLOOR){
               t.entity.isSolid = true;
               t.entity.type = types.TABLE; 
+              t.entity.drawTile = true;
             }
             break;
           case actions.PC:
@@ -104,6 +111,15 @@ function Build(scale) {
             break;
           case actions.VEND:
             console.log("VEND");
+            break;
+          case actions.SERVER:
+            if(t.entity.type == types.FLOOR){
+              t.entity.isSolid = true;
+              t.entity.type = types.SERVER; 
+              t.entity.yDrawOffset = -20;
+              t.entity.hitboxOffsetY = 5;
+              t.entity.drawTile = true;
+            }
             break;
           default:
             console.log("NaN");

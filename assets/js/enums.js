@@ -15,12 +15,14 @@ const types = {
   CHAIR_B: 13,
   PC: 14,
   PC_B: 15,
-  BOX: 16
+  BOX: 16,
+  SERVER: 17
 }
 
 const actions = {
   CHAIR:0,
   DESK:1,
   PC:2,
-  VEND:3
+  SERVER:3,
+  VEND:4
 }

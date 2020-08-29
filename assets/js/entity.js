@@ -10,6 +10,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.hWidth = w / 2;
   this.hHeight = h / 2;
   this.yOffset = 0;
+  this.yDrawOffset=0;
   this.angle = angle;
   this.x = x;
   this.y = y;
@@ -27,6 +28,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.isSolid = false;
   this.isButton = isButton;
   this.chairs = 0;
+  this.drawTile = false;
   
   // DECOR
   this.hasPC_B = false;
@@ -43,7 +45,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       this.hitbox.h = this.height * 2;
     } else {
       this.hitbox.w = (this.width * this.scale) - (this.hitboxOffsetX * this.scale);
-      this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetX * this.scale);
+      this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetY * this.scale);
     }
   }
   this.setHitbox();
@@ -57,6 +59,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       // Images are all scaled up so hitboxes are also scaled up
       this.hitbox.x = this.x + ((this.hitboxOffsetX * this.scale)/2);
       this.hitbox.y = this.y + ((this.hitboxOffsetX * this.scale)/2);
+      this.hitbox.w = (this.width * this.scale) - (this.hitboxOffsetX * this.scale);
+      this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetY * this.scale);
     }
   }
 
@@ -68,8 +72,14 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.x, this.y);
-      ctx.globalAlpha = this.alpha;
       
+      
+      if(this.drawTile){
+        ctx.globalAlpha = .4;
+        ctx.drawImage(this.image, 48, 0, 16, 16, 8, 8, 64, 64);  
+      }
+      
+      ctx.globalAlpha = this.alpha;
       // Animate Image
       if (this.animated) {
         if (!this.animation.pauseAnimation) {
@@ -82,7 +92,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         ctx.fillRect((this.mhWidth *.5) * this.scale, (this.mhHeight * .5) * this.scale, (this.width * .5) * this.scale, (this.height * .5) * this.scale);
         // Image
       } else {
-        ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale);  
+        ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);  
       }
       
       if(this.isButton){
@@ -92,6 +102,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           ctx.drawImage(this.image, 64, 16, 16, 16, -16, -16, 32, 32);
         } else if (this.type == actions.PC){
           ctx.drawImage(this.image, 115, 17, 10, 13, -16, -16, 32, 32);
+        } else if (this.type == actions.SERVER){
+          ctx.drawImage(this.image, 146, 16, 12, 15, -16, -16, 32, 32);
         }  
       }
       
@@ -197,6 +209,11 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         this.sx=112;
         this.sy=16;
         this.isSolid = false;
+        break;
+      case types.SERVER:
+        this.sx=144;
+        this.sy=16;
+        this.isSolid = true;
         break; 
     }  
   }
