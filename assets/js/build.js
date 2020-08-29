@@ -36,40 +36,71 @@ function Build(scale) {
     // TESTING ITEMS
     if(processClick){
       processClick = false;
-      t = level.tiles[clickIndex];
+      ci = clickIndex;
+      t = getTile(ci, level);
       
       if(t != null){
+        // Tile Above
+        ta = getTile(ci-19, level);
+        taa = getTile(ci-38, level);
+        // Tile Below
+        tb = getTile(ci+19, level);
+        tbb = getTile(ci+38, level);
+        
         switch(this.currentBuildItem) {
           case actions.CHAIR:
-            tileIndex = t.column + (19*t.row);
-            if(level.tiles[tileIndex+19].entity.type == types.TABLE){
+            // A table between tables
+            if(t.isChairB()){
+                if(ta.isTable() && !taa.isChairB()){
+                    t.entity.type = types.CHAIR_T;
+                    tb.entity.hasPC_T = false;
+                }
+                break;
+            } else if(t.isChairT()){
+              if(tb.isTable() && !tbb.isChairT()){  
+                  t.entity.type = types.CHAIR_B;
+                  ta.entity.hasPC_B = false;
+              }
+              break;
+            }
+
+            if(tb.isTable()){
               // CHAIR ABOVE TABLE
-              t1 = level.tiles[tileIndex+19];
-              t2 = level.tiles[tileIndex+38];
               t.entity.isSolid = false;
               t.entity.type = types.CHAIR_B; 
-              if(t2.entity.type == types.CHAIR_T){
-                t2.entity.type = types.FLOOR;
-                t2.change();
+              
+              if(tbb.isChairT()){
+               tbb.entity.type = types.FLOOR;
+               tbb.change();
+               tb.entity.flipMonitors();
               }
-            } else if(level.tiles[tileIndex-19].entity.type == types.TABLE){
+            } else if(ta.isTable()){
               // CHAIR BELOW TABLE
-              t1 = level.tiles[tileIndex-19];
-              t2 = level.tiles[tileIndex-38];
               t.entity.isSolid = false;
-              t.entity.type = types.CHAIR_T;  
-              if(t2.entity.type == types.CHAIR_B){
-                t2.entity.type = types.FLOOR;
-                t2.change();
+              t.entity.type = types.CHAIR_T; 
+               
+              if(taa.isChairB()){
+                taa.entity.type = types.FLOOR;
+                taa.change();
+                ta.entity.flipMonitors();
               }
             }
             break;
           case actions.DESK:
-            t.entity.isSolid = true;
-            t.entity.type = types.TABLE; 
+            if(t.entity.type == types.FLOOR){
+              t.entity.isSolid = true;
+              t.entity.type = types.TABLE; 
+            }
             break;
           case actions.PC:
-            console.log("PC");
+            if(t.isTable()){
+              if (ta.isChairB()){
+                t.entity.hasPC_T = true;
+              } else if (tb.isChairT()) {
+                t.entity.hasPC_B = true;
+              }
+            }
+            t.change();
             break;
           case actions.VEND:
             console.log("VEND");

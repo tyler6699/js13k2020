@@ -7,6 +7,10 @@ function rectanlge(x, y, w, h) {
   this.h = h;
 }
 
+function getTile(index, level){
+  return level.tiles[index];
+}
+
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
   var color = '#';

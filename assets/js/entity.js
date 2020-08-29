@@ -90,6 +90,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           ctx.drawImage(this.image, 84, 16, 8, 8, -16, -16, 32, 32);  
         } else if (this.type == actions.DESK){
           ctx.drawImage(this.image, 64, 16, 16, 16, -16, -16, 32, 32);
+        } else if (this.type == actions.PC){
+          ctx.drawImage(this.image, 115, 17, 10, 13, -16, -16, 32, 32);
         }  
       }
       
@@ -103,9 +105,19 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           ctx.drawImage(this.image, 128, 16, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale); 
         }
       }
-      
       ctx.restore();
     }
+  }
+  
+  this.flipMonitors = function(){
+    if(this.hasPC_B || this.hasPC_T){
+      this.hasPC_B = !this.hasPC_B;
+      this.hasPC_T = !this.hasPC_T; 
+    }
+  }
+  
+  this.isTable = function(){
+    return this.type == types.TABLE;
   }
   
   this.setType = function(){

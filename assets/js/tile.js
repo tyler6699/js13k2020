@@ -75,4 +75,15 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     this.entity.setType();
   }  
 
+  this.isTable = function(){
+    return this.entity.type == types.TABLE;
+  }
+  
+  this.isChairB = function(){
+    return this.entity.type == types.CHAIR_B;
+  }
+  
+  this.isChairT = function(){
+    return this.entity.type == types.CHAIR_T;
+  }
 }
