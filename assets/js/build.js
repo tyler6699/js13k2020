@@ -84,7 +84,7 @@ function Build(scale) {
             }
             break;
           case actions.DESK:
-            if(t.entity.type == types.FLOOR){
+            if(t.isFloor()){
               t.entity.type = types.TABLE; 
             }
             break;
@@ -102,7 +102,7 @@ function Build(scale) {
             t.entity.type = types.VEND;
             break;
           case actions.SERVER:
-            if(t.entity.type == types.FLOOR){
+            if(t.isFloor()){
               t.entity.type = types.SERVER; 
             }
             break;

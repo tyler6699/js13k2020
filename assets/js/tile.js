@@ -22,14 +22,18 @@ function Tile(size, x, y, angle, type, solid, column, row) {
   }  
 
   this.isTable = function(){
-    return this.entity.type == types.TABLE;
+    return this.entity.isTable();
   }
   
   this.isChairB = function(){
-    return this.entity.type == types.CHAIR_B;
+    return this.entity.isChairB();
   }
   
   this.isChairT = function(){
-    return this.entity.type == types.CHAIR_T;
+    return this.entity.isChairT();
+  }
+  
+  this.isFloor = function(){
+    return this.entity.isFloor();
   }
 }

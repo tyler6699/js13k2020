@@ -142,6 +142,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     return this.type == types.CHAIR_T;
   }
   
+  this.isFloor = function(){
+    return this.type == types.FLOOR;
+  }
+  
   this.setType = function(){
     this.alpha = 1;
     this.sy=0;
