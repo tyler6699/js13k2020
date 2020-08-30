@@ -17,60 +17,6 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     if (this.entity.type >= Object.values(types).length){
       this.entity.type = 0;
     }
-    switch(this.entity.type) {
-      case types.WALL_R:
-        this.entity.type = types.WALL_R;
-        this.entity.isSolid = true;
-        break;
-      case types.WALL_L:
-        this.entity.type = types.WALL_L;
-        this.entity.isSolid = true;
-        break;
-      case types.WALL_T:
-        this.entity.type = types.WALL_T;
-        this.entity.isSolid = true;
-        break;
-      case types.WALL_B:
-        this.entity.type = types.WALL_B;
-        this.entity.isSolid = true;
-        break;
-      case types.WALL_RT:
-        this.entity.type = types.WALL_RT;
-        this.entity.isSolid = true;
-        break;
-      case types.WALL_LT:
-        this.entity.type = types.WALL_LT;
-        this.entity.isSolid = true;
-        break;
-      case types.WALL_BR:
-        this.entity.type = types.WALL_BR;
-        this.entity.isSolid = true;
-        break;
-      case types.WALL_BL:
-      this.entity.type = types.WALL_BL;
-      this.entity.isSolid = true;
-        break;
-      case types.FLOOR:
-        this.entity.type = types.FLOOR;
-        this.entity.isSolid = false;
-        break;
-      case types.TABLE:
-        this.entity.type = types.TABLE;
-        this.entity.isSolid = true;
-        break;
-      case types.CHAIR_B:
-        this.entity.type = types.CHAIR_B;
-        this.entity.isSolid = false;
-        break;
-      case types.CHAIR_T:
-        this.entity.type = types.CHAIR_T;
-        this.entity.isSolid = false;
-        break;
-      case types.PC:
-        this.entity.type = types.PC;
-        this.entity.isSolid = false;
-        break;
-    }
     
     this.entity.setType();
   }  

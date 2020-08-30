@@ -104,6 +104,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           ctx.drawImage(this.image, 115, 17, 10, 13, -16, -16, 32, 32);
         } else if (this.type == actions.SERVER){
           ctx.drawImage(this.image, 146, 16, 12, 15, -16, -16, 32, 32);
+        } else if (this.type == actions.VEND){
+          ctx.drawImage(this.image, 146, 32, 13, 16, -16, -16, 32, 32);
         }  
       }
       
@@ -144,6 +146,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     this.alpha = 1;
     this.sy=0;
     this.sx=0;  
+    this.yDrawOffset = 0;
+    this.hitboxOffsetY = 0;
     
     switch(this.type) {
       case types.WALL_R:
@@ -185,6 +189,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         this.sx=48;
         this.alpha = .4;
         this.isSolid = false;
+        this.drawTile = false;
         break; 
       case types.AIR:
         this.sx=144;
@@ -194,16 +199,19 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         this.sx=64;
         this.sy=16;
         this.isSolid = true;
+        this.drawTile = true;
         break; 
       case types.CHAIR_T:
         this.sx=80;
         this.sy=16;
         this.isSolid = false;
+        this.drawTile = true;
         break; 
       case types.CHAIR_B:
         this.sx=96;
         this.sy=16;
         this.isSolid = false;
+        this.drawTile = true;
         break; 
       case types.PC:
         this.sx=112;
@@ -214,6 +222,18 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         this.sx=144;
         this.sy=16;
         this.isSolid = true;
+        this.isSolid = true;
+        this.yDrawOffset = -20;
+        this.hitboxOffsetY = 5;
+        this.drawTile = true;
+        break;
+      case types.VEND:
+        this.sx=144;
+        this.sy=32;
+        this.yDrawOffset = -20;
+        this.hitboxOffsetY = 5;
+        this.isSolid = true;
+        this.drawTile = true;
         break; 
     }  
   }
