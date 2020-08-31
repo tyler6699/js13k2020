@@ -17,27 +17,13 @@ function Cart() {
     controllers = navigator.getGamepads();
     
     // Controls
-    if (left()) {
-      this.hero.x -= this.getMoveAmount(-this.speed,0);
-    }
-    
-    if (right()) {
-      this.hero.x += this.getMoveAmount(this.speed,0);
-    }
-
-    if (up()) {
-      this.hero.y -= this.getMoveAmount(0,-this.speed);
-    }
-
-    if (down()) {
-      this.hero.y += this.getMoveAmount(0,this.speed);
-    }
-
-    if (space()) {
-    }
+    if (left()) this.hero.x -= this.getMoveAmount(-this.speed,0);
+    if (right()) this.hero.x += this.getMoveAmount(this.speed,0);
+    if (up()) this.hero.y -= this.getMoveAmount(0,-this.speed);
+    if (down()) this.hero.y += this.getMoveAmount(0,this.speed);
+    if (space()){}
     
     // Set Hero Current Tile
-    // TODO: Set Hero Centre
     heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / 64);
     heroCol = Math.floor((this.hero.x - this.hero.mhWidthScaled) / 64);
     heroTileIndex = heroCol + (19*heroRow);
@@ -46,7 +32,6 @@ function Cart() {
     
     if(this.currentTile != this.prevTile){
       this.hero.collisionArray = [];
-      
       // Add surrounding tiles
       if(heroTileIndex) this.hero.collisionArray.push(this.level.tiles[heroTileIndex-1]);  // LEFT
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex+1]);  // RIGHT
@@ -59,12 +44,11 @@ function Cart() {
     }
   
     // Render
-  
     // Star Field
     renderStarField(time);
 
     this.level.tick(this.hero);
-    this.customers.tick(delta);
+    this.customers.tick(delta, this.level);
     this.level.draw(this.hero);
     
     if(processClick){

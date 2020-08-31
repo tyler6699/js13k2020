@@ -18,15 +18,15 @@ function level(canvasW, canvasH, id) {
       tile.update();
     }
 
-    // Collision Tiles
+    // TILE DRAW
     for (i = 0; i < this.tiles.length; i++) {
       var tile = this.tiles[i];
       tile.update();
     }
   }
-
+  
+  // TIME TICK
   this.tick = function(hero){
-    // Collision Tiles
     for (i = 0; i < this.tiles.length; i++) {
       var tile = this.tiles[i];
       tile.tick(hero);

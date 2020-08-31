@@ -99,10 +99,10 @@ function Build(scale) {
           case actions.PC:
             if(t.isTable()){
               if (ta.isChairB()){
-                t.entity.addPC(types.PC);
+                t.entity.addPC(types.PC,ta,t);
                 customer.addPC(t.entity.pc);
               } else if (tb.isChairT()) {
-                t.entity.addPC(types.PC_B);
+                t.entity.addPC(types.PC_B,tb,t);
                 customer.addPC(t.entity.pc);
               }
             }
