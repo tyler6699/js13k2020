@@ -5,7 +5,6 @@ function Cart() {
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "red", this.scale, xOffset, yOffset);
   this.hero.image.src = "atlas.png";
   this.hero.sx = 16;
-  this.entities = [];
   this.speed = 5;
   this.level = new level(canvasW, canvasH, 0);
   this.hero.currentLevel = 0;
@@ -58,21 +57,15 @@ function Cart() {
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex-19]); // BELOW
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
     }
-
-    
+  
     // Render
-    
+  
     // Star Field
     renderStarField(time);
 
     this.level.tick(this.hero);
+    this.customers.tick(delta);
     this.level.draw(this.hero);
-
-    // Entities
-    for (entity in this.entities) {
-      e = this.entities[entity]
-      e.update(delta);
-    }
     
     if(processClick){
       // Check if menu items clicked

@@ -72,18 +72,20 @@ function Build(scale) {
             if(tb.isTable()){
               // CHAIR ABOVE TABLE
               t.entity.type = types.CHAIR_B;
-  
+              
               if(tbb.isChairT()){
                tbb.entity.type = types.FLOOR;
+               tbb.entity.person = null;
                tbb.change();
                tb.entity.flipMonitors();
               }
             } else if(ta.isTable()){
               // CHAIR BELOW TABLE
-              t.entity.type = types.CHAIR_T; 
+              t.entity.type = types.CHAIR_T;
                
               if(taa.isChairB()){
                 taa.entity.type = types.FLOOR;
+                taa.entity.person = null;
                 taa.change();
                 ta.entity.flipMonitors();
               }

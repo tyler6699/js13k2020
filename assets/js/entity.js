@@ -28,12 +28,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.isSolid = false;
   this.isButton = isButton;
   this.drawTile = false;
-  
-  // DECOR
   this.pc = null;
-  //this.hasPC_B = false;
-  //this.hasPC_T = false
-  
+  this.person = null;
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -116,7 +112,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         }  
       }
       
-      if(this.type == types.TABLE){
+      if(this.isTable){
         ctx.globalAlpha = 1;
         if(this.pc != null && this.pc.direction == types.PC_B){
           ctx.translate(0, -30);

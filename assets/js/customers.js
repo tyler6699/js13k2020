@@ -1,13 +1,14 @@
 function Customers(){
   this.customerList = [];
   this.pcs = [];
+  this.time = 0;
+  this.eventTime=10;
   
-  this.tick = function(){
-    
+  this.tick = function(delta){
+    this.time += delta;
   }
   
   this.removePC = function(pc){
-    console.log("Remove PC: " + pc.id);
     this.pcs[pc.id] = null;
     this.pcs = this.pcs.filter(
       function(value, index, arr){ 
@@ -17,7 +18,6 @@ function Customers(){
   }
   
   this.addPC= function(pc){
-    console.log("Add PC: " + pc.id);
     this.pcs[pc.id] = pc;
   }
 }

@@ -16,7 +16,8 @@ const types = {
   PC: 14,
   PC_B: 15,
   BOX: 16,
-  SERVER: 17
+  SERVER: 17,
+  PERSON: 18
 }
 
 const actions = {
