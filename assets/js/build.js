@@ -32,7 +32,7 @@ function Build(scale) {
     return true;
   }
   
-  this.processBuilding = function(processClick,level){
+  this.processBuilding = function(processClick,level, customer){
     if(processClick){
       processClick = false;
       ci = clickIndex;
@@ -51,14 +51,20 @@ function Build(scale) {
             // A table between tables
             if(t.isChairB()){
                 if(ta.isTable() && !taa.isChairB()){
-                    t.entity.type = types.CHAIR_T;
-                    tb.entity.hasPC_T = false;
+                  t.entity.type = types.CHAIR_T;
+                  if(tb.entity.pc != null){
+                    customer.removePC(tb.entity.pc);
+                    tb.entity.pc = null;
+                  }
                 }
                 break;
             } else if(t.isChairT()){
               if(tb.isTable() && !tbb.isChairT()){  
-                  t.entity.type = types.CHAIR_B;
-                  ta.entity.hasPC_B = false;
+                t.entity.type = types.CHAIR_B;
+                if(ta.entity.pc != null){
+                  customer.removePC(ta.entity.pc);
+                  ta.entity.pc = null;
+                }  
               }
               break;
             }
@@ -91,9 +97,11 @@ function Build(scale) {
           case actions.PC:
             if(t.isTable()){
               if (ta.isChairB()){
-                t.entity.hasPC_T = true;
+                t.entity.addPC(types.PC);
+                customer.addPC(t.entity.pc);
               } else if (tb.isChairT()) {
-                t.entity.hasPC_B = true;
+                t.entity.addPC(types.PC_B);
+                customer.addPC(t.entity.pc);
               }
             }
             t.change();

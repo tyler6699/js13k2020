@@ -27,12 +27,12 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.collisionArray = [];
   this.isSolid = false;
   this.isButton = isButton;
-  this.chairs = 0;
   this.drawTile = false;
   
   // DECOR
-  this.hasPC_B = false;
-  this.hasPC_T = false
+  this.pc = null;
+  //this.hasPC_B = false;
+  //this.hasPC_T = false
   
   // ATLAS Positions
   this.sx=0;
@@ -64,6 +64,13 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     }
   }
 
+  this.addPC = function(direction){
+    if(this.pc == null){
+      this.pc = new PC(1, direction);
+    } else {
+      this.pc.direction = direction;
+    }
+  }
   // Render
   this.update = function(delta) {
     this.updateHitbox();
@@ -111,10 +118,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       
       if(this.type == types.TABLE){
         ctx.globalAlpha = 1;
-        if(this.hasPC_B){
+        if(this.pc != null && this.pc.direction == types.PC_B){
           ctx.translate(0, -30);
           ctx.drawImage(this.image, 112, 16, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale); 
-        } else if (this.hasPC_T){
+        } else if (this.pc != null && this.pc.direction == types.PC){
           ctx.translate(0, -20);
           ctx.drawImage(this.image, 128, 16, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale); 
         }
@@ -124,9 +131,12 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   }
   
   this.flipMonitors = function(){
-    if(this.hasPC_B || this.hasPC_T){
-      this.hasPC_B = !this.hasPC_B;
-      this.hasPC_T = !this.hasPC_T; 
+    if(this.pc != null){
+      if(this.pc.direction == types.PC){
+        this.pc.direction = types.PC_B;
+      } else {
+        this.pc.direction = types.PC;
+      }
     }
   }
   
@@ -152,42 +162,35 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     this.sx=0;  
     this.yDrawOffset = 0;
     this.hitboxOffsetY = 0;
+    this.isSolid = true;
     
     switch(this.type) {
       case types.WALL_R:
         this.sx=80;
-        this.isSolid = true;
         break;
       case types.WALL_RT:
         this.sx=128;
-        this.isSolid = true;
         break;
       case types.WALL_LT:
         this.sx=16;
         this.sy=16;
-        this.isSolid = true;
         break;   
       case types.WALL_L:
         this.sx=64;
-        this.isSolid = true;
         break; 
       case types.WALL_T:
         this.sy=16;
-        this.isSolid = true;
         break;  
       case types.WALL_B:
         this.sx=112;
-        this.isSolid = true;
         break;  
       case types.WALL_BR:
         this.sx=32;
         this.sy=16;
-        this.isSolid = true;
         break;  
       case types.WALL_BL:
         this.sx=48;
         this.sy=16;
-        this.isSolid = true;
         break; 
       case types.FLOOR:
         this.sx=48;
@@ -202,7 +205,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       case types.TABLE:
         this.sx=64;
         this.sy=16;
-        this.isSolid = true;
         this.drawTile = true;
         break; 
       case types.CHAIR_T:
@@ -225,8 +227,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       case types.SERVER:
         this.sx=144;
         this.sy=16;
-        this.isSolid = true;
-        this.isSolid = true;
         this.yDrawOffset = -20;
         this.hitboxOffsetY = 5;
         this.drawTile = true;
@@ -236,7 +236,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         this.sy=32;
         this.yDrawOffset = -20;
         this.hitboxOffsetY = 5;
-        this.isSolid = true;
         this.drawTile = true;
         break; 
     }  

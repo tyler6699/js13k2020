@@ -11,6 +11,7 @@ function Cart() {
   this.hero.currentLevel = 0;
   this.level.reset(this.hero, this.scale);
   this.menu = new Build(this.scale);
+  this.customers = new Customers();
 
   // Render & Logic
   this.update = function(delta, time) {
@@ -78,7 +79,7 @@ function Cart() {
       processClick = cart.menu.tick();
     }
     
-    this.menu.processBuilding(processClick,this.level);
+    this.menu.processBuilding(processClick,this.level, this.customers);
     processClick = false;
     // HERO
     this.hero.update(delta);

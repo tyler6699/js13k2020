@@ -19,6 +19,7 @@ var clickCol;
 var processClick = false;
 var scaleX = 1.346;
 var scaleY = 1.38;
+var PCID = -1;
 
 // The Game
 var cart = new Cart();
