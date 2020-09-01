@@ -45,7 +45,7 @@ function Build(scale) {
         // Tile Below
         tb = getTile(ci+19, level);
         tbb = getTile(ci+38, level);
-        
+        console.log(ci);
         switch(this.currentBuildItem) {
           case actions.CHAIR:
             // A table between tables
@@ -53,6 +53,7 @@ function Build(scale) {
                 if(ta.isTable() && !taa.isChairB()){
                   t.entity.type = types.CHAIR_T;
                   if(tb.entity.pc != null){
+                    t.entity.person = null;
                     customer.removePC(tb.entity.pc);
                     tb.entity.pc = null;
                   }
@@ -62,6 +63,7 @@ function Build(scale) {
               if(tb.isTable() && !tbb.isChairT()){  
                 t.entity.type = types.CHAIR_B;
                 if(ta.entity.pc != null){
+                  t.entity.person = null;
                   customer.removePC(ta.entity.pc);
                   ta.entity.pc = null;
                 }  
@@ -72,20 +74,23 @@ function Build(scale) {
             if(tb.isTable()){
               // CHAIR ABOVE TABLE
               t.entity.type = types.CHAIR_B;
-              
               if(tbb.isChairT()){
+               // The PC is below
                tbb.entity.type = types.FLOOR;
+               t.entity.person = null;
                tbb.entity.person = null;
+               tb.entity.pc.chairTile = t;
                tbb.change();
                tb.entity.flipMonitors();
               }
             } else if(ta.isTable()){
-              // CHAIR BELOW TABLE
+              // The PC is above
               t.entity.type = types.CHAIR_T;
-               
               if(taa.isChairB()){
                 taa.entity.type = types.FLOOR;
+                t.entity.person = null;
                 taa.entity.person = null;
+                ta.entity.pc.chairTile = t;
                 taa.change();
                 ta.entity.flipMonitors();
               }
