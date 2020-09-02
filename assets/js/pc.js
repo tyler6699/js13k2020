@@ -1,8 +1,8 @@
-function PC(direction, chairTile, tile){
+function PC(direction, chair, tile){
   PCID++;
   this.id = PCID;
   this.inUse = false;
   this.direction = direction;
-  this.chairTile = chairTile;
+  this.chair = chair;
   this.tile = tile;
 }

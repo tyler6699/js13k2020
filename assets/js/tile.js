@@ -7,8 +7,8 @@ function Tile(size, x, y, angle, type, solid, column, row) {
   
   this.update = function() {
     this.entity.update();
-    // Draw Person
-    if(this.entity.person != null) this.entity.person.tick();
+    // Tick Person
+    if(this.person() != null) this.entity.person.tick();
   }
 
   this.tick = function(hero){
@@ -37,5 +37,9 @@ function Tile(size, x, y, angle, type, solid, column, row) {
   
   this.isFloor = function(){
     return this.entity.isFloor();
+  }
+  
+  this.person = function(){
+    return this.entity.person;
   }
 }

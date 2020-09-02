@@ -50,6 +50,7 @@ function Cart() {
     this.level.tick(this.hero);
     this.customers.tick(delta, this.level);
     this.level.draw(this.hero);
+    this.customers.draw(delta);
     
     if(processClick){
       // Check if menu items clicked

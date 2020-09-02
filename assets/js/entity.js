@@ -60,9 +60,9 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     }
   }
 
-  this.addPC = function(direction, chairTile, tile){
+  this.addPC = function(direction, chair, tile){
     if(this.pc == null){
-      this.pc = new PC(direction, chairTile, tile);
+      this.pc = new PC(direction, chair, tile);
     } else {
       this.pc.direction = direction;
     }

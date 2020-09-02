@@ -45,7 +45,7 @@ function Build(scale) {
         // Tile Below
         tb = getTile(ci+19, level);
         tbb = getTile(ci+38, level);
-        console.log(ci);
+        
         switch(this.currentBuildItem) {
           case actions.CHAIR:
             // A table between tables
@@ -79,7 +79,7 @@ function Build(scale) {
                tbb.entity.type = types.FLOOR;
                t.entity.person = null;
                tbb.entity.person = null;
-               tb.entity.pc.chairTile = t;
+               tb.entity.pc.chair = t;
                tbb.change();
                tb.entity.flipMonitors();
               }
@@ -90,7 +90,7 @@ function Build(scale) {
                 taa.entity.type = types.FLOOR;
                 t.entity.person = null;
                 taa.entity.person = null;
-                ta.entity.pc.chairTile = t;
+                ta.entity.pc.chair = t;
                 taa.change();
                 ta.entity.flipMonitors();
               }
