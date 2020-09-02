@@ -4,6 +4,7 @@ function Person(tile){
   this.requestTime = 0;
   this.useTime = 0;
   this.hasTarget = false;
+  this.progress = new Progress(10);
   
   if(tile.entity.type == types.CHAIR_B){
     this.entity.sx = 32;
@@ -18,6 +19,8 @@ function Person(tile){
     // Logic for person
     if(!this.hasTarget){
       this.entity.update();  
+      this.progress.draw(this.entity.x, this.entity.y);
+      this.progress.tick(delta);
     } else {
       this.entity.x ++;
     }

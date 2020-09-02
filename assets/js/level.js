@@ -12,16 +12,16 @@ function level(canvasW, canvasH, id) {
   var tileSize = 16;
   var levelArray;
 
-  this.draw = function(hero){
+  this.draw = function(hero, delta){
     for (i = 0; i < this.backTiles.length; i++) {
       var tile = this.backTiles[i];
-      tile.update();
+      tile.update(delta);
     }
 
     // TILE DRAW
     for (i = 0; i < this.tiles.length; i++) {
       var tile = this.tiles[i];
-      tile.update();
+      tile.update(delta);
     }
   }
   
@@ -29,7 +29,7 @@ function level(canvasW, canvasH, id) {
   this.tick = function(hero){
     for (i = 0; i < this.tiles.length; i++) {
       var tile = this.tiles[i];
-      tile.tick(hero);
+      tile.tick(hero, delta);
     }    
   }
 

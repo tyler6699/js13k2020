@@ -122,6 +122,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           ctx.drawImage(this.image, 128, 16, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale); 
         }
       }
+
       ctx.restore();
     }
   }

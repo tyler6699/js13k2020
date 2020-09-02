@@ -49,7 +49,7 @@ function Cart() {
 
     this.level.tick(this.hero);
     this.customers.tick(delta, this.level);
-    this.level.draw(this.hero);
+    this.level.draw(this.hero, delta);
     this.customers.draw(delta);
     
     if(processClick){
