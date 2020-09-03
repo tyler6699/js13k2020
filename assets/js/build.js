@@ -79,7 +79,7 @@ function Build(scale) {
                tbb.entity.type = types.FLOOR;
                t.entity.person = null;
                tbb.entity.person = null;
-               tb.entity.pc.chair = t;
+               if(tb.entity.pc != null) tb.entity.pc.chair = t;
                tbb.change();
                tb.entity.flipMonitors();
               }
@@ -90,7 +90,7 @@ function Build(scale) {
                 taa.entity.type = types.FLOOR;
                 t.entity.person = null;
                 taa.entity.person = null;
-                ta.entity.pc.chair = t;
+                if(ta.entity.pc != null) ta.entity.pc.chair = t;
                 taa.change();
                 ta.entity.flipMonitors();
               }

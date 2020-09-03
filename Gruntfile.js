@@ -28,7 +28,8 @@ module.exports = function(grunt) {
                 "assets/js/pc.js",
                 "assets/js/button.js",
                 "assets/js/build.js",
-                "assets/js/customers.js"
+                "assets/js/customers.js",
+                "assets/js/progress.js"
                 ],
           dest: 'dst/game.min.js',
           ext: '.min.js'

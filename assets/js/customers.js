@@ -3,7 +3,8 @@ function Customers(){
   this.pcs = [];
   this.time = 0;
   this.eventTime=3;
-  this.newPersonChance = 75; // Increase this over time?
+  this.maxPChance=90;
+  this.newPersonChance = 20;
   
   this.tick = function(delta){
     this.time += delta;
@@ -19,7 +20,10 @@ function Customers(){
         } else {
           if(pc.getPerson() != null){
             pc.getPerson().progress.reset();
-            if(pc.getPerson().progress.exit) pc.rmPerson();
+            if(pc.getPerson().progress.exit){
+              pc.rmPerson();
+              this.newPersonChance = this.newPersonChance < this.maxPChance ? this.newPersonChance+1: this.maxPChance;
+            }
           }
         }
       }

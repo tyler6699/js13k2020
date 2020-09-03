@@ -8,6 +8,7 @@ function Cart() {
   this.speed = 5;
   this.level = new level(canvasW, canvasH, 0);
   this.hero.currentLevel = 0;
+  this.hero.gun = new Gun();
   this.level.reset(this.hero, this.scale);
   this.menu = new Build(this.scale);
   this.customers = new Customers();

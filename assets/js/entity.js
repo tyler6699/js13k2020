@@ -30,6 +30,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.drawTile = false;
   this.pc = null;
   this.person = null;
+  this.gun = null;
   // ATLAS Positions
   this.sx=0;
   this.sy=0;

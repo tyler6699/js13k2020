@@ -7,7 +7,9 @@ function Progress(){
   this.resetChance = 60;
   this.happy=randomNum(1,5);
   this.mHappy=true;
-  this.speed=10000;
+  this.speed=8000;
+  this.minSpeed=8000;
+  this.maxSpeed=3000;
   this.exit=false;
   
   this.draw = function(x, y){
@@ -45,7 +47,7 @@ function Progress(){
   this.reset = function(){
     if(completed(this.percent) && this.resetChance > randomNum(0,100)){
       this.percent = 0;
-      this.speed=randomNum(3000,10000);
+      this.speed=randomNum(this.maxSpeed,this.minSpeed);
     }
   }
   
