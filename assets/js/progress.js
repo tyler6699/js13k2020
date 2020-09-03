@@ -1,27 +1,55 @@
-function Progress(radius){
-  this.completedPercentage = 0;
+function Progress(){
+  this.percent = 0;
   this.startAngle = 1.5 * Math.PI;
-  this.endAngle = -.5 * Math.PI + (this.completedPercentage * Math.PI * 2);
-  this.radius = radius;
+  this.endAngle = -.5 * Math.PI + (this.percent * Math.PI * 2);
+  this.colour1 = "silver";
+  this.colour2 = getRandomColor();
+  this.resetChance = 60;
+  this.happy=randomNum(1,5);
+  this.mHappy=true;
+  this.speed=10000;
+  this.exit=false;
   
   this.draw = function(x, y){
     ctx = mainGame.context;
-    this.endAngle = -.5 * Math.PI + (this.completedPercentage * Math.PI * 2);
-    
+    this.endAngle = -.5 * Math.PI + (this.percent * Math.PI * 2);
     ctx.lineWidth = 10;
-    ctx.beginPath();
-    ctx.arc(x, y, 10, this.startAngle, this.endAngle);
-    ctx.strokeStyle = '#060';
-    ctx.stroke();
 
-    ctx.beginPath();
-    ctx.arc(x, y, 10, this.endAngle, -.5 * Math.PI);
-    ctx.strokeStyle = '#0F0';
-    ctx.stroke();
-    ctx.restore();
+    if(!completed(this.percent)){
+      this.mHappy=true;
+      ctx.beginPath();
+      ctx.arc(x, y, 10, this.startAngle, this.endAngle);
+      ctx.strokeStyle = this.colour1;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(x, y, 10, this.endAngle, -.5 * Math.PI);
+      ctx.strokeStyle = this.colour2;
+      ctx.stroke();
+      ctx.restore();
+    } else {
+      if(this.mHappy){
+        this.happy --;
+        this.mHappy=false;
+        if(this.happy==0){
+          this.exit=true;
+        }
+      }
+    }
   }
   
   this.tick = function(delta){
-    this.completedPercentage += delta/10000;
+    if(!completed(this.percent)) this.percent += delta/this.speed;
+  }
+  
+  this.reset = function(){
+    if(completed(this.percent) && this.resetChance > randomNum(0,100)){
+      this.percent = 0;
+      this.speed=randomNum(3000,10000);
+    }
+  }
+  
+  function completed(p){
+    return p >= 1;
   }
 }

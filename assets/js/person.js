@@ -4,7 +4,7 @@ function Person(tile){
   this.requestTime = 0;
   this.useTime = 0;
   this.hasTarget = false;
-  this.progress = new Progress(10);
+  this.progress = new Progress(100);
   
   if(tile.entity.type == types.CHAIR_B){
     this.entity.sx = 32;
