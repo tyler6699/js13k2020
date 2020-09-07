@@ -25,5 +25,6 @@ const actions = {
   DESK:1,
   PC:2,
   SERVER:3,
-  VEND:4
+  VEND:4,
+  GUN:5
 }

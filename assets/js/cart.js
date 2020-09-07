@@ -62,6 +62,8 @@ function Cart() {
     processClick = false;
     // HERO
     this.hero.update(delta);
+    this.hero.gun.drawBullets(delta);
+    
     this.menu.update();
     
     // Mouse

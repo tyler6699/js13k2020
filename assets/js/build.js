@@ -121,6 +121,13 @@ function Build(scale) {
               t.entity.type = types.SERVER; 
             }
             break;
+          case actions.GUN:
+            ox = cart.hero.x - cart.hero.mhWidthScaled ;
+            oy = cart.hero.y - cart.hero.mhHeightScaled;
+            dx = clickedAt.x;
+            dy = clickedAt.y;
+            cart.hero.gun.addBullets(ox,oy,dx,dy);
+            break;
           default:
             console.log("NaN");
         }

@@ -138,6 +138,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     }
   }
   
+  this.isHero = function(){
+    return this.type == types.HERO;
+  }
+  
   this.isTable = function(){
     return this.type == types.TABLE;
   }
