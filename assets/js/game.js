@@ -20,8 +20,10 @@ var processClick = false;
 var scaleX = 1.346;
 var scaleY = 1.38;
 var PCID = -1;
+var BID = 0;
 var HUE = 0;
 var SAT = "100%";
+var SCORE = 0;
 
 // The Game
 var cart = new Cart();

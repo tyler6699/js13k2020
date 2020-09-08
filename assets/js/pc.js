@@ -5,7 +5,8 @@ function PC(direction, chair, tile){
   this.direction = direction;
   this.chair = chair;
   this.tile = tile;
-  
+  this.hitbox = new rectanlge(tile.entity.x+30, tile.entity.y+10, 20, 20);
+      
   this.getPerson = function(){
     return this.chair.entity.person;
   }
