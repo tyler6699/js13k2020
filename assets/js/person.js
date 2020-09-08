@@ -21,7 +21,7 @@ function Person(tile){
       this.entity.update();  
       this.progress.draw(this.entity.x, this.entity.y);
       this.progress.tick(delta);
-    } else {
+    //} else {
       //this.entity.x ++;
     }
   }
