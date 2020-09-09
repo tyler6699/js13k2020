@@ -114,7 +114,9 @@ function Build(scale) {
             t.change();
             break;
           case actions.VEND:
-            t.entity.type = types.VEND;
+            if(t.isFloor()){
+              t.entity.type = types.VEND;
+            }
             break;
           case actions.SERVER:
             if(t.isFloor()){
