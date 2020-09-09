@@ -41,7 +41,16 @@ function Cart() {
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex+20]); // TOP RIGHT
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex-18]); // BOTTOM LEFT
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex-19]); // BELOW
-      this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
+      this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT      
+    }
+    
+    for (var i = 0; i < this.hero.collisionArray.length; i++) {
+      tile = this.hero.collisionArray[i];
+      if(tile.entity.isServer() && rectColiding(tile.entity.hitbox,this.hero.sensor)){
+        this.hero.gun.ammo += tile.entity.ammo;
+        tile.entity.ammo=0;
+        // TODO Add FX
+      }
     }
   
     // Render

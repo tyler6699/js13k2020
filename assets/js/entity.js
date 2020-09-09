@@ -31,18 +31,19 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.pc = null;
   this.person = null;
   this.gun = null;
+  this.ammo = 5;
+  this.time=0;
+  this.eventTime=5;
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
   
   this.setHitbox = function() {
     this.hitbox = new rectanlge(0, 0, 0, 0);
+    this.sensor = new rectanlge(0, 0, 0, 0);
     if(this.isButton){
       this.hitbox.w = this.width * 2;
       this.hitbox.h = this.height * 2;
-    } else {
-      this.hitbox.w = (this.width * this.scale) - (this.hitboxOffsetX * this.scale);
-      this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetY * this.scale);
     }
   }
   this.setHitbox();
@@ -58,6 +59,11 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       this.hitbox.y = this.y + ((this.hitboxOffsetX * this.scale)/2);
       this.hitbox.w = (this.width * this.scale) - (this.hitboxOffsetX * this.scale);
       this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetY * this.scale);
+      
+      this.sensor.x = this.x-5;
+      this.sensor.y = this.y-5;
+      this.sensor.w = (this.width * this.scale) + 10;
+      this.sensor.h = (this.height * this.scale) + 10;
     }
   }
 
@@ -71,12 +77,11 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   // Render
   this.update = function(delta) {
     this.updateHitbox();
-
+    
     if (this.active) {
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.x, this.y);
-      
       
       if(this.drawTile){
         ctx.globalAlpha = .4;
@@ -113,7 +118,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         }  
       }
       
-      if(this.isTable){
+      if(this.isTable()){
         ctx.globalAlpha = 1;
         if(this.pc != null && this.pc.direction == types.PC_B){
           ctx.translate(0, -30);
@@ -121,6 +126,12 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         } else if (this.pc != null && this.pc.direction == types.PC){
           ctx.translate(0, -20);
           ctx.drawImage(this.image, 128, 16, this.width, this.height, this.hWidth, this.hHeight, this.width * this.scale, this.height * this.scale); 
+        }
+      } else if (this.isServer()){
+        this.time+=delta;
+        if(this.time > this.eventTime){
+          this.time=0;
+          this.ammo+=5;
         }
       }
 
@@ -156,6 +167,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   
   this.isFloor = function(){
     return this.type == types.FLOOR;
+  }
+  
+  this.isServer = function(){
+    return this.type == types.SERVER;
   }
   
   this.setType = function(){
