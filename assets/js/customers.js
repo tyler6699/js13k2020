@@ -5,6 +5,7 @@ function Customers(){
   this.eventTime=3;
   this.maxPChance=90;
   this.newPersonChance = 20;
+  this.userCount=0;
   
   this.tick = function(delta){
     this.time += delta;
@@ -16,12 +17,14 @@ function Customers(){
         if(pc != null && pc.chair.person() == null){
           if(randomNum(0,100) > this.newPersonChance){
             pc.chair.entity.person = new Person(pc.chair);
+            this.userCount++;
           }
         } else {
           if(pc.getPerson() != null){
             pc.getPerson().progress.reset();
             if(pc.getPerson().progress.exit){
               pc.rmPerson();
+              this.userCount--;
               this.newPersonChance = this.newPersonChance < this.maxPChance ? this.newPersonChance+1: this.maxPChance;
             }
           }
