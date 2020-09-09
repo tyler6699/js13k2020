@@ -54,13 +54,15 @@ function Bullet(ox,oy,dx,dy){
       for(j=0;j< pcs.length; j++){
         pc=pcs[j];
         person = pc.getPerson();
-        if(rectColiding(pc.hitbox,this.hitbox) && person.progress != null && person.progress.percent < 1){
-          person.progress.percent = 1;
-          if(person.progress.happy < 6){
-            person.progress.happy += 2;
+        if(person != null){
+          if(rectColiding(pc.hitbox,this.hitbox) && person.progress != null && person.progress.percent < 1){
+            person.progress.percent = 1;
+            if(person.progress.happy < 6){
+              person.progress.happy += 2;
+            }
+            SCORE++;
+            this.active=false;
           }
-          SCORE++;
-          this.active=false;
         }
       }
       
