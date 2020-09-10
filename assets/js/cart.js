@@ -2,7 +2,7 @@ function Cart() {
   xOffset = 5;
   yOffset = 5;
   this.scale = 4;
-  this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "red", this.scale, xOffset, yOffset);
+  this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
   this.hero.image.src = "atlas.png";
   this.hero.sx = 16;
   this.speed = 5;
@@ -55,6 +55,7 @@ function Cart() {
         this.hero.currentGift+=tile.entity.ammo;
         this.hero.showText="++ " + this.hero.currentGift + " ammo";
         tile.entity.ammo=0;
+        tile.entity.time=0;
       }
     }
   

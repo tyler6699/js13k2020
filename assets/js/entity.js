@@ -35,7 +35,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.time=0;
   this.showText="";
   this.showTextTime=0;
-  this.showTextY;
+  this.showTextY=0;
   this.currentGift=0;
   // ATLAS Positions
   this.sx=0;
@@ -113,6 +113,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       
       // SHOW TEXT
       if(this.showTextTime>0){
+        console.log(this.showText + " time: " + this.showTextTime);
         this.showTextTime-=delta;
         gradient = ctx.createLinearGradient(0, 0, canvasW, 0);
         gradient.addColorStop("0", "#05f2db");
@@ -127,6 +128,9 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       if(this.isButton){
         if(this.type == actions.CHAIR){
           ctx.drawImage(this.image, 48, 32, 10, 10, -16, -16, 32, 32); 
+          if(this.person!= null){
+            console.log(this.person.progress.showTextTime);
+          }
           if(cart.menu.currentBuildItem == actions.CHAIR)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.DESK){
           ctx.drawImage(this.image, 58, 32, 10, 10, -16, -16, 32, 32); 
@@ -163,7 +167,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
             this.ammo+=AMMOGIFT;
             this.showTextY=-35;
             this.showTextTime=TEXTTIME;
-            this.showText="+" + AMMOGIFT + " ammo";
+            this.showText="+" + AMMOGIFT + " ammo - $" + AMMOCOST;
+            SCORE-=AMMOCOST;
           }  
         }
       } else if(this.isVend()){

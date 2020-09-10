@@ -11,6 +11,7 @@ function Progress(){
   this.minSpeed=8000;
   this.maxSpeed=3000;
   this.exit=false;
+  this.fourfour=false;
   
   this.draw = function(x, y){
     ctx = mainGame.context;
@@ -31,6 +32,7 @@ function Progress(){
       ctx.restore();
     } else {
       if(this.mHappy){
+        this.fourfour=true;
         this.happy --;
         this.mHappy=false;
         if(this.happy==0){
