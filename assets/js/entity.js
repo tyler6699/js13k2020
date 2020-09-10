@@ -119,15 +119,23 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       
       if(this.isButton){
         if(this.type == actions.CHAIR){
-          ctx.drawImage(this.image, 84, 16, 8, 8, -16, -16, 32, 32);  
+          ctx.drawImage(this.image, 48, 32, 10, 10, -16, -16, 32, 32); 
+          if(cart.menu.currentBuildItem == actions.CHAIR)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.DESK){
-          ctx.drawImage(this.image, 64, 16, 16, 16, -16, -16, 32, 32);
+          ctx.drawImage(this.image, 58, 32, 10, 10, -16, -16, 32, 32); 
+          if(cart.menu.currentBuildItem == actions.DESK)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.PC){
-          ctx.drawImage(this.image, 115, 17, 10, 13, -16, -16, 32, 32);
+          ctx.drawImage(this.image, 68, 32, 10, 10, -16, -16, 32, 32); 
+          if(cart.menu.currentBuildItem == actions.PC)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.SERVER){
-          ctx.drawImage(this.image, 146, 16, 12, 15, -16, -16, 32, 32);
+          ctx.drawImage(this.image, 78, 32, 10, 10, -16, -16, 32, 32); 
+          if(cart.menu.currentBuildItem == actions.SERVER)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.VEND){
-          ctx.drawImage(this.image, 146, 32, 13, 16, -16, -16, 32, 32);
+          ctx.drawImage(this.image, 88, 32, 10, 10, -16, -16, 32, 32);
+          if(cart.menu.currentBuildItem == actions.VEND)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+        } else if (this.type == actions.GUN){
+          ctx.drawImage(this.image, 98, 32, 12, 11, -16, -16, 32, 32);
+          if(cart.menu.currentBuildItem == actions.GUN)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         }  
       }
       

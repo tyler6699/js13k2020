@@ -21,10 +21,10 @@ const types = {
 }
 
 const actions = {
-  CHAIR:0,
+  GUN:0,
   DESK:1,
-  PC:2,
-  SERVER:3,
-  VEND:4,
-  GUN:5
+  CHAIR:2,
+  PC:3,
+  SERVER:4,
+  VEND:5,
 }

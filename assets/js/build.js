@@ -9,7 +9,7 @@ function Build(scale) {
   
   // Add 10 buttons
   for(i = 0; i<this.nButtons;i++){
-    this.buttons.push(new Button(32,32,canvasW-48,50+(i*80),"#4c5774", getValueByIndex(actions,i)));
+    this.buttons.push(new Button(32,32,canvasW-48,50+(i*80),"#131a2d", getValueByIndex(actions,i)));
   }
   
   this.update = function(){

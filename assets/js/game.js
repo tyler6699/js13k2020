@@ -32,6 +32,7 @@ var TEXTTIME=2;
 var HEROTEXTTIME=.4;
 var DELIVERED=1;
 var EXITPENALTY=100;
+var SHOOTDIST=450;
 
 // The Game
 var cart = new Cart();

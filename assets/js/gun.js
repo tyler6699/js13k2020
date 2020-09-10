@@ -37,20 +37,31 @@ function Bullet(ox,oy,dx,dy){
   this.dst=0;
   this.active=true;
   this.hitbox = new rectanlge(ox, oy, this.w, this.h);
+  this.colour="#a205a2";
+  this.dist=0;
   
   this.draw = function(delta, pcs){
     // Update Position
     if(this.active){ // TODO: remove bullets
-      this.v.x += (this.dx*delta)*this.speed;
-      this.v.y += (this.dy*delta)*this.speed;
-      if(this.v.x < 0 || this.v.x>1300 || this.v.y < 0 || this.v.y > 840){
+      var x1 = this.v.x;
+      var y1 = this.v.x;
+      this.v.x +=(this.dx*delta)*this.speed;
+      this.v.y +=(this.dy*delta)*this.speed; 
+      var x2 = this.v.x;
+      var y2 = this.v.x;
+      // DIST
+      var a = x1 - x2;
+      var b = y1 - y2;
+      var c = Math.sqrt( a*a + b*b );
+      this.dist += c;
+      
+      if(this.v.x < 0 || this.v.x>1300 || this.v.y < 0 || this.v.y > 840 || this.dist > SHOOTDIST){
         this.active = false;
       }
       this.hitbox.x = this.v.x + this.mhWidth;
       this.hitbox.y = this.v.y + this.mhHeight;
       
       //Collision Test
-      
       for(j=0;j< pcs.length; j++){
         pc=pcs[j];
         person = pc.getPerson();
@@ -73,7 +84,7 @@ function Bullet(ox,oy,dx,dy){
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.v.x, this.v.y);
-      ctx.fillStyle = "BLUE";
+      ctx.fillStyle = this.colour;
       ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.w * .5), (this.h * .5));         
       ctx.restore();
     }
