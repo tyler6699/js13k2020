@@ -33,7 +33,9 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.gun = null;
   this.ammo = 5;
   this.time=0;
-  this.eventTime=5;
+  this.showText="";
+  this.showTextTime=0;
+  this.showTextY;
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -104,6 +106,17 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);  
       }
       
+      // SHOW TEXT
+      if(this.showTextTime>0){
+        this.showTextTime-=delta;
+        gradient = ctx.createLinearGradient(0, 0, canvasW, 0);
+        gradient.addColorStop("0", "#05f2db");
+        gradient.addColorStop(".1", "#990099");
+        ctx.font = "italic 700 25px Unknown Font, sans-serif";
+        ctx.fillStyle = gradient;
+        ctx.fillText(this.showText, 0, this.showTextY+(10*this.showTextTime));
+      }
+      
       if(this.isButton){
         if(this.type == actions.CHAIR){
           ctx.drawImage(this.image, 84, 16, 8, 8, -16, -16, 32, 32);  
@@ -129,9 +142,26 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         }
       } else if (this.isServer()){
         this.time+=delta;
-        if(this.time > this.eventTime){
+        if(this.time > SERVEREVENT){
           this.time=0;
-          this.ammo+=5;
+          if(this.ammo==0){
+            this.ammo+=AMMOGIFT;
+            this.showTextY=-35;
+            this.showTextTime=TEXTTIME;
+            this.showText="+" + AMMOGIFT + " ammo";
+          }  
+        }
+      } else if(this.isVend()){
+        this.time+=delta;
+        if(this.time > VENDEVENT){
+          this.time=0;
+          amount = cart.customers.userCount*VENDNUM;
+          SCORE+=amount;
+          if(amount>0){
+            this.showTextY=-35;
+            this.showTextTime=TEXTTIME;
+            this.showText="+ $" + cart.customers.userCount*VENDNUM;
+          }
         }
       }
 
@@ -171,6 +201,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   
   this.isServer = function(){
     return this.type == types.SERVER;
+  }
+  
+  this.isVend = function(){
+    return this.type == types.VEND;
   }
   
   this.setType = function(){

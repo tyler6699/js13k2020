@@ -24,6 +24,13 @@ var BID = 0;
 var HUE = 0;
 var SAT = "100%";
 var SCORE = 0;
+var VENDNUM=3;
+var SERVEREVENT=3;
+var VENDEVENT=3;
+var AMMOGIFT=5;
+var TEXTTIME=2;
+var HEROTEXTTIME=.3;
+var DELIVERED=1;
 
 // The Game
 var cart = new Cart();

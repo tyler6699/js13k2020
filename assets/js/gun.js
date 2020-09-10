@@ -60,8 +60,11 @@ function Bullet(ox,oy,dx,dy){
             if(person.progress.happy < 6){
               person.progress.happy += 2;
             }
-            SCORE++;
+            SCORE+=DELIVERED;
             this.active=false;
+            cart.hero.showTextY=-5;
+            cart.hero.showTextTime=HEROTEXTTIME;
+            cart.hero.showText="+ S" + DELIVERED;
           }
         }
       }

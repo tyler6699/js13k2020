@@ -66,13 +66,14 @@ function Cart() {
     gradient = ctx.createLinearGradient(0, 0, canvasW, 0);
     gradient.addColorStop("0", "#05f2db");
     gradient.addColorStop(".5", "#990099");
-    ctx.font = "italic 700 25px Unknown Font, sans-serif";
     ctx.fillStyle = gradient;
-    ctx.fillText("Score: " + SCORE, 30, 50);
-    ctx.fillText("PCS: " + this.customers.pcs.length, 170, 50);
-    ctx.fillText("Users: " + this.customers.userCount, 300, 50);
-    ctx.fillText("Ammo: " + this.hero.gun.ammo, 450, 50);
-    
+    ctx.font = "italic 700 40px Unknown Font, sans-serif";
+    ctx.fillText("$: " + SCORE, 900, 50);
+    ctx.font = "italic 700 25px Unknown Font, sans-serif";
+    ctx.fillText("PCS: " + this.customers.pcs.length, 30, 50);
+    ctx.fillText("Users: " + this.customers.userCount, 180, 50);
+    ctx.fillText("Rating: " + this.customers.getRating() + "%", 360, 50);
+    ctx.fillText("Ammo: " + this.hero.gun.ammo, 540, 50);
     
     if(processClick){
       // Check if menu items clicked
