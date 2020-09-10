@@ -36,6 +36,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.showText="";
   this.showTextTime=0;
   this.showTextY;
+  this.currentGift=0;
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -106,6 +107,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);  
       }
       
+      if(this.isServer() && this.ammo > 0){
+        ctx.drawImage(this.image, 128, 32, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);  
+      }
+      
       // SHOW TEXT
       if(this.showTextTime>0){
         this.showTextTime-=delta;
@@ -115,6 +120,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         ctx.font = "italic 700 25px Unknown Font, sans-serif";
         ctx.fillStyle = gradient;
         ctx.fillText(this.showText, 0, this.showTextY+(10*this.showTextTime));
+      } else {
+        this.currentGift=0;
       }
       
       if(this.isButton){

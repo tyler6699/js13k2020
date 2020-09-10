@@ -22,7 +22,9 @@ function Cart() {
     if (right()) this.hero.x += this.getMoveAmount(this.speed,0);
     if (up()) this.hero.y -= this.getMoveAmount(0,-this.speed);
     if (down()) this.hero.y += this.getMoveAmount(0,this.speed);
-    if (space()){}
+    if (space()){
+      this.menu.currentBuildItem=actions.GUN;
+    }
     
     // Set Hero Current Tile
     heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / 64);
@@ -46,10 +48,13 @@ function Cart() {
     
     for (var i = 0; i < this.hero.collisionArray.length; i++) {
       tile = this.hero.collisionArray[i];
-      if(tile.entity.isServer() && rectColiding(tile.entity.hitbox,this.hero.sensor)){
+      if(tile.entity.isServer() && rectColiding(tile.entity.hitbox,this.hero.sensor) && tile.entity.ammo>0){
         this.hero.gun.ammo += tile.entity.ammo;
+        this.hero.showTextY=-15;
+        this.hero.showTextTime=TEXTTIME/2;
+        this.hero.currentGift+=tile.entity.ammo;
+        this.hero.showText="++ " + this.hero.currentGift + " ammo";
         tile.entity.ammo=0;
-        // TODO Add FX
       }
     }
   
