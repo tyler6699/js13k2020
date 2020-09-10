@@ -29,8 +29,9 @@ var SERVEREVENT=3;
 var VENDEVENT=3;
 var AMMOGIFT=5;
 var TEXTTIME=2;
-var HEROTEXTTIME=.3;
+var HEROTEXTTIME=.4;
 var DELIVERED=1;
+var EXITPENALTY=100;
 
 // The Game
 var cart = new Cart();

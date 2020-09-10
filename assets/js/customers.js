@@ -25,6 +25,10 @@ function Customers(){
             if(pc.getPerson().progress.exit){
               pc.rmPerson();
               this.userCount--;
+              SCORE-=EXITPENALTY;
+              cart.hero.showTextY=-5;
+              cart.hero.showTextTime=HEROTEXTTIME*2;
+              cart.hero.showText="- S" + EXITPENALTY;
               this.newPersonChance = this.newPersonChance < this.maxPChance ? this.newPersonChance-1: this.maxPChance;
             }
           }
