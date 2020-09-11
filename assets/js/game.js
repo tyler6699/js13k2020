@@ -41,9 +41,16 @@ var PCPRICE=150;
 var SERVERPRICE=150;
 var RESETCHANCE = 80;
 var AMMOSTART = 100;
+var NEWPERSONCHANCE = 50;
 
 // The Game
 var cart = new Cart();
+
+// Audio
+genAudio();
+var music=false;
+var start=false;
+var mTime=0;
 
 // Called by body onload on index page
 function startGame() {
@@ -92,6 +99,9 @@ var mainGame = {
       clickCol = Math.floor(clickedAt.x / 64);
       clickIndex = clickCol + (19*clickRow);
       processClick = true;
+      if(!music&&!start){
+        music=true;
+      }
     })
     window.addEventListener('mousemove', function(e) {
       e.preventDefault();
@@ -116,6 +126,20 @@ var mainGame = {
 }
 
 function updateGameArea() {
+  // Music  
+  if(music && songLoaded){
+    audio.play();
+    music=false;
+    mTime=0;
+  } else {
+    mTime += delta;
+    if(mTime > 50000){
+      audio.currentTime = 0;
+      audio.play();
+      mTime=0;
+    }
+  }
+  
   // Delta
   prevDelta = currentDelta;
   currentDelta = Date.now();

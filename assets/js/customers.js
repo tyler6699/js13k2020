@@ -4,7 +4,6 @@ function Customers(){
   this.time = 0;
   this.eventTime=3;
   this.maxPChance=100;
-  this.newPersonChance = 50;
   this.userCount=0;
   
   this.tick = function(delta){
@@ -15,7 +14,7 @@ function Customers(){
       for(i=0;i<this.pcs.length;i++){
         pc=this.pcs[i];
         if(pc != null && pc.chair.person() == null){
-          if(randomNum(0,100) < this.newPersonChance+1){
+          if(randomNum(0,100) < NEWPERSONCHANCE){
             pc.chair.entity.person = new Person(pc.chair);
             this.userCount++;
           }
@@ -29,7 +28,7 @@ function Customers(){
               cart.hero.showTextY=-5;
               cart.hero.showTextTime=HEROTEXTTIME*2;
               cart.hero.showText="- S" + EXITPENALTY;
-              this.newPersonChance = this.newPersonChance < this.maxPChance ? this.newPersonChance-1: this.maxPChance;
+              if(NEWPERSONCHANCE>0) NEWPERSONCHANCE--;
             }
           }
         }
@@ -62,7 +61,4 @@ function Customers(){
     this.pcs[pc.id] = pc;
   }
   
-  this.getRating = function(){
-    return this.newPersonChance;
-  }
 }

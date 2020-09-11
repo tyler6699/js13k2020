@@ -78,7 +78,7 @@ function Cart() {
     ctx.font = "italic 700 25px Unknown Font, sans-serif";
     ctx.fillText("PCS: " + this.customers.pcs.length, 30, 50);
     ctx.fillText("Users: " + this.customers.userCount, 180, 50);
-    ctx.fillText("Rating: " + this.customers.getRating() + "%", 360, 50);
+    ctx.fillText("Rating: " + NEWPERSONCHANCE + "%", 360, 50);
     ctx.fillText("Ammo: " + this.hero.gun.ammo, 540, 50);
     
     if(processClick){
