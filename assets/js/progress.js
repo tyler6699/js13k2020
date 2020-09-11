@@ -4,14 +4,15 @@ function Progress(){
   this.endAngle = -.5 * Math.PI + (this.percent * Math.PI * 2);
   this.colour1 = "silver";
   this.colour2 = getRandomColor();
-  this.resetChance = 60;
-  this.happy=randomNum(1,5);
+  this.resetChance = RESETCHANCE;
+  this.happy=randomNum(2,5);
   this.mHappy=true;
   this.speed=8000;
   this.minSpeed=8000;
   this.maxSpeed=3000;
   this.exit=false;
   this.fourfour=false;
+  this.delivered=false;
   
   this.draw = function(x, y){
     ctx = mainGame.context;
@@ -31,7 +32,7 @@ function Progress(){
       ctx.stroke();
       ctx.restore();
     } else {
-      if(this.mHappy){
+      if(this.mHappy && !this.delivered){
         this.fourfour=true;
         this.happy --;
         this.mHappy=false;

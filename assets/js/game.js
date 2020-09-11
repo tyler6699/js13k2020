@@ -23,7 +23,7 @@ var PCID = -1;
 var BID = 0;
 var HUE = 0;
 var SAT = "100%";
-var SCORE = 0;
+var SCORE = 404;
 var VENDNUM=3;
 var SERVEREVENT=10;
 var VENDEVENT=10;
@@ -31,9 +31,16 @@ var AMMOCOST=5;
 var AMMOGIFT=5;
 var TEXTTIME=2;
 var HEROTEXTTIME=.4;
-var DELIVERED=1;
-var EXITPENALTY=100;
+var DELIVERED=200;
+var EXITPENALTY=20;
 var SHOOTDIST=450;
+var TABLEPRICE=100;
+var CHAIRPRICE=50;
+var VENDPRICE=500;
+var PCPRICE=50;
+var SERVERPRICE=200;
+var RESETCHANCE = 80;
+var AMMOSTART = 100;
 
 // The Game
 var cart = new Cart();

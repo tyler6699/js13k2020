@@ -6,6 +6,7 @@ function Person(tile){
   this.hasTarget = false;
   this.progress = new Progress();
   this.parent = tile.entity;
+  this.tile = tile;
   
   if(tile.entity.type == types.CHAIR_B){
     this.entity.sx = 32;
@@ -21,11 +22,19 @@ function Person(tile){
     this.progress.draw(this.entity.x, this.entity.y, this.entity);
     this.progress.tick(delta);
     
-    if(this.progress.fourfour){
-      this.progress.fourfour=false;
-      this.parent.showTextY=-25;
-      this.parent.showText="404";
+    if(this.progress.fourfour || this.progress.delivered){
+      if(this.parent.type == types.CHAIR_B){
+        console.log("here");
+        this.parent.showTextY=-25;
+      } else {
+        console.log("here2");
+        this.parent.showTextY=-70;
+      }
+      
+      this.parent.showText = this.progress.fourfour ? "Status: 404" : "Status: 200";
       this.parent.showTextTime=TEXTTIME;
+      this.progress.fourfour=false;
+      this.progress.delivered=false;
     }
   }
 }

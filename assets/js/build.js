@@ -73,19 +73,26 @@ function Build(scale) {
 
             if(tb.isTable()){
               // CHAIR ABOVE TABLE
-              t.entity.type = types.CHAIR_B;
               if(tbb.isChairT()){
-               // The PC is below
-               tbb.entity.type = types.FLOOR;
-               t.entity.person = null;
-               tbb.entity.person = null;
-               if(tb.entity.pc != null) tb.entity.pc.chair = t;
-               tbb.change();
-               tb.entity.flipMonitors();
+                // The PC is below
+                tbb.entity.type = types.FLOOR;
+                t.entity.person = null;
+                tbb.entity.person = null;
+                if(tb.entity.pc != null) tb.entity.pc.chair = t;
+                tbb.change();
+                tb.entity.flipMonitors();
+                t.entity.type = types.CHAIR_B;
+              } else {
+                if(SCORE>CHAIRPRICE){
+                  t.entity.type = types.CHAIR_B;
+                  SCORE-=CHAIRPRICE;
+                  setHeroText("- $"+CHAIRPRICE);
+                } else {
+                  setHeroText("Not enough $");
+                }
               }
             } else if(ta.isTable()){
               // The PC is above
-              t.entity.type = types.CHAIR_T;
               if(taa.isChairB()){
                 taa.entity.type = types.FLOOR;
                 t.entity.person = null;
@@ -93,23 +100,45 @@ function Build(scale) {
                 if(ta.entity.pc != null) ta.entity.pc.chair = t;
                 taa.change();
                 ta.entity.flipMonitors();
+                t.entity.type = types.CHAIR_T;
+              } else {
+                if(SCORE>CHAIRPRICE){
+                  t.entity.type = types.CHAIR_T;
+                  SCORE-=CHAIRPRICE;
+                  setHeroText("- $"+CHAIRPRICE);
+                } else {
+                  setHeroText("Not enough $");
+                }
               }
             }
             break;
           case actions.DESK:
             if(t.isFloor()){
-              t.entity.type = types.TABLE; 
+              if(SCORE>TABLEPRICE){
+                SCORE-=TABLEPRICE;
+                setHeroText("- $"+TABLEPRICE);
+                t.entity.type = types.TABLE;
+              } else {
+                setHeroText("Not enough $");
+              }
             }
             break;
           case actions.PC:
-            if(t.isTable()){
-              if (ta.isChairB()){
-                t.entity.addPC(types.PC,ta,t);
-                customer.addPC(t.entity.pc);
-              } else if (tb.isChairT()) {
-                t.entity.addPC(types.PC_B,tb,t);
-                customer.addPC(t.entity.pc);
+            if(t.isTable()){  
+              if(SCORE>PCPRICE){
+                SCORE-=PCPRICE;
+                setHeroText("- $"+PCPRICE);
+                if (ta.isChairB()){
+                  t.entity.addPC(types.PC,ta,t);
+                  customer.addPC(t.entity.pc);
+                } else if (tb.isChairT()) {
+                  t.entity.addPC(types.PC_B,tb,t);
+                  customer.addPC(t.entity.pc);
+                }
+              } else {
+                setHeroText("Not enough $");
               }
+
             }
             t.change();
             break;

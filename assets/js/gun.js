@@ -1,5 +1,5 @@
 function Gun(){
-  this.ammo=10;
+  this.ammo=AMMOSTART;
   this.bullets=[];
   
   this.addBullets = function(ox,oy,dx,dy){
@@ -20,7 +20,6 @@ function Gun(){
       return b.active == true;
     });
   }
-  
 }
 
 function Bullet(ox,oy,dx,dy){
@@ -68,9 +67,11 @@ function Bullet(ox,oy,dx,dy){
         if(person != null){
           if(rectColiding(pc.hitbox,this.hitbox) && person.progress != null && person.progress.percent < 1){
             person.progress.percent = 1;
-            if(person.progress.happy < 6){
+            if(person.progress.happy < 5){
               person.progress.happy += 2;
             }
+            person.progress.delivered=true;
+            person.progress.mHappy=false;
             SCORE+=DELIVERED;
             this.active=false;
             cart.hero.showTextY=-5;
