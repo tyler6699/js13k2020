@@ -143,13 +143,25 @@ function Build(scale) {
             t.change();
             break;
           case actions.VEND:
-            if(t.isFloor()){
-              t.entity.type = types.VEND;
+            if(SCORE>VENDPRICE){
+              if(t.isFloor()){
+                t.entity.type = types.VEND;
+                SCORE-=VENDPRICE;
+                setHeroText("- $"+VENDPRICE);
+              }
+            } else {
+              setHeroText("Not enough $");
             }
             break;
           case actions.SERVER:
-            if(t.isFloor()){
-              t.entity.type = types.SERVER; 
+            if(SCORE>SERVERPRICE){
+              if(t.isFloor()){
+                t.entity.type = types.SERVER;
+                SCORE-=SERVERPRICE;
+                setHeroText("- $"+SERVERPRICE);
+              }
+            } else {
+              setHeroText("Not enough $");
             }
             break;
           case actions.GUN:

@@ -24,10 +24,8 @@ function Person(tile){
     
     if(this.progress.fourfour || this.progress.delivered){
       if(this.parent.type == types.CHAIR_B){
-        console.log("here");
         this.parent.showTextY=-25;
       } else {
-        console.log("here2");
         this.parent.showTextY=-70;
       }
       
