@@ -52,7 +52,6 @@ var UPPRICE=1000;
 var targets=[];
 var atlas = new Image();
 atlas.src = "atlas.png";
-
 // The Game
 var cart = new Cart();
 

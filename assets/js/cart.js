@@ -79,19 +79,29 @@ function Cart() {
     ctx.fillText("Users: " + this.customers.userCount, 180, 50);
     ctx.fillText("Rating: " + NEWPERSONCHANCE + "%", 360, 50);
     ctx.fillText("Data: " + this.hero.gun.ammo, 540, 50);
-    
-    if(!this.menu.canBuild){
+      
+    if(this.menu.currentBuildItem != null && this.menu.hoverTile!=null && this.menu.currentBuildItem != actions.GUN){
       ctx = mainGame.context;
       ctx.save();
-      ctx.translate(mousePos.x, mousePos.y);
-      ctx.drawImage(atlas, 32, 48, 16, 16, 8, 8, 64, 64);  
+      ctx.translate(this.menu.hoverTile.entity.x, this.menu.hoverTile.entity.y);
+      if(this.menu.currentBuildItem == actions.PC){
+        if(!this.menu.hoverTile.isTable()){
+          ctx.drawImage(atlas, 32, 48, 16, 16, 8, 8, 64, 64);
+        } else { 
+          ctx.drawImage(atlas, 112, 32, 16, 16, 8, 8, 64, 64);  
+        }
+      } else {  
+        if(!this.menu.canBuild){
+          ctx.drawImage(atlas, 32, 48, 16, 16, 8, 8, 64, 64); 
+        } else if(this.menu.canBuild && this.menu.hoverTile.isFloor()) {
+          ctx.drawImage(atlas, 112, 32, 16, 16, 8, 8, 64, 64);  
+        }
+      }
       ctx.restore();
     }
     
-    if(processClick){
-      // Check if menu items clicked
-      processClick = cart.menu.tick();
-    }
+    if(processClick) processClick = cart.menu.tick();
+    cart.menu.checkBuild();
     
     this.menu.processBuilding(processClick,this.level, this.customers);
     processClick = false;
