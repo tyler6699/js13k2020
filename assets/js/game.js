@@ -43,6 +43,7 @@ var RESETCHANCE = 80;
 var AMMOSTART = 100;
 var NEWPERSONCHANCE = 50;
 var AUTOPRICE=0;
+var SHOOTWAIT=1;
 
 // The Game
 var cart = new Cart();

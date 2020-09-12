@@ -37,6 +37,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.showTextTime=0;
   this.showTextY=0;
   this.currentGift=0;
+  this.shootTime=0;
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -81,7 +82,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.update = function(delta) {
     this.updateHitbox();
     
-    if (this.active) {
+    if(this.active) {
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.x, this.y);
@@ -186,6 +187,23 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
             this.showText="+ $" + cart.customers.userCount*VENDNUM;
           }
         }
+      } else if(this.isAuto()){        
+        var pcs = cart.customers.pcs;
+        for(var i=0;i< pcs.length; i++){
+          pc=pcs[i];
+          person = pc.getPerson();
+          if(person!=null && person.progress.waiting && this.shootTime <= 0){
+            this.shootTime = SHOOTWAIT;
+            ox = this.x;
+            oy = this.y;
+            dx = pc.tile.entity.x;
+            dy = pc.tile.entity.y;
+            cart.hero.gun.addBullets(ox,oy,dx,dy);
+            break;
+          } else if (this.shootTime > 0){
+            this.shootTime-=delta;
+          }
+        }
       }
 
       ctx.restore();
@@ -228,6 +246,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   
   this.isVend = function(){
     return this.type == types.VEND;
+  }
+  
+  this.isAuto = function(){
+    return this.type == types.AUTO;
   }
   
   this.setType = function(){

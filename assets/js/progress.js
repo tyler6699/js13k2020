@@ -13,6 +13,7 @@ function Progress(){
   this.exit=false;
   this.fourfour=false;
   this.delivered=false;
+  this.waiting=false;
   
   this.draw = function(x, y){
     ctx = mainGame.context;
@@ -20,6 +21,7 @@ function Progress(){
     ctx.lineWidth = 10;
 
     if(!completed(this.percent)){
+      this.waiting=true;
       this.mHappy=true;
       ctx.beginPath();
       ctx.arc(x, y, 10, this.startAngle, this.endAngle);
@@ -32,6 +34,7 @@ function Progress(){
       ctx.stroke();
       ctx.restore();
     } else {
+      this.waiting=false;
       if(this.mHappy && !this.delivered){
         this.fourfour=true;
         this.happy --;
