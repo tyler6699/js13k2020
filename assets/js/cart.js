@@ -72,9 +72,9 @@ function Cart() {
     ctx.fillText("$: " + SCORE, 900, 50);
     ctx.font = "italic 30px Arial";
     ctx.fillText("PCS: " + this.customers.pcs.length, 30, 50);
-    ctx.fillText("Users: " + this.customers.userCount, 180, 50);
-    ctx.fillText("Rating: " + NEWPERSONCHANCE + "%", 340, 50);
-    ctx.fillText("Data: " + this.hero.gun.ammo, 540, 50);
+    ctx.fillText("USERS: " + this.customers.userCount, 170, 50);
+    ctx.fillText("RATING: " + NEWPERSONCHANCE + "%", 350, 50);
+    ctx.fillText("DATA: " + this.hero.gun.ammo, 580, 50);
       
     if(this.menu.curItm != null && this.menu.hoverTile!=null && this.menu.curItm != actions.GUN){
       ctx = mainGame.context;
@@ -138,5 +138,34 @@ function Cart() {
       if(canMove) amount ++;
     }
     return amount;
+  }
+
+  this.reset = function(){
+    PCID = -1;
+    BID = 0;
+    SCORE = 404;
+    VENDNUM=3;
+    SERVEREVENT=10;
+    VENDEVENT=10;
+    AMMOCOST=5;
+    AMMOGIFT=5;
+    TEXTTIME=2;
+    HEROTEXTTIME=.4;
+    DELIVERED=25;
+    EXITPENALTY=20;
+    SHOOTDIST=400;
+    AMMOSTART = 100;
+    NEWPERSONCHANCE = 75;
+    SHOOTWAIT=3;
+    AUTOLEVEL=1;
+    GAMEOVER=false;
+    UPPRICE=1000;
+    
+    this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
+    this.hero.sx = 16;
+    this.level = new level(canvasW, canvasH, 0);
+    this.hero.gun = new Gun();
+    this.level.reset(this.hero, this.scale);
+    this.customers = new Customers();
   }
 }

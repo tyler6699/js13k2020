@@ -54,7 +54,6 @@ function Bullet(ox,oy,dx,dy){
       this.v.y +=(this.dy*delta)*this.speed; 
       // Distance Travelled
       this.dist +=  Math.sqrt( ((this.v.x-xx)*(this.v.x-xx)) + ((this.v.y-yy)*(this.v.y-yy)) );
-      console.log(this.dst);
       
       if(this.v.x < 0 || this.v.x>1300 || this.v.y < 0 || this.v.y > 840 || this.dist > SHOOTDIST){
         this.active = false;
