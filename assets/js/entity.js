@@ -40,6 +40,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.shootTime=0;
   this.hover=false;
   this.hoverText="";
+  this.hoverText2="";
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -130,33 +131,45 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       if(this.isButton){
         by=32;
         if(this.type == actions.CHAIR){
-          this.hoverText="$"+CHAIRPRICE;
+          this.hoverText="Chair";
+          this.hoverText2="$"+CHAIRPRICE;
           bx=48;
           if(cart.menu.currentBuildItem == actions.CHAIR)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.DESK){
           bx=58;
-          this.hoverText="$"+TABLEPRICE;
+          this.hoverText="Desk";
+          this.hoverText2="$"+TABLEPRICE;
           if(cart.menu.currentBuildItem == actions.DESK)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.PC){
-          this.hoverText="$"+PCPRICE;
+          this.hoverText="PC";
+          this.hoverText2="$"+PCPRICE;
           bx=68;
           if(cart.menu.currentBuildItem == actions.PC)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.SERVER){
-          this.hoverText="$"+SERVERPRICE;
+          this.hoverText="Server";
+          this.hoverText2="$"+SERVERPRICE;
           bx=78;
           if(cart.menu.currentBuildItem == actions.SERVER)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.VEND){
           bx=88;
-          this.hoverText="$"+VENDPRICE;
+          this.hoverText="Vending";
+          this.hoverText2="$"+VENDPRICE;
           if(cart.menu.currentBuildItem == actions.VEND)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.GUN){
           bx=98;
           this.hoverText="SELECT";
+          this.hoverText2="DATA GUN";
           if(cart.menu.currentBuildItem == actions.GUN)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.AUTO){
           bx=48;by=42;
-          this.hoverText="$"+AUTOPRICE;
+          this.hoverText="AUTO";
+          this.hoverText2="$"+AUTOPRICE;
           if(cart.menu.currentBuildItem == actions.AUTO)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+        } else if(this.type == actions.UP){
+          bx=58;
+          by=42;
+          this.hoverText="Upgrade";
+          this.hoverText="$"+UP;
         } else {
           bx=115;by=36;
         }  
@@ -172,7 +185,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           ctx.globalAlpha = 1;
           ctx.font = "italic 700 25px Unknown Font, sans-serif";
           ctx.fillStyle = "#990099";
-          ctx.fillText(this.hoverText, -180, 10);
+          ctx.fillText(this.hoverText, -180, -5);
+          ctx.fillText(this.hoverText2, -180, 20);
         }
       }
       

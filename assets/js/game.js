@@ -47,6 +47,7 @@ var AUTOPRICE=0;
 var SHOOTWAIT=3;
 var AUTOLEVEL=1;
 var GAMEOVER=false;
+var UP=1000;
 var targets=[];
 
 // The Game

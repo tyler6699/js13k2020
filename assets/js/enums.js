@@ -29,5 +29,6 @@ const actions = {
   PC:3,
   SERVER:4,
   VEND:5,
-  AUTO:6
+  AUTO:6,
+  UP:21
 }
