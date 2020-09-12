@@ -25,10 +25,7 @@ function Gun(){
 function Bullet(ox,oy,dx,dy){
   this.id = BID++;
   this.scale = 4;
-  this.speed = 3;
-  this.v = new vec2(ox+10, oy+10);
-  this.dx = dx - ox;
-  this.dy = dy - oy;
+  this.speed = 300;
   this.w = 50;
   this.h = 50;
   this.mhWidth = this.w / -2;
@@ -38,21 +35,26 @@ function Bullet(ox,oy,dx,dy){
   this.hitbox = new rectanlge(ox, oy, this.w, this.h);
   this.colour="#a205a2";
   this.dist=0;
+  // Vector
+  this.v = new vec2(ox+10, oy+10);
+  this.dx = dx - ox;
+  this.dy = dy - oy;
+  this.length = Math.sqrt( ((this.dx)*(this.dx)) + ((this.dy)*(this.dy)) );
+  this.dx = this.dx / this.length;
+  this.dy = this.dy / this.length;
   
   this.draw = function(delta, pcs){
     // Update Position
-    if(this.active){ // TODO: remove bullets
-      var x1 = this.v.x;
-      var y1 = this.v.x;
+    if(this.active){ 
+      // Previous position
+      xx = this.v.x;
+      yy = this.v.y;
+      // New Position
       this.v.x +=(this.dx*delta)*this.speed;
       this.v.y +=(this.dy*delta)*this.speed; 
-      var x2 = this.v.x;
-      var y2 = this.v.x;
-      // DIST
-      var a = x1 - x2;
-      var b = y1 - y2;
-      var c = Math.sqrt( a*a + b*b );
-      this.dist += c;
+      // Distance Travelled
+      this.dist +=  Math.sqrt( ((this.v.x-xx)*(this.v.x-xx)) + ((this.v.y-yy)*(this.v.y-yy)) );
+      console.log(this.dst);
       
       if(this.v.x < 0 || this.v.x>1300 || this.v.y < 0 || this.v.y > 840 || this.dist > SHOOTDIST){
         this.active = false;
