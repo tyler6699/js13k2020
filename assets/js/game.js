@@ -42,6 +42,7 @@ var SERVERPRICE=150;
 var RESETCHANCE = 80;
 var AMMOSTART = 100;
 var NEWPERSONCHANCE = 50;
+var AUTOPRICE=0;
 
 // The Game
 var cart = new Cart();
@@ -128,14 +129,14 @@ var mainGame = {
 function updateGameArea() {
   // Music  
   if(music && songLoaded){
-    audio.play();
+    //audio.play();
     music=false;
     mTime=0;
   } else {
     mTime += delta;
-    if(mTime > 50000){
+    if(mTime > 49000){
       audio.currentTime = 0;
-      audio.play();
+      //audio.play();
       mTime=0;
     }
   }

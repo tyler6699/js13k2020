@@ -125,25 +125,32 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       }
       
       if(this.isButton){
+        by=32;
         if(this.type == actions.CHAIR){
-          ctx.drawImage(this.image, 48, 32, 10, 10, -16, -16, 32, 32); 
+          bx=48;
           if(cart.menu.currentBuildItem == actions.CHAIR)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.DESK){
-          ctx.drawImage(this.image, 58, 32, 10, 10, -16, -16, 32, 32); 
+          bx=58;
           if(cart.menu.currentBuildItem == actions.DESK)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.PC){
-          ctx.drawImage(this.image, 68, 32, 10, 10, -16, -16, 32, 32); 
+          bx=68;
           if(cart.menu.currentBuildItem == actions.PC)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.SERVER){
-          ctx.drawImage(this.image, 78, 32, 10, 10, -16, -16, 32, 32); 
+          bx=78;
           if(cart.menu.currentBuildItem == actions.SERVER)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.VEND){
-          ctx.drawImage(this.image, 88, 32, 10, 10, -16, -16, 32, 32);
+          bx=88;
           if(cart.menu.currentBuildItem == actions.VEND)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.GUN){
-          ctx.drawImage(this.image, 98, 32, 12, 11, -16, -16, 32, 32);
+          bx=98;
           if(cart.menu.currentBuildItem == actions.GUN)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+        } else if (this.type == actions.AUTO){
+          bx=48;by=42;
+          if(cart.menu.currentBuildItem == actions.AUTO)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+        } else {
+          bx=115;by=36;
         }  
+        ctx.drawImage(this.image, bx, by, 10, 10, -16, -16, 32, 32); 
       }
       
       if(this.isTable()){
@@ -301,6 +308,12 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       case types.VEND:
         this.sx=144;
         this.sy=32;
+        this.yDrawOffset = -20;
+        this.hitboxOffsetY = 5;
+        this.drawTile = true;
+      case types.AUTO:
+        this.sx=128;
+        this.sy=48;
         this.yDrawOffset = -20;
         this.hitboxOffsetY = 5;
         this.drawTile = true;

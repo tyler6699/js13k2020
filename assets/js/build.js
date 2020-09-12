@@ -171,6 +171,13 @@ function Build(scale) {
             dy = clickedAt.y;
             cart.hero.gun.addBullets(ox,oy,dx,dy);
             break;
+          case actions.AUTO:
+            if(t.isFloor()){
+              t.entity.type = types.AUTO;
+              SCORE-=AUTOPRICE;
+              setHeroText("- $"+AUTOPRICE);
+            }
+            break;
           default:
             console.log("NaN");
         }
