@@ -14,6 +14,7 @@ var timeElapsed = 0;
 var mousePos = new vec2(0,0);
 var clickedAt = new vec2(0,0);
 var clickIndex;
+var hoverIndex;
 var clickRow;
 var clickCol;
 var processClick = false;
@@ -47,8 +48,10 @@ var AUTOPRICE=0;
 var SHOOTWAIT=3;
 var AUTOLEVEL=1;
 var GAMEOVER=false;
-var UP=1000;
+var UPPRICE=1000;
 var targets=[];
+var atlas = new Image();
+atlas.src = "atlas.png";
 
 // The Game
 var cart = new Cart();
@@ -114,6 +117,9 @@ var mainGame = {
       e.preventDefault();
       var rect = mainGame.canvas.getBoundingClientRect();
       mousePos.set((e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY);
+      row = Math.floor(mousePos.y / 64);
+      col = Math.floor(mousePos.x / 64);
+      hoverIndex = col + (19*row);
     })
     // Disable right click context menu
     this.canvas.oncontextmenu = function(e) {

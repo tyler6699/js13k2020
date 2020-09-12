@@ -1,6 +1,6 @@
 function Person(tile){
   this.scale = 4;
-  this.entity = new entity(16, 16, tile.entity.x, tile.entity.y, 0, types.PERSON, "blue", this.scale, 0, 0, "atlas.png");
+  this.entity = new entity(16, 16, tile.entity.x, tile.entity.y, 0, types.PERSON, "blue", this.scale, 0, 0);
   this.requestTime = 0;
   this.useTime = 0;
   this.hasTarget = false;

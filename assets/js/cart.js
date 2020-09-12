@@ -3,7 +3,6 @@ function Cart() {
   yOffset = 5;
   this.scale = 4;
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
-  this.hero.image.src = "atlas.png";
   this.hero.sx = 16;
   this.speed = 5;
   this.level = new level(canvasW, canvasH, 0);
@@ -80,6 +79,14 @@ function Cart() {
     ctx.fillText("Users: " + this.customers.userCount, 180, 50);
     ctx.fillText("Rating: " + NEWPERSONCHANCE + "%", 360, 50);
     ctx.fillText("Data: " + this.hero.gun.ammo, 540, 50);
+    
+    if(!this.menu.canBuild){
+      ctx = mainGame.context;
+      ctx.save();
+      ctx.translate(mousePos.x, mousePos.y);
+      ctx.drawImage(atlas, 32, 48, 16, 16, 8, 8, 64, 64);  
+      ctx.restore();
+    }
     
     if(processClick){
       // Check if menu items clicked

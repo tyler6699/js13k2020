@@ -1,4 +1,4 @@
-function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, imageSrc = "", isButton = false) {
+function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, isButton = false) {
   this.scale = scale;
   this.type = type;
   this.width = w;
@@ -16,8 +16,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.y = y;
   this.active = true;
   this.colour = colour;
-  this.image = new Image();
-  this.image.src = imageSrc;
+  this.image = atlas;
   this.animated = false;
   this.anination = null;
   this.hitboxOffsetX = hitboxOffsetX;
@@ -169,14 +168,13 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           bx=58;
           by=42;
           this.hoverText="Upgrade";
-          this.hoverText="$"+UP;
+          this.hoverText2="$"+UPPRICE;
         } else {
           bx=115;by=36;
         }  
         ctx.drawImage(this.image, bx, by, 10, 10, -16, -16, 32, 32); 
         
         if(this.hover){
-          // #05f2db#990099
           ctx.globalAlpha = .8;
           ctx.fillStyle = "#990099";
           ctx.fillRect(-215, -50, 167, 100);

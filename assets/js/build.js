@@ -6,6 +6,7 @@ function Build(scale) {
   this.buttons = [];
   this.currentBuildItem = null;
   this.nButtons = 10;
+  this.canBuild=false;
   
   // Add 10 buttons
   for(i = 0; i<this.nButtons;i++){
@@ -27,6 +28,31 @@ function Build(scale) {
   }
   
   this.tick = function(){
+    // Check can build
+    this.canBuild=false;
+    t = getTile(hoverIndex, cart.level);
+    if(t!=null && t.isFloor()){
+      switch(this.currentBuildItem) {
+        case actions.CHAIR:
+          if(SCORE>CHAIRPRICE)this.canBuild=true;
+          break;
+        case actions.DESK:
+          if(SCORE>TABLEPRICE)this.canBuild=true;
+          break;
+        case actions.PC:
+          if(SCORE>PCPRICE)this.canBuild=true;
+          break;
+        case actions.VEND:
+          if(SCORE>VENDPRICE)this.canBuild=true;
+          break;
+        case actions.SERVER:
+          if(SCORE>SERVERPRICE)this.canBuild=true;
+          break;
+        case actions.AUTO:
+          if(SCORE>AUTOPRICE)this.canBuild=true;
+          break;
+      }
+    }
     // Check buttons are clicked
     clickRec = new vecToRec(clickedAt, 10, 10);
     for (var i = 0; i < this.buttons.length; i++) {
