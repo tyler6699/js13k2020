@@ -15,7 +15,14 @@ function Build(scale) {
   this.update = function(){
     this.menu.update();
     for(i = 0; i<this.nButtons;i++){
-      this.buttons[i].update();
+      b = this.buttons[i];
+      b.update();
+
+      if(collision(mousePos.x,mousePos.y,32,32,b.entity.x, b.entity.y, b.entity.width, b.entity.height)){
+        b.entity.hover=true;
+      } else {
+        b.entity.hover=false;
+      }
     }
   }
   
@@ -183,7 +190,7 @@ function Build(scale) {
         }
         
         t.change();
-      }
+      }      
     }
   }
 

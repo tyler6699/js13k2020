@@ -28,7 +28,8 @@ function Customers(){
               cart.hero.showTextY=-5;
               cart.hero.showTextTime=HEROTEXTTIME*2;
               cart.hero.showText="- S" + EXITPENALTY;
-              if(NEWPERSONCHANCE>0) NEWPERSONCHANCE--;
+              NEWPERSONCHANCE-=EXITCHANCEPEN;
+              if(NEWPERSONCHANCE<=0) GAMEOVER = true;
             }
           }
         }

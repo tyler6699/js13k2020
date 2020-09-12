@@ -53,7 +53,7 @@ function Cart() {
         this.hero.showTextY=-15;
         this.hero.showTextTime=TEXTTIME/2;
         this.hero.currentGift+=tile.entity.ammo;
-        this.hero.showText="++ " + this.hero.currentGift + " ammo";
+        this.hero.showText="++ " + this.hero.currentGift + " data";
         tile.entity.ammo=0;
         tile.entity.time=0;
       }
@@ -79,7 +79,7 @@ function Cart() {
     ctx.fillText("PCS: " + this.customers.pcs.length, 30, 50);
     ctx.fillText("Users: " + this.customers.userCount, 180, 50);
     ctx.fillText("Rating: " + NEWPERSONCHANCE + "%", 360, 50);
-    ctx.fillText("Ammo: " + this.hero.gun.ammo, 540, 50);
+    ctx.fillText("Data: " + this.hero.gun.ammo, 540, 50);
     
     if(processClick){
       // Check if menu items clicked

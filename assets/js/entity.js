@@ -38,6 +38,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.showTextY=0;
   this.currentGift=0;
   this.shootTime=0;
+  this.hover=false;
+  this.hoverText="";
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -128,30 +130,50 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       if(this.isButton){
         by=32;
         if(this.type == actions.CHAIR){
+          this.hoverText="$"+CHAIRPRICE;
           bx=48;
           if(cart.menu.currentBuildItem == actions.CHAIR)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.DESK){
           bx=58;
+          this.hoverText="$"+TABLEPRICE;
           if(cart.menu.currentBuildItem == actions.DESK)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.PC){
+          this.hoverText="$"+PCPRICE;
           bx=68;
           if(cart.menu.currentBuildItem == actions.PC)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.SERVER){
+          this.hoverText="$"+SERVERPRICE;
           bx=78;
           if(cart.menu.currentBuildItem == actions.SERVER)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.VEND){
           bx=88;
+          this.hoverText="$"+VENDPRICE;
           if(cart.menu.currentBuildItem == actions.VEND)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.GUN){
           bx=98;
+          this.hoverText="SELECT";
           if(cart.menu.currentBuildItem == actions.GUN)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.AUTO){
           bx=48;by=42;
+          this.hoverText="$"+AUTOPRICE;
           if(cart.menu.currentBuildItem == actions.AUTO)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else {
           bx=115;by=36;
         }  
         ctx.drawImage(this.image, bx, by, 10, 10, -16, -16, 32, 32); 
+        
+        if(this.hover){
+          // #05f2db#990099
+          ctx.globalAlpha = .8;
+          ctx.fillStyle = "#990099";
+          ctx.fillRect(-215, -50, 167, 100);
+          ctx.fillStyle = this.colour;
+          ctx.fillRect(-200, -32, 165, 64);
+          ctx.globalAlpha = 1;
+          ctx.font = "italic 700 25px Unknown Font, sans-serif";
+          ctx.fillStyle = "#990099";
+          ctx.fillText(this.hoverText, -180, 10);
+        }
       }
       
       if(this.isTable()){
@@ -171,7 +193,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
             this.ammo+=AMMOGIFT;
             this.showTextY=-35;
             this.showTextTime=TEXTTIME;
-            this.showText="+" + AMMOGIFT + " ammo - $" + AMMOCOST;
+            this.showText="+" + AMMOGIFT + " data - $" + AMMOCOST;
             SCORE-=AMMOCOST;
           }  
         }
