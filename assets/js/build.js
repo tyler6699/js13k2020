@@ -32,7 +32,7 @@ function Build(scale) {
     // Check can build
     this.canBuild=false;
     this.hoverTile = getTile(hoverIndex, cart.level);
-    if(this.hoverTile!=null && this.hoverTile.isFloor()){
+    if(this.hoverTile!=null && this.hoverTile.isFloor() || (this.hoverTile!=null && this.curItm==actions.PC && this.hoverTile.isTable())){
       switch(this.curItm) {
         case actions.CHAIR:
           if(SCORE>CHAIRPRICE)this.canBuild=true;
@@ -41,7 +41,11 @@ function Build(scale) {
           if(SCORE>TABLEPRICE)this.canBuild=true;
           break;
         case actions.PC:
-          if(SCORE>PCPRICE)this.canBuild=true;
+          ta = getTile(hoverIndex-19, cart.level);
+          tb = getTile(hoverIndex+19, cart.level);
+          if(SCORE>PCPRICE && (ta.isChairB() || tb.isChairT())){
+            this.canBuild=true;
+          }
           break;
         case actions.VEND:
           if(SCORE>VENDPRICE)this.canBuild=true;
@@ -162,7 +166,7 @@ function Build(scale) {
             break;
           case actions.PC:
             if(t.isTable()){  
-              if(SCORE>PCPRICE){
+              if(SCORE>PCPRICE && (ta.isChairB() || tb.isChairT()) && t.entity.pc==null){
                 SCORE-=PCPRICE;
                 setHeroText("- $"+PCPRICE);
                 if (ta.isChairB()){
@@ -173,9 +177,14 @@ function Build(scale) {
                   customer.addPC(t.entity.pc);
                 }
               } else {
-                setHeroText("Not enough $");
+                if(t.entity.pc!=null){
+                  setHeroText("Has PC!");
+                } else if (!ta.isChairB() && !tb.isChairT()){
+                  setHeroText("No Chairs");
+                } else {
+                  setHeroText("Not enough $");
+                }  
               }
-
             }
             t.change();
             break;

@@ -22,8 +22,6 @@ var scaleX = 1.346;
 var scaleY = 1.38;
 var PCID = -1;
 var BID = 0;
-var HUE = 0;
-var SAT = "100%";
 var SCORE = 404;
 var VENDNUM=3;
 var SERVEREVENT=10;
@@ -49,10 +47,11 @@ var SHOOTWAIT=3;
 var AUTOLEVEL=1;
 var GAMEOVER=false;
 var UPPRICE=1000;
+var COL1 = "990099";
+var COL2 = "05f2db";
 var targets=[];
 var atlas = new Image();
 atlas.src = "atlas.png";
-// The Game
 var cart = new Cart();
 
 // Audio
@@ -141,7 +140,7 @@ function updateGameArea() {
     mTime=0;
   } else {
     mTime += delta;
-    if(mTime > 48000){
+    if(mTime > 45000){
       audio.currentTime = 0;
       audio.play();
       mTime=0;

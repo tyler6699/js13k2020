@@ -19,9 +19,7 @@ function Cart() {
     if (right()) this.hero.x += this.getMoveAmount(this.speed,0);
     if (up()) this.hero.y -= this.getMoveAmount(0,-this.speed);
     if (down()) this.hero.y += this.getMoveAmount(0,this.speed);
-    if (space()){
-      this.menu.curItm=actions.GUN;
-    }
+    if (space()) this.menu.curItm=actions.GUN;
     
     // Set Hero Current Tile
     heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / 64);
@@ -65,8 +63,8 @@ function Cart() {
     
     // Draw Text
     gradient = ctx.createLinearGradient(0, 0, canvasW, 0);
-    gradient.addColorStop("0", "#05f2db");
-    gradient.addColorStop(".5", "#990099");
+    gradient.addColorStop("0", "#"+COL2);
+    gradient.addColorStop(".5", "#"+COL1);
     ctx.fillStyle = gradient;
     ctx.font = "italic 40px Arial";
     ctx.fillText("$: " + SCORE, 900, 50);
@@ -75,23 +73,16 @@ function Cart() {
     ctx.fillText("USERS: " + this.customers.userCount, 170, 50);
     ctx.fillText("RATING: " + NEWPERSONCHANCE + "%", 350, 50);
     ctx.fillText("DATA: " + this.hero.gun.ammo, 580, 50);
+    ctx.fillText("GAMEOVER: " + GAMEOVER, 30, 810);
       
     if(this.menu.curItm != null && this.menu.hoverTile!=null && this.menu.curItm != actions.GUN){
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.menu.hoverTile.entity.x, this.menu.hoverTile.entity.y);
-      if(this.menu.curItm == actions.PC){
-        if(!this.menu.hoverTile.isTable()){
-          ctx.drawImage(atlas, 32, 48, 16, 16, 8, 8, 64, 64);
-        } else { 
-          ctx.drawImage(atlas, 112, 32, 16, 16, 8, 8, 64, 64);  
-        }
-      } else {  
-        if(!this.menu.canBuild){
-          ctx.drawImage(atlas, 32, 48, 16, 16, 8, 8, 64, 64); 
-        } else if(this.menu.canBuild && this.menu.hoverTile.isFloor()) {
-          ctx.drawImage(atlas, 112, 32, 16, 16, 8, 8, 64, 64);  
-        }
+      if(!this.menu.canBuild){
+        ctx.drawImage(atlas, 32, 48, 16, 16, 8, 8, 64, 64); 
+      } else if(this.menu.canBuild) {
+        ctx.drawImage(atlas, 112, 32, 16, 16, 8, 8, 64, 64);  
       }
       ctx.restore();
     }

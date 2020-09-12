@@ -112,8 +112,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       if(this.showTextTime>0){
         this.showTextTime-=delta;
         gradient = ctx.createLinearGradient(0, 0, canvasW, 0);
-        gradient.addColorStop("0", "#05f2db");
-        gradient.addColorStop(".1", "#990099");
+        gradient.addColorStop("0", "#"+COL2);
+        gradient.addColorStop(".1", "#"+COL1);
         ctx.font = "italic 25px Arial";
         ctx.fillStyle = gradient;
         ctx.fillText(this.showText, 0, this.showTextY+(10*this.showTextTime));
@@ -170,13 +170,13 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         
         if(this.hover){
           ctx.globalAlpha = .8;
-          ctx.fillStyle = "#990099";
+          ctx.fillStyle = "#"+COL1;
           ctx.fillRect(-215, -50, 167, 100);
           ctx.fillStyle = this.colour;
           ctx.fillRect(-200, -32, 165, 64);
           ctx.globalAlpha = 1;
           ctx.font = "italic 25px Arial";
-          ctx.fillStyle = "#990099";
+          ctx.fillStyle = "#"+COL1;
           ctx.fillText(this.hoverText, -180, -5);
           ctx.fillText(this.hoverText2, -180, 20);
         }
