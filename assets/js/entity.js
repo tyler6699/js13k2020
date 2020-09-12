@@ -189,16 +189,18 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         }
       } else if(this.isAuto()){        
         var pcs = cart.customers.pcs;
+        
         for(var i=0;i< pcs.length; i++){
           pc=pcs[i];
           person = pc.getPerson();
-          if(person!=null && person.progress.waiting && this.shootTime <= 0){
+          if(person!=null && person.progress.waiting && this.shootTime <= 0 && !targets[pc.id]){
             this.shootTime = SHOOTWAIT;
             ox = this.x;
             oy = this.y;
             dx = pc.tile.entity.x;
             dy = pc.tile.entity.y;
             cart.hero.gun.addBullets(ox,oy,dx,dy);
+            targets[pc.id]=true;
             break;
           } else if (this.shootTime > 0){
             this.shootTime-=delta;
@@ -333,6 +335,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         this.yDrawOffset = -20;
         this.hitboxOffsetY = 5;
         this.drawTile = true;
+        break;
       case types.AUTO:
         this.sx=128;
         this.sy=48;

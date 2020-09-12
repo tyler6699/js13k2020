@@ -23,16 +23,18 @@ function Person(tile){
     this.progress.tick(delta);
     
     if(this.progress.fourfour || this.progress.delivered){
+      targets[this.tile.pc.id]=false;
       if(this.parent.type == types.CHAIR_B){
         this.parent.showTextY=-25;
       } else {
         this.parent.showTextY=-70;
       }
-      
       this.parent.showText = this.progress.fourfour ? "Status: 404" : "Status: 200";
       this.parent.showTextTime=TEXTTIME;
       this.progress.fourfour=false;
       this.progress.delivered=false;
+    } else if (this.progress.percent > .75 && targets[this.tile.pc.id]) {
+      targets[this.tile.pc.id]=false;
     }
   }
 }

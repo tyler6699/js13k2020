@@ -73,6 +73,7 @@ function Bullet(ox,oy,dx,dy){
             person.progress.delivered=true;
             person.progress.mHappy=false;
             SCORE+=DELIVERED;
+            targets[pc.id]=false;
             this.active=false;
             cart.hero.showTextY=-5;
             cart.hero.showTextTime=HEROTEXTTIME;

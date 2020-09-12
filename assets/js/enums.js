@@ -18,7 +18,8 @@ const types = {
   BOX:16,
   SERVER:17,
   PERSON:18,
-  AUTO:19
+  VEND:19,
+  AUTO:20
 }
 
 const actions = {

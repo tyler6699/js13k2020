@@ -43,7 +43,9 @@ var RESETCHANCE = 80;
 var AMMOSTART = 100;
 var NEWPERSONCHANCE = 50;
 var AUTOPRICE=0;
-var SHOOTWAIT=1;
+var SHOOTWAIT=3;
+var AUTOLEVEL=1;
+var targets=[];
 
 // The Game
 var cart = new Cart();
@@ -130,14 +132,14 @@ var mainGame = {
 function updateGameArea() {
   // Music  
   if(music && songLoaded){
-    //audio.play();
+    audio.play();
     music=false;
     mTime=0;
   } else {
     mTime += delta;
-    if(mTime > 49000){
+    if(mTime > 48000){
       audio.currentTime = 0;
-      //audio.play();
+      audio.play();
       mTime=0;
     }
   }
