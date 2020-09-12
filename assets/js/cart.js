@@ -14,15 +14,13 @@ function Cart() {
 
   // Render & Logic
   this.update = function(delta, time) {
-    controllers = navigator.getGamepads();
-    
     // Controls
     if (left()) this.hero.x -= this.getMoveAmount(-this.speed,0);
     if (right()) this.hero.x += this.getMoveAmount(this.speed,0);
     if (up()) this.hero.y -= this.getMoveAmount(0,-this.speed);
     if (down()) this.hero.y += this.getMoveAmount(0,this.speed);
     if (space()){
-      this.menu.currentBuildItem=actions.GUN;
+      this.menu.curItm=actions.GUN;
     }
     
     // Set Hero Current Tile
@@ -61,8 +59,6 @@ function Cart() {
     // Render
     // Star Field
     renderStarField(time);
-
-    this.level.tick(this.hero);
     this.customers.tick(delta, this.level);
     this.level.draw(this.hero, delta);
     this.customers.draw(delta);
@@ -72,19 +68,19 @@ function Cart() {
     gradient.addColorStop("0", "#05f2db");
     gradient.addColorStop(".5", "#990099");
     ctx.fillStyle = gradient;
-    ctx.font = "italic 700 40px Unknown Font, sans-serif";
+    ctx.font = "italic 40px Arial";
     ctx.fillText("$: " + SCORE, 900, 50);
-    ctx.font = "italic 700 25px Unknown Font, sans-serif";
+    ctx.font = "italic 30px Arial";
     ctx.fillText("PCS: " + this.customers.pcs.length, 30, 50);
     ctx.fillText("Users: " + this.customers.userCount, 180, 50);
-    ctx.fillText("Rating: " + NEWPERSONCHANCE + "%", 360, 50);
+    ctx.fillText("Rating: " + NEWPERSONCHANCE + "%", 340, 50);
     ctx.fillText("Data: " + this.hero.gun.ammo, 540, 50);
       
-    if(this.menu.currentBuildItem != null && this.menu.hoverTile!=null && this.menu.currentBuildItem != actions.GUN){
+    if(this.menu.curItm != null && this.menu.hoverTile!=null && this.menu.curItm != actions.GUN){
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.menu.hoverTile.entity.x, this.menu.hoverTile.entity.y);
-      if(this.menu.currentBuildItem == actions.PC){
+      if(this.menu.curItm == actions.PC){
         if(!this.menu.hoverTile.isTable()){
           ctx.drawImage(atlas, 32, 48, 16, 16, 8, 8, 64, 64);
         } else { 

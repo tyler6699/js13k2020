@@ -96,13 +96,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       
       ctx.globalAlpha = this.alpha;
       // Animate Image
-      if (this.animated) {
-        if (!this.animation.pauseAnimation) {
-          this.animation.getKeyFrame(delta);
-        }
-        ctx.drawImage(this.image, this.width * this.animation.currentFrame, 0, this.width, this.height, 0, 0, this.width * this.scale, this.height * this.scale);
-        // No Image (Coloured Shape)
-      } else if (this.image == null || this.isButton) {
+      if (this.image == null || this.isButton) {
         ctx.fillStyle = this.colour;
         ctx.fillRect((this.mhWidth *.5) * this.scale, (this.mhHeight * .5) * this.scale, (this.width * .5) * this.scale, (this.height * .5) * this.scale);
         // Image
@@ -120,7 +114,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         gradient = ctx.createLinearGradient(0, 0, canvasW, 0);
         gradient.addColorStop("0", "#05f2db");
         gradient.addColorStop(".1", "#990099");
-        ctx.font = "italic 700 25px Unknown Font, sans-serif";
+        ctx.font = "italic 25px Arial";
         ctx.fillStyle = gradient;
         ctx.fillText(this.showText, 0, this.showTextY+(10*this.showTextTime));
       } else {
@@ -133,37 +127,37 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           this.hoverText="Chair";
           this.hoverText2="$"+CHAIRPRICE;
           bx=48;
-          if(cart.menu.currentBuildItem == actions.CHAIR)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+          if(cart.menu.curItm == actions.CHAIR)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.DESK){
           bx=58;
           this.hoverText="Desk";
           this.hoverText2="$"+TABLEPRICE;
-          if(cart.menu.currentBuildItem == actions.DESK)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+          if(cart.menu.curItm == actions.DESK)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.PC){
           this.hoverText="PC";
           this.hoverText2="$"+PCPRICE;
           bx=68;
-          if(cart.menu.currentBuildItem == actions.PC)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+          if(cart.menu.curItm == actions.PC)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.SERVER){
           this.hoverText="Server";
           this.hoverText2="$"+SERVERPRICE;
           bx=78;
-          if(cart.menu.currentBuildItem == actions.SERVER)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+          if(cart.menu.curItm == actions.SERVER)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.VEND){
           bx=88;
           this.hoverText="Vending";
           this.hoverText2="$"+VENDPRICE;
-          if(cart.menu.currentBuildItem == actions.VEND)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+          if(cart.menu.curItm == actions.VEND)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.GUN){
           bx=98;
           this.hoverText="SELECT";
           this.hoverText2="DATA GUN";
-          if(cart.menu.currentBuildItem == actions.GUN)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+          if(cart.menu.curItm == actions.GUN)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if (this.type == actions.AUTO){
           bx=48;by=42;
           this.hoverText="AUTO";
           this.hoverText2="$"+AUTOPRICE;
-          if(cart.menu.currentBuildItem == actions.AUTO)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
+          if(cart.menu.curItm == actions.AUTO)ctx.drawImage(this.image, 112, 32, 16, 16, -32, -32, 64, 64); 
         } else if(this.type == actions.UP){
           bx=58;
           by=42;
@@ -181,7 +175,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           ctx.fillStyle = this.colour;
           ctx.fillRect(-200, -32, 165, 64);
           ctx.globalAlpha = 1;
-          ctx.font = "italic 700 25px Unknown Font, sans-serif";
+          ctx.font = "italic 25px Arial";
           ctx.fillStyle = "#990099";
           ctx.fillText(this.hoverText, -180, -5);
           ctx.fillText(this.hoverText2, -180, 20);

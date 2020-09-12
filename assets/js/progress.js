@@ -3,7 +3,7 @@ function Progress(){
   this.startAngle = 1.5 * Math.PI;
   this.endAngle = -.5 * Math.PI + (this.percent * Math.PI * 2);
   this.colour1 = "silver";
-  this.colour2 = getRandomColor();
+  this.colour2 = ranColor();
   this.resetChance = RESETCHANCE;
   this.happy=randomNum(2,5);
   this.mHappy=true;

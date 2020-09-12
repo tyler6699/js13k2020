@@ -1,5 +1,5 @@
 function Tile(size, x, y, angle, type, solid, column, row) {
-  this.entity = new entity(size, size, x, y, angle, type, "BLACK", 4, hitboxOffsetX = 0, hitboxOffsetY = 0);
+  this.entity = new entity(size, size, x, y, angle, type, "", 4, hitboxOffsetX = 0, hitboxOffsetY = 0);
   this.entity.setType();
   this.column = column;
   this.row = row;
@@ -11,9 +11,7 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     if(this.person() != null) this.entity.person.tick();
   }
 
-  this.tick = function(hero){
-    // Code
-  }
+  //this.tick = function(hero){}
   
   this.change = function(){
     if (this.entity.type >= Object.values(types).length){

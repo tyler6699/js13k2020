@@ -4,7 +4,7 @@ function Build(scale) {
   this.menu.image = null;
   this.menu.alpha = .4;
   this.buttons = [];
-  this.currentBuildItem = null;
+  this.curItm = null;
   this.nButtons = 10;
   this.canBuild=false;
   this.hoverTile;
@@ -33,7 +33,7 @@ function Build(scale) {
     this.canBuild=false;
     this.hoverTile = getTile(hoverIndex, cart.level);
     if(this.hoverTile!=null && this.hoverTile.isFloor()){
-      switch(this.currentBuildItem) {
+      switch(this.curItm) {
         case actions.CHAIR:
           if(SCORE>CHAIRPRICE)this.canBuild=true;
           break;
@@ -83,7 +83,7 @@ function Build(scale) {
         tb = getTile(ci+19, level);
         tbb = getTile(ci+38, level);
         
-        switch(this.currentBuildItem) {
+        switch(this.curItm) {
           case actions.CHAIR:
             // A table between tables
             if(t.isChairB()){

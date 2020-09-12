@@ -24,14 +24,6 @@ function level(canvasW, canvasH, id) {
       tile.update(delta);
     }
   }
-  
-  // TIME TICK
-  this.tick = function(hero){
-    for (i = 0; i < this.tiles.length; i++) {
-      var tile = this.tiles[i];
-      tile.tick(hero, delta);
-    }    
-  }
 
   this.reset = function(hero, scale){
     var id = hero != null ? hero.currentLevel : 0;

@@ -20,7 +20,7 @@ function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function getRandomColor() {
+function ranColor() {
   var letters = '0123456789ABCDEF';
   var color = '#';
   for (var i = 0; i < 6; i++) {
@@ -73,26 +73,4 @@ function renderStarField(time){
 
 function getValueByIndex(e,i){
     return Object.values(e)[i];
-}
-
-function getEnumKeys(e) {
-  return Object.keys(e);
-}
-
-function getEnumValues(e) {
-  return getEnumKeys(e).map(function(key) {
-    return e[key];
-  });
-}
-
-function getValueByName(e, key) {
-  return e[getEnumKeys(e).filter(function(k) {
-    return key === k;
-  }).pop() || ''];
-}
-
-function getNameByValue(e, val) {
-  return getEnumKeys(e).filter(function(k) {
-    return e[k] === val;
-  }).pop() || null;
 }

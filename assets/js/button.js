@@ -5,11 +5,9 @@ function Button(w,h,x,y,colour,action){
     this.entity.update();
   }
   
-  this.tick = function(click){
-    
-  }
+  this.tick = function(click){}
   
   this.processAction = function(){
-    cart.menu.currentBuildItem = this.action;
+    cart.menu.curItm = this.action;
   }
 }
