@@ -152,7 +152,6 @@ function updateGameArea() {
       audio.currentTime = 0;
       mTime=0;
       audio.play();
-      console.log("loop");
     }
   }
 
@@ -209,4 +208,8 @@ function down() {
 
 function space() {
   return mainGame.keys && (mainGame.keys[SPACE]);
+}
+
+function one() {
+  return mainGame.keys && (mainGame.keys[ONE]);
 }

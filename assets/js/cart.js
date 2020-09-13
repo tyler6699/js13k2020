@@ -20,6 +20,7 @@ function Cart() {
     if (up()) this.hero.y -= this.getMoveAmount(0,-this.speed);
     if (down()) this.hero.y += this.getMoveAmount(0,this.speed);
     if (space()) this.menu.curItm=actions.GUN;
+    if(one()) cart.reset();
     
     // Set Hero Current Tile
     heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / 64);
@@ -160,6 +161,7 @@ function Cart() {
     DATAUPGRADE=false;
     AMMOGIFTUPGRADE=false;
     BSPEED=300;
+    WIN=false;
     this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
     this.hero.sx = 16;
     this.level = new level(canvasW, canvasH, 0);

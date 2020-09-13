@@ -10,7 +10,6 @@ function Button(w,h,x,y,colour,action){
   this.processAction = function(){
     cart.menu.curItm = this.action;
     if(this.action == actions.UP){
-      console.log("here");
       if(SCORE>UPPRICE){
         if(!DATAUPGRADE){
           DATAUPGRADE=true;
