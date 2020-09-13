@@ -7,6 +7,7 @@ var controllers = [];
 var canvasW = 1216;
 var canvasH = 832;
 var gameStarted = false;
+var showtutorial = true;
 var delta = 0.0;
 var prevDelta = Date.now();
 var currentDelta = Date.now();
@@ -35,14 +36,14 @@ var EXITPENALTY=20;
 var SHOOTDIST=400;
 var TABLEPRICE=100;
 var CHAIRPRICE=25;
-var VENDPRICE=1500;
+var VENDPRICE=800;
 var PCPRICE=150;
 var SERVERPRICE=150;
 var RESETCHANCE = 80;
 var AMMOSTART = 100;
 var NEWPERSONCHANCE = 75;
 var EXITCHANCEPEN = 5;
-var AUTOPRICE=0;
+var AUTOPRICE=1000;
 var SHOOTWAIT=3;
 var AUTOLEVEL=1;
 var GAMEOVER=false;
@@ -132,21 +133,23 @@ var mainGame = {
   }
 }
 
-function updateGameArea() {
+function updateGameArea() {  
   // Music  
   if(music && songLoaded){
     audio.play();
     music=false;
     mTime=0;
+    gameStarted=true;
   } else {
     mTime += delta;
     if(mTime > 45000){
       audio.currentTime = 0;
-      audio.play();
       mTime=0;
+      audio.play();
+      console.log("loop");
     }
   }
-  
+
   // Delta
   prevDelta = currentDelta;
   currentDelta = Date.now();
@@ -156,8 +159,23 @@ function updateGameArea() {
   // Update Gamepads
   navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
 
-  if (gameStarted) {
+  if (!gameStarted) {
+    // intro Screen
     mainGame.clear();
+    ctx = mainGame.context;
+    ctx.save();
+    ctx.globalAlpha = .3;
+    ctx.fillStyle = "#"+COL1;
+    ctx.fillRect(75, 75, 1070, 680);
+    ctx.globalAlpha = 1;
+    ctx.font = "italic 90px Arial";
+    ctx.fillStyle = "WHITE";
+    ctx.fillText("-- CLICK TO START --", 180, 400);
+    ctx.font = "italic 50px Arial";
+    ctx.fillText("JS13K 2020 - Theme 404", 200, 200);
+    ctx.fillText("@CarelessLabs", 200, 700);
+    renderStarField(timeElapsed);
+    ctx.restore();
   } else {
     mainGame.clear();
     cart.update(delta / 1e3, timeElapsed);
