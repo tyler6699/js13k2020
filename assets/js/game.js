@@ -179,6 +179,9 @@ function updateGameArea() {
     ctx.fillText("-- CLICK TO START --", 180, 400);
     ctx.font = "italic 50px Arial";
     ctx.fillText("JS13K 2020 - Theme 404", 200, 200);
+    //ctx.font = "italic 50px Arial";
+    ctx.fillText("Get over 20 users, $10404", 200, 500);
+    ctx.fillText("and a 100% rating to WIN.", 200, 600);
     ctx.fillText("@CarelessLabs", 200, 700);
     renderStarField(timeElapsed);
     ctx.restore();

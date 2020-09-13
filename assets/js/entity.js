@@ -105,7 +105,13 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       }
       
       if(this.isServer() && this.ammo > 0){
-        ctx.drawImage(this.image, 128, 32, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);  
+        if(DATAUPGRADE){
+          ctx.drawImage(this.image, 16, 48, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);  
+        } else {
+          ctx.drawImage(this.image, 128, 32, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);  
+        }
+      } else if(this.isServer() && DATAUPGRADE){
+        ctx.drawImage(this.image, 0, 48, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);  
       }
       
       // SHOW TEXT
