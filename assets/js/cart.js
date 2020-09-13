@@ -74,6 +74,12 @@ function Cart() {
     ctx.fillText("RATING: " + NEWPERSONCHANCE + "%", 350, 50);
     ctx.fillText("DATA: " + this.hero.gun.ammo, 580, 50);
     ctx.fillText("GAMEOVER: " + GAMEOVER, 30, 810);
+    ctx.fillText("WIN: " + WIN, 300, 810);
+    
+    // WIN
+    if(this.customers.userCount > 20 && SCORE > 10404 && NEWPERSONCHANCE >= 100){
+        WIN = true;
+    }
       
     if(this.menu.curItm != null && this.menu.hoverTile!=null && this.menu.curItm != actions.GUN){
       ctx = mainGame.context;

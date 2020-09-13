@@ -54,6 +54,7 @@ var BSPEED=300;
 var SHOOTUPGRADE=false;
 var DATAUPGRADE=false;
 var AMMOGIFTUPGRADE=false;
+var WIN = false;
 
 var targets=[];
 var atlas = new Image();
