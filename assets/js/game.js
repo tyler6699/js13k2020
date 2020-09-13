@@ -41,15 +41,20 @@ var PCPRICE=150;
 var SERVERPRICE=150;
 var RESETCHANCE = 80;
 var AMMOSTART = 100;
-var NEWPERSONCHANCE = 75;
+var NEWPERSONCHANCE = 70;
 var EXITCHANCEPEN = 5;
 var AUTOPRICE=1000;
 var SHOOTWAIT=3;
-var AUTOLEVEL=1;
 var GAMEOVER=false;
 var UPPRICE=1000;
 var COL1 = "990099";
 var COL2 = "05f2db";
+var BSPEED=300;
+// UPGRADES
+var SHOOTUPGRADE=false;
+var DATAUPGRADE=false;
+var AMMOGIFTUPGRADE=false;
+
 var targets=[];
 var atlas = new Image();
 atlas.src = "atlas.png";

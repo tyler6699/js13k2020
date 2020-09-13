@@ -218,14 +218,16 @@ function Build(scale) {
             cart.hero.gun.addBullets(ox,oy,dx,dy);
             break;
           case actions.AUTO:
-            if(t.isFloor()){
+            if(t.isFloor() && SCORE>AUTOPRICE){
               t.entity.type = types.AUTO;
               SCORE-=AUTOPRICE;
               setHeroText("- $"+AUTOPRICE);
+            } else {
+              setHeroText("Not enough $");
             }
             break;
           default:
-            console.log("NaN");
+            //console.log("NaN");
         }
         
         t.change();

@@ -195,7 +195,14 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         this.time+=delta;
         if(this.time > SERVEREVENT){
           this.time=0;
-          if(this.ammo==0){
+          
+          if(DATAUPGRADE){
+            cart.hero.gun.ammo += AMMOGIFT;
+            this.showTextY=-35;
+            this.showTextTime=TEXTTIME;
+            this.showText="+" + AMMOGIFT + " data - $" + AMMOCOST;
+            SCORE-=AMMOCOST;
+          } else if (this.ammo==0){
             this.ammo+=AMMOGIFT;
             this.showTextY=-35;
             this.showTextTime=TEXTTIME;

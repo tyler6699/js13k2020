@@ -146,12 +146,14 @@ function Cart() {
     EXITPENALTY=20;
     SHOOTDIST=400;
     AMMOSTART = 100;
-    NEWPERSONCHANCE = 75;
+    NEWPERSONCHANCE = 70;
     SHOOTWAIT=3;
-    AUTOLEVEL=1;
     GAMEOVER=false;
     UPPRICE=1000;
-    
+    SHOOTUPGRADE=false;
+    DATAUPGRADE=false;
+    AMMOGIFTUPGRADE=false;
+    BSPEED=300;
     this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
     this.hero.sx = 16;
     this.level = new level(canvasW, canvasH, 0);

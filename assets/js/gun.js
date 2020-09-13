@@ -25,7 +25,7 @@ function Gun(){
 function Bullet(ox,oy,dx,dy){
   this.id = BID++;
   this.scale = 4;
-  this.speed = 300;
+  this.speed = BSPEED;
   this.w = 50;
   this.h = 50;
   this.mhWidth = this.w / -2;
