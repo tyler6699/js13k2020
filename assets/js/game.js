@@ -65,7 +65,6 @@ var cart = new Cart();
 genAudio();
 var music=false;
 var start=false;
-var mTime=0;
 
 // Called by body onload on index page
 function startGame() {
@@ -143,16 +142,9 @@ function updateGameArea() {
   // Music  
   if(music && songLoaded){
     audio.play();
+    audio.loop = true;
     music=false;
-    mTime=0;
     gameStarted=true;
-  } else {
-    mTime += delta;
-    if(mTime > 45000){
-      audio.currentTime = 0;
-      mTime=0;
-      audio.play();
-    }
   }
 
   // Delta
