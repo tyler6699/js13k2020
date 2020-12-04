@@ -39,19 +39,6 @@ function Cart() {
       this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
     }
 
-    for (var i = 0; i < this.hero.collisionArray.length; i++) {
-      tile = this.hero.collisionArray[i];
-      if(tile.entity.isServer() && rectColiding(tile.entity.hitbox,this.hero.sensor) && tile.entity.ammo>0){
-        this.hero.gun.ammo += tile.entity.ammo;
-        this.hero.showTextY=-15;
-        this.hero.showTextTime=TEXTTIME/2;
-        this.hero.currentGift+=tile.entity.ammo;
-        this.hero.showText="++ " + this.hero.currentGift + " data";
-        tile.entity.ammo=0;
-        tile.entity.time=0;
-      }
-    }
-
     // Render
     // Star Field
     renderStarField(time);
@@ -85,7 +72,7 @@ function Cart() {
       canMove = true;
       for (var t = 0; t < this.hero.collisionArray.length; t++) {
         tile = this.hero.collisionArray[t];
-        if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
+        if(tile != null && tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
           canMove = false;
           break;
         }

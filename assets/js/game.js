@@ -4,8 +4,8 @@
 var debug = false;
 var mainGame;
 var controllers = [];
-var canvasW = 1216;
-var canvasH = 832;
+var canvasW = 1200;
+var canvasH = 800;
 var gameStarted = false;
 var showtutorial = true;
 var delta = 0.0;
