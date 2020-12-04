@@ -40,7 +40,7 @@ function level(canvasW, canvasH, id) {
         var tile;
         var type = types.WALL;
         var angle = 0;
-        
+
         // Create a room
         if(row == 0 || col == 0 || row == 12 || col == 18){
           type = types.AIR;
@@ -63,9 +63,9 @@ function level(canvasW, canvasH, id) {
         } else {
           type = types.FLOOR
         }
-        
+
         tile = new Tile(tileSize, xx, yy, angle, type, false, col, row);
-        this.tiles.push(tile);  
+        this.tiles.push(tile);
       }
     }
   }

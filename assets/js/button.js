@@ -1,12 +1,13 @@
 function Button(w,h,x,y,colour,action){
-  this.entity = new entity(w, h, x, y, 0, action, colour, 4, hitboxOffsetX = 0, hitboxOffsetY = 0, true);
+  var scale = 1;
+  this.entity = new entity(w, h, x, y, 0, action, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, true);
   this.action = action;
   this.update = function(){
     this.entity.update();
   }
-  
+
   this.tick = function(click){}
-  
+
   this.processAction = function(){
     cart.menu.curItm = this.action;
     if(this.action == actions.UP){
@@ -28,7 +29,7 @@ function Button(w,h,x,y,colour,action){
           BSPEED=1000;
         } else if(!AMMOGIFTUPGRADE){ // MORE DATA PER TICK
           AMMOGIFTUPGRADE=true;
-          AMMOGIFT=20;         
+          AMMOGIFT=20;
           SCORE-=UPPRICE;
           UPPRICE=0;
           cart.hero.showTextY=-30;
@@ -48,7 +49,7 @@ function Button(w,h,x,y,colour,action){
         cart.hero.showTextTime=TEXTTIME;
         cart.hero.showText="Not enough $$";
       }
-      
+
     }
   }
 }

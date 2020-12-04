@@ -19,44 +19,15 @@ var hoverIndex;
 var clickRow;
 var clickCol;
 var processClick = false;
-var scaleX = 1.346;
-var scaleY = 1.38;
-var PCID = -1;
-var BID = 0;
-var SCORE = 404;
-var VENDNUM=3;
-var SERVEREVENT=10;
-var VENDEVENT=10;
-var AMMOCOST=5;
-var AMMOGIFT=5;
-var TEXTTIME=2;
-var HEROTEXTTIME=.4;
-var DELIVERED=25;
-var EXITPENALTY=20;
-var SHOOTDIST=400;
-var TABLEPRICE=100;
-var CHAIRPRICE=25;
-var VENDPRICE=800;
-var PCPRICE=150;
-var SERVERPRICE=150;
-var RESETCHANCE = 80;
-var AMMOSTART = 100;
-var NEWPERSONCHANCE = 70;
-var EXITCHANCEPEN = 5;
-var AUTOPRICE=1000;
-var SHOOTWAIT=3;
-var GAMEOVER=false;
-var UPPRICE=1000;
+var tileSize = 16;
+var scale = 3;
+var rect;
+var scaleX;
+var scaleY;
 var COL1 = "990099";
 var COL2 = "05f2db";
 var BSPEED=300;
-// UPGRADES
-var SHOOTUPGRADE=false;
-var DATAUPGRADE=false;
-var AMMOGIFTUPGRADE=false;
 var WIN = false;
-
-var targets=[];
 var atlas = new Image();
 atlas.src = "atlas.png";
 var cart = new Cart();
@@ -77,7 +48,7 @@ var mainGame = {
     this.canvas.width = canvasW;
     this.canvas.height = canvasH;
     this.context = this.canvas.getContext("2d");
-    this.context.scale(1, 1);
+    this.context.scale(scale, scale);
 
     // PixelArt Sharp
     this.context.mozImageSmoothingEnabled = false;
@@ -87,6 +58,10 @@ var mainGame = {
     document.body.insertBefore(this.canvas, document.body.childNodes[6]);
     this.frameNo = 0;
     this.interval = setInterval(updateGameArea, 20);
+
+    rect = mainGame.canvas.getBoundingClientRect();
+    scaleX = (canvasW / rect.width) / scale;
+    scaleY = (canvasH / rect.height) / scale;
 
     // Keyboard
     window.addEventListener('keydown', function(e) {
@@ -108,9 +83,8 @@ var mainGame = {
       mainGame.keys = (mainGame.keys || []);
       mainGame.keys[e.button] = false;
       clickedAt.set(mousePos.x, mousePos.y);
-      // Grid Clicked 64 ( Tiles are 16 * scale of 4 = 64)
-      clickRow = Math.floor(clickedAt.y / 64);
-      clickCol = Math.floor(clickedAt.x / 64);
+      clickRow = Math.floor(clickedAt.y / tileSize);
+      clickCol = Math.floor(clickedAt.x / tileSize);
       clickIndex = clickCol + (19*clickRow);
       processClick = true;
       if(!music&&!start){
@@ -119,10 +93,9 @@ var mainGame = {
     })
     window.addEventListener('mousemove', function(e) {
       e.preventDefault();
-      var rect = mainGame.canvas.getBoundingClientRect();
       mousePos.set((e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY);
-      row = Math.floor(mousePos.y / 64);
-      col = Math.floor(mousePos.x / 64);
+      row = Math.floor(mousePos.y / tileSize);
+      col = Math.floor(mousePos.x / tileSize);
       hoverIndex = col + (19*row);
     })
     // Disable right click context menu
@@ -138,12 +111,16 @@ var mainGame = {
   }
 }
 
-function updateGameArea() {  
-  // Music  
+function updateGameArea() {
+  // Music
+  //if(music && songLoaded){
+  //  audio.play();
+  //  audio.loop = true;
+  //  music=false;
+  //  gameStarted=true;
+  //}
+
   if(music && songLoaded){
-    audio.play();
-    audio.loop = true;
-    music=false;
     gameStarted=true;
   }
 
@@ -170,7 +147,6 @@ function updateGameArea() {
     ctx.fillText("-- CLICK TO START --", 180, 400);
     ctx.font = "italic 50px Arial";
     ctx.fillText("JS13K 2020 - Theme 404", 200, 200);
-    //ctx.font = "italic 50px Arial";
     ctx.fillText("Get over 20 users, $10404", 200, 500);
     ctx.fillText("and a 100% rating to WIN.", 200, 600);
     ctx.fillText("@CarelessLabs", 200, 700);
