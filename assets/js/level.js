@@ -25,7 +25,7 @@ function level(canvasW, canvasH, id) {
     }
   }
 
-  this.reset = function(hero, scale){
+  this.reset = function(hero){
     var id = hero != null ? hero.currentLevel : 0;
     this.tiles = [];
     this.backTiles = [];
@@ -35,8 +35,8 @@ function level(canvasW, canvasH, id) {
 
     for (row = 0; row < rows; row++) {
       for (col = 0; col < cols; col++) {
-        xx = col * tileSize * scale;
-        yy = row * tileSize * scale;
+        xx = col * tileSize;
+        yy = row * tileSize;
         var tile;
         var type = types.WALL;
         var angle = 0;

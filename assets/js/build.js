@@ -1,6 +1,6 @@
 function Build(scale) {
   this.scale = scale;
-  this.menu = new entity(48, canvasH, canvasW-48, canvasH/2, 0, types.BOX, "#cc00cc", this.scale, 0, 0);
+  this.menu = new entity(48, canvasH, canvasW-48, canvasH/2, 0, types.BOX, "#cc00cc", 0, 0);
   this.menu.image = null;
   this.menu.alpha = .4;
   this.buttons = [];

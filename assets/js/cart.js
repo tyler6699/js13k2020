@@ -3,12 +3,12 @@ function Cart() {
   yOffset = 5;
   this.scale = 1;
   this.tileSzie = 16;
-  this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
+  this.hero = new entity(16, 16, 200, 120, 0, types.HERO, "white", xOffset, yOffset);
   this.hero.sx = 16;
   this.speed = 5;
   this.level = new level(canvasW, canvasH, 0);
   this.hero.currentLevel = 0;
-  this.level.reset(this.hero, this.scale);
+  this.level.reset(this.hero);
 
   // Render & Logic
   this.update = function(delta, time) {
@@ -22,7 +22,7 @@ function Cart() {
     // Set Hero Current Tile
     heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / this.tileSzie);
     heroCol = Math.floor((this.hero.x - this.hero.mhWidthScaled) / this.tileSzie);
-    heroTileIndex = heroCol + (19*heroRow);
+    heroTileIndex = heroCol + (19*heroRow); // TODO remove reference to 19
     if(this.currentTile != null) this.prevTile = this.currentTile;
     this.currentTile = this.level.tiles[heroTileIndex];
 
@@ -50,7 +50,7 @@ function Cart() {
 
     // Mouse
     // Hide Cursor
-    //mainGame.canvas.style.cursor='none';
+    mainGame.canvas.style.cursor='none';
     let mx = mousePos.x;
     let my = mousePos.y;
     let mw = 2;
@@ -85,9 +85,9 @@ function Cart() {
   this.reset = function(){
     BSPEED=300;
     WIN=false;
-    this.hero = new entity(this.tileSzie, this.tileSzie, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
+    this.hero = new entity(this.tileSzie, this.tileSzie, 200, 120, 0, types.HERO, "white", xOffset, yOffset);
     this.hero.sx = 16;
     this.level = new level(canvasW, canvasH, 0);
-    this.level.reset(this.hero, this.scale);
+    this.level.reset(this.hero);
   }
 }

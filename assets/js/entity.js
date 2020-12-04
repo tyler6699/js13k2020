@@ -1,5 +1,4 @@
-function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, isButton = false) {
-  this.scale = 1;
+function entity(w, h, x, y, angle, type, colour, hitboxOffsetX = 0, hitboxOffsetY = 0, isButton = false) {
   this.type = type;
   this.width = w;
   this.height = h;
@@ -60,8 +59,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       this.hitbox.x = this.x - this.width;
       this.hitbox.y = this.y - this.height;
     } else {
-      // Images are all scaled up so hitboxes are also scaled up
-      // TODO: Remove all scale
       this.hitbox.x = this.x + ((this.hitboxOffsetX)/2);
       this.hitbox.y = this.y + ((this.hitboxOffsetX)/2);
       this.hitbox.w = (this.width) - (this.hitboxOffsetX);
@@ -125,34 +122,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
 
   this.isHero = function(){
     return this.type == types.HERO;
-  }
-
-  this.isTable = function(){
-    return this.type == types.TABLE;
-  }
-
-  this.isChairB = function(){
-    return this.type == types.CHAIR_B;
-  }
-
-  this.isChairT = function(){
-    return this.type == types.CHAIR_T;
-  }
-
-  this.isFloor = function(){
-    return this.type == types.FLOOR;
-  }
-
-  this.isServer = function(){
-    return this.type == types.SERVER;
-  }
-
-  this.isVend = function(){
-    return this.type == types.VEND;
-  }
-
-  this.isAuto = function(){
-    return this.type == types.AUTO;
   }
 
   this.setType = function(){
