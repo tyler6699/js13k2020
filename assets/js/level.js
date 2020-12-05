@@ -11,7 +11,7 @@ function level(canvasW, canvasH, id) {
   this.maxLevels;
   this.tileSize = 16;
   this.columnCount=19;
-  this.rowCount=16;
+  this.rowCount=13;
   var levelArray;
 
   this.draw = function(hero, delta){

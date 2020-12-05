@@ -6,7 +6,7 @@ function Cart() {
     if (right()) this.hero.move(direction.RIGHT); 
     if (up())    this.hero.move(direction.UP);
     if (down())  this.hero.move(direction.DOWN);
-    if(one()) cart.reset();
+    if(one())    cart.reset();
 
     // Set Hero Current Tile
     this.hero.updateCollisionTiles(this.level.tileSize, this.level.columnCount, this.level.tiles);

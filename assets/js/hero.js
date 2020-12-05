@@ -1,6 +1,6 @@
 function Hero(w, h, x, y, angle, type, colour, xOffset, yOffset, sx){
   this.entity = new entity(w, h, x, y, angle, type, "white", xOffset, yOffset);
-  this.sx = sx;
+  this.entity.sx = sx;
   this.currentLevel = 0;
   this.collisionArray = [];
   this.speed = 5;
