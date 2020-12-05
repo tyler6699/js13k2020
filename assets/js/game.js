@@ -85,7 +85,7 @@ var mainGame = {
       clickedAt.set(mousePos.x, mousePos.y);
       clickRow = Math.floor(clickedAt.y / tileSize);
       clickCol = Math.floor(clickedAt.x / tileSize);
-      clickIndex = clickCol + (19*clickRow);
+      clickIndex = clickCol + (this.cart.level.columnCount*clickRow);
       processClick = true;
       if(!music&&!start){
         music=true;
@@ -96,7 +96,7 @@ var mainGame = {
       mousePos.set((e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY);
       row = Math.floor(mousePos.y / tileSize);
       col = Math.floor(mousePos.x / tileSize);
-      hoverIndex = col + (19*row);
+      hoverIndex = col + (this.cart.level.columnCount*row);
     })
     // Disable right click context menu
     this.canvas.oncontextmenu = function(e) {

@@ -9,7 +9,9 @@ function level(canvasW, canvasH, id) {
   this.active = false;
   this.complete = false;
   this.maxLevels;
-  var tileSize = 16;
+  this.tileSize = 16;
+  this.columnCount=19;
+  this.rowCount=16;
   var levelArray;
 
   this.draw = function(hero, delta){
@@ -30,13 +32,13 @@ function level(canvasW, canvasH, id) {
     this.tiles = [];
     this.backTiles = [];
     levelArray = this.levels[id];
-    var rows = 13;
-    var cols = 19;
+    var rows = this.rowCount;
+    var cols = this.columnCount;
 
     for (row = 0; row < rows; row++) {
       for (col = 0; col < cols; col++) {
-        xx = col * tileSize;
-        yy = row * tileSize;
+        xx = col * this.tileSize;
+        yy = row * this.tileSize;
         var tile;
         var type = types.WALL;
         var angle = 0;
@@ -64,7 +66,7 @@ function level(canvasW, canvasH, id) {
           type = types.FLOOR
         }
 
-        tile = new Tile(tileSize, xx, yy, angle, type, false, col, row);
+        tile = new Tile(this.tileSize, xx, yy, angle, type, false, col, row);
         this.tiles.push(tile);
       }
     }
