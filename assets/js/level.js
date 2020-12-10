@@ -10,8 +10,8 @@ function level(canvasW, canvasH, id) {
   this.complete = false;
   this.maxLevels;
   this.tileSize = 16;
-  this.columnCount=19;
-  this.rowCount=13;
+  this.columnCount=24;
+  this.rowCount=15;
   var levelArray;
 
   this.draw = function(hero, delta){
@@ -44,21 +44,21 @@ function level(canvasW, canvasH, id) {
         var angle = 0;
 
         // Create a room
-        if(row == 0 || col == 0 || row == 12 || col == 18){
+        if(row == 0 || col == 0 || row == this.rowCount-1 || col == this.columnCount-1){
           type = types.AIR;
         } else if (row==1 && col == 1) {
           type = types.WALL_RT;
-        } else if (row==1 && col > 1 && col < 17) {
+        } else if (row==1 && col > 1 && col < this.columnCount-2) {
           type = types.WALL_T;
-        } else if (row==1 && col == 17) {
+        } else if (row==1 && col == this.columnCount-2) {
           type = types.WALL_LT;
-        } else if (row==11 && col == 17) {
+        } else if (row==this.rowCount-2 && col == this.columnCount-2) {
           type = types.WALL_BR;
-        } else if (row==11 && col == 1) {
+        } else if (row==this.rowCount-2 && col == 1) {
           type = types.WALL_BL;
-        } else if (row==11 && col > 1 && col < 17) {
+        } else if (row==this.rowCount-2 && col > 1 && col < this.columnCount-2) {
           type = types.WALL_B;
-        } else if(col == 17) {
+        } else if(col == this.columnCount-2) {
           type = types.WALL_R;
         } else if(col == 1){
           type = types.WALL_L;

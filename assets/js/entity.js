@@ -88,12 +88,12 @@ function entity(w, h, x, y, angle, type, colour, hitboxOffsetX = 0, hitboxOffset
       ctx.translate(this.x, this.y);
 
       if(this.drawTile){
-        ctx.globalAlpha = .4;
+        //ctx.globalAlpha = 1;
         //ctx.drawImage(this.image, 48, 0, 16, 16, 8, 8, 64, 64);
         // TODO Fix scale - Draws centre
       }
 
-      ctx.globalAlpha = this.alpha;
+      //ctx.globalAlpha = this.alpha;
       // Animate Image
       if (this.image == null || this.isButton) {
         ctx.fillStyle = this.colour;
