@@ -10,8 +10,8 @@ function level(canvasW, canvasH, id) {
   this.complete = false;
   this.maxLevels;
   this.tileSize = 16;
-  this.columnCount=24;
-  this.rowCount=15;
+  this.columnCount=18;
+  this.rowCount=12;
   var levelArray;
 
   this.draw = function(hero, delta){
@@ -53,11 +53,11 @@ function level(canvasW, canvasH, id) {
         } else if (row==1 && col == this.columnCount-2) {
           type = types.WALL_LT;
         } else if (row==this.rowCount-2 && col == this.columnCount-2) {
-          type = types.WALL_BR;
+          type = types.WALL_BR_WATER;
         } else if (row==this.rowCount-2 && col == 1) {
-          type = types.WALL_BL;
+          type = types.WALL_BL_WATER;
         } else if (row==this.rowCount-2 && col > 1 && col < this.columnCount-2) {
-          type = types.WALL_B;
+          type = types.WALL_B_WATER;
         } else if(col == this.columnCount-2) {
           type = types.WALL_R;
         } else if(col == 1){

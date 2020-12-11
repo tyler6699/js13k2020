@@ -62,7 +62,8 @@ function vec2(x,y){
 }
 
 function renderStarField(time){
-  mainGame.context.fillStyle='#FFF';
+  time = time / 5;
+  mainGame.context.fillStyle='#9f9be3';
   for(let i=2e3;i--;){
     x = (Math.sin(i)*1e9-time/2e3*(i+1e3)/50)%(mainGame.canvas.width+9)-9;
     y = i*9%mainGame.canvas.height;

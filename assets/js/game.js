@@ -4,8 +4,8 @@
 var debug = false;
 var mainGame;
 var controllers = [];
-var canvasW = 1200;
-var canvasH = 800;
+var canvasW = 1152;
+var canvasH = 768;
 var gameStarted = false;
 var showtutorial = true;
 var delta = 0.0;
@@ -20,7 +20,7 @@ var clickRow;
 var clickCol;
 var processClick = false;
 var tileSize = 16;
-var scale = 3;
+var scale = 4;
 var rect;
 var scaleX;
 var scaleY;
@@ -137,25 +137,27 @@ function updateGameArea() {
     // intro Screen
     mainGame.clear();
     ctx = mainGame.context;
-    ctx.save();
-    ctx.globalAlpha = .3;
-    ctx.fillStyle = "#"+COL1;
-    ctx.fillRect(75, 75, 1070, 680);
-    ctx.globalAlpha = 1;
-    ctx.font = "italic 90px Arial";
-    ctx.fillStyle = "WHITE";
-    ctx.fillText("-- CLICK TO START --", 180, 400);
-    ctx.font = "italic 50px Arial";
-    ctx.fillText("JS13K 2020 - Theme 404", 200, 200);
-    ctx.fillText("Get over 20 users, $10404", 200, 500);
-    ctx.fillText("and a 100% rating to WIN.", 200, 600);
-    ctx.fillText("@CarelessLabs", 200, 700);
+    renderSplashScreen(ctx);
     renderStarField(timeElapsed);
     ctx.restore();
   } else {
     mainGame.clear();
     cart.update(delta / 1e3, timeElapsed);
   }
+}
+
+function renderSplashScreen(ctx){
+  ctx.save();
+  ctx.globalAlpha = .3;
+  ctx.fillStyle = "#000";
+  ctx.fillRect((canvasW/scale)* .05, (canvasH/scale)* .05, (canvasW/scale)* .9, (canvasH/scale)* .9);
+  ctx.globalAlpha = 1;
+  ctx.font = "italic 20px Arial";
+  ctx.fillStyle = "WHITE";
+  ctx.fillText("Secret Santa", 135, 70);
+  ctx.font = "italic 20px Arial";
+  ctx.fillText("-- CLICK TO START --", 100, 200);
+  ctx.font = "italic 20px Arial";
 }
 
 function left() {

@@ -40,7 +40,7 @@ function Cart() {
     WIN=false;
     xOffset = 5;
     yOffset = 5;
-    this.hero = new Hero(16, 16, 200, 120, 0, types.HERO, "white", xOffset, yOffset, 16);
+    this.hero = new Hero(16, 19, 200, 120, 0, types.HERO, "white", xOffset, yOffset, 16);
     this.level = new level(canvasW, canvasH, 0);
     this.level.reset(this.hero);
   }

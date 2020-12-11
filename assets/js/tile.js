@@ -7,8 +7,6 @@ function Tile(size, x, y, angle, type, solid, column, row) {
 
   this.update = function(delta) {
     this.entity.update(delta);
-    // Tick Person
-    if(this.person() != null) this.entity.person.tick();
   }
 
   //this.tick = function(hero){}
@@ -19,25 +17,5 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     }
 
     this.entity.setType();
-  }
-
-  this.isTable = function(){
-    return this.entity.isTable();
-  }
-
-  this.isChairB = function(){
-    return this.entity.isChairB();
-  }
-
-  this.isChairT = function(){
-    return this.entity.isChairT();
-  }
-
-  this.isFloor = function(){
-    return this.entity.isFloor();
-  }
-
-  this.person = function(){
-    return this.entity.person;
   }
 }

@@ -10,16 +10,9 @@ const types = {
   FLOOR:8,
   AIR:9,
   HERO:10,
-  TABLE:11,
-  CHAIR_T:12,
-  CHAIR_B:13,
-  PC:14,
-  PC_B:15,
-  BOX:16,
-  SERVER:17,
-  PERSON:18,
-  VEND:19,
-  AUTO:20
+  WALL_BL_WATER:11,
+  WALL_BR_WATER:12,
+  WALL_B_WATER:13,
 }
 
 const direction = {

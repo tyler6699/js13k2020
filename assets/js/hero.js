@@ -1,16 +1,21 @@
 function Hero(w, h, x, y, angle, type, colour, xOffset, yOffset, sx){
   this.entity = new entity(w, h, x, y, angle, type, "white", xOffset, yOffset);
-  this.entity.sx = sx;
+  this.entity.sx = 0;
+  this.entity.sy = 0;
   this.currentLevel = 0;
   this.collisionArray = [];
-  this.speed = 5;
+  this.speed = 2;
   this.currentTile = null;
   this.prevTile = null;
   
   this.move = function(dir){
     if(dir==direction.LEFT){
+      this.entity.sx=0;
+      this.entity.sy=0;
       this.entity.x -= this.getMoveAmount(-this.speed,0);
     } else if (dir==direction.RIGHT){
+      this.entity.sx=0;
+      this.entity.sy=19;
       this.entity.x += this.getMoveAmount(this.speed,0);
     } else if (dir==direction.UP){
       this.entity.y -= this.getMoveAmount(0,-this.speed);

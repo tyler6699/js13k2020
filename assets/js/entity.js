@@ -26,8 +26,6 @@ function entity(w, h, x, y, angle, type, colour, hitboxOffsetX = 0, hitboxOffset
   this.isSolid = false;
   this.isButton = isButton;
   this.drawTile = false;
-  this.pc = null;
-  this.person = null;
   this.gun = null;
   this.ammo = 5;
   this.time=0;
@@ -71,13 +69,6 @@ function entity(w, h, x, y, angle, type, colour, hitboxOffsetX = 0, hitboxOffset
     }
   }
 
-  this.addPC = function(direction, chair, tile){
-    if(this.pc == null){
-      this.pc = new PC(direction, chair, tile);
-    } else {
-      this.pc.direction = direction;
-    }
-  }
   // Render
   this.update = function(delta) {
     this.updateHitbox();
@@ -85,15 +76,9 @@ function entity(w, h, x, y, angle, type, colour, hitboxOffsetX = 0, hitboxOffset
     if(this.active) {
       ctx = mainGame.context;
       ctx.save();
-      ctx.translate(this.x, this.y);
-
-      if(this.drawTile){
-        //ctx.globalAlpha = 1;
-        //ctx.drawImage(this.image, 48, 0, 16, 16, 8, 8, 64, 64);
-        // TODO Fix scale - Draws centre
-      }
-
-      //ctx.globalAlpha = this.alpha;
+      ctx.translate(this.x-this.hWidth, this.y-this.hHeight);
+      ctx.globalAlpha = this.alpha;
+      
       // Animate Image
       if (this.image == null || this.isButton) {
         ctx.fillStyle = this.colour;
@@ -134,84 +119,57 @@ function entity(w, h, x, y, angle, type, colour, hitboxOffsetX = 0, hitboxOffset
 
     switch(this.type) {
       case types.WALL_R:
-        this.sx=80;
-        break;
-      case types.WALL_RT:
-        this.sx=128;
+      this.sx=48;
+      this.sy=16
         break;
       case types.WALL_LT:
+        this.sx=48;
+        break;
+      case types.WALL_RT:
+        this.sx=16;
+        break;
+      case types.WALL_L:
         this.sx=16;
         this.sy=16;
         break;
-      case types.WALL_L:
-        this.sx=64;
-        break;
       case types.WALL_T:
-        this.sy=16;
+        this.sx=32;
         break;
       case types.WALL_B:
-        this.sx=112;
+        this.sx=32;
+        this.sy=32;
         break;
       case types.WALL_BR:
-        this.sx=32;
-        this.sy=16;
+        this.sx=48;
+        this.sy=32;
         break;
       case types.WALL_BL:
-        this.sx=48;
-        this.sy=16;
+        this.sx=16;
+        this.sy=32;
+        break;
+      case types.WALL_B_WATER:
+        this.sx=80;
+        this.sy=32;
+        break;
+      case types.WALL_BL_WATER:
+        this.sx=64;
+        this.sy=32;
+        break;
+      case types.WALL_BR_WATER:
+        this.sx=96;
+        this.sy=32;
         break;
       case types.FLOOR:
-        this.sx=48;
-        this.alpha = .4;
+        this.sx=32;
+        this.sy=16;
+        this.alpha = 1;
         this.isSolid = false;
         this.drawTile = false;
         break;
       case types.AIR:
-        this.sx=144;
-        this.isSolid = false;
-        break;
-      case types.TABLE:
-        this.sx=64;
-        this.sy=16;
-        this.drawTile = true;
-        break;
-      case types.CHAIR_T:
-        this.sx=80;
-        this.sy=16;
-        this.isSolid = false;
-        this.drawTile = true;
-        break;
-      case types.CHAIR_B:
-        this.sx=96;
-        this.sy=16;
-        this.isSolid = false;
-        this.drawTile = true;
-        break;
-      case types.PC:
-        this.sx=112;
-        this.sy=16;
-        this.isSolid = false;
-        break;
-      case types.SERVER:
-        this.sx=144;
-        this.sy=16;
-        this.yDrawOffset = -20;
-        this.hitboxOffsetY = 5;
-        this.drawTile = true;
-        break;
-      case types.VEND:
-        this.sx=144;
-        this.sy=32;
-        this.yDrawOffset = -20;
-        this.hitboxOffsetY = 5;
-        this.drawTile = true;
-        break;
-      case types.AUTO:
-        this.sx=128;
+        this.sx=0;
         this.sy=48;
-        this.yDrawOffset = -20;
-        this.hitboxOffsetY = 5;
-        this.drawTile = true;
+        this.isSolid = false;
         break;
     }
   }

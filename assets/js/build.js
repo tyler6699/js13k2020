@@ -32,32 +32,32 @@ function Build(scale) {
     // Check can build
     this.canBuild=false;
     this.hoverTile = getTile(hoverIndex, cart.level);
-    if(this.hoverTile!=null && this.hoverTile.isFloor() || (this.hoverTile!=null && this.curItm==actions.PC && this.hoverTile.isTable())){
-      switch(this.curItm) {
-        case actions.CHAIR:
-          if(SCORE>CHAIRPRICE)this.canBuild=true;
-          break;
-        case actions.DESK:
-          if(SCORE>TABLEPRICE)this.canBuild=true;
-          break;
-        case actions.PC:
-          ta = getTile(hoverIndex-19, cart.level);
-          tb = getTile(hoverIndex+19, cart.level);
-          if(SCORE>PCPRICE && (ta.isChairB() || tb.isChairT())){
-            this.canBuild=true;
-          }
-          break;
-        case actions.VEND:
-          if(SCORE>VENDPRICE)this.canBuild=true;
-          break;
-        case actions.SERVER:
-          if(SCORE>SERVERPRICE)this.canBuild=true;
-          break;
-        case actions.AUTO:
-          if(SCORE>AUTOPRICE)this.canBuild=true;
-          break;
-      }
-    }
+    // if(this.hoverTile!=null && this.hoverTile.isFloor() || (this.hoverTile!=null && this.curItm==actions.PC && this.hoverTile.isTable())){
+    //   switch(this.curItm) {
+    //     case actions.CHAIR:
+    //       if(SCORE>CHAIRPRICE)this.canBuild=true;
+    //       break;
+    //     case actions.DESK:
+    //       if(SCORE>TABLEPRICE)this.canBuild=true;
+    //       break;
+    //     case actions.PC:
+    //       ta = getTile(hoverIndex-19, cart.level);
+    //       tb = getTile(hoverIndex+19, cart.level);
+    //       if(SCORE>PCPRICE && (ta.isChairB() || tb.isChairT())){
+    //         this.canBuild=true;
+    //       }
+    //       break;
+    //     case actions.VEND:
+    //       if(SCORE>VENDPRICE)this.canBuild=true;
+    //       break;
+    //     case actions.SERVER:
+    //       if(SCORE>SERVERPRICE)this.canBuild=true;
+    //       break;
+    //     case actions.AUTO:
+    //       if(SCORE>AUTOPRICE)this.canBuild=true;
+    //       break;
+    //   }
+    // }
   }
 
   this.tick = function(){
