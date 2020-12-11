@@ -27,8 +27,8 @@ function Cart() {
     mainGame.canvas.style.cursor='none';
     let mx = mousePos.x;
     let my = mousePos.y;
-    let mw = 2;
-    let mh = 10;
+    let mw = 1;
+    let mh = 6;
     mainGame.context.globalCompositeOperation = 'difference';
     mainGame.context.fillStyle='WHITE'
     mainGame.context.fillRect(mx-mw,my-mh,mw*2,mh*2);
@@ -38,9 +38,9 @@ function Cart() {
   
   this.reset = function(){
     WIN=false;
-    xOffset = 5;
-    yOffset = 5;
-    this.hero = new Hero(16, 19, 200, 120, 0, types.HERO, "white", xOffset, yOffset, 16);
+    xOffset = 8;
+    yOffset = 8;
+    this.hero = new Hero(16, 19, 200, 120, types.HERO, xOffset, yOffset);
     this.level = new level(canvasW, canvasH, 0);
     this.level.reset(this.hero);
   }

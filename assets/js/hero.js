@@ -1,5 +1,5 @@
-function Hero(w, h, x, y, angle, type, colour, xOffset, yOffset, sx){
-  this.entity = new entity(w, h, x, y, angle, type, "white", xOffset, yOffset);
+function Hero(w, h, x, y, type, xOffset, yOffset){
+  this.entity = new entity(w, h, x, y, 0, type, "white", xOffset, yOffset);
   this.entity.sx = 0;
   this.entity.sy = 0;
   this.currentLevel = 0;
