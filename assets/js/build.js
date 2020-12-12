@@ -1,17 +1,17 @@
-function Build(scale) {
-  this.scale = scale;
-  this.menu = new entity(48, canvasH, canvasW-48, canvasH/2, 0, types.BOX, "#cc00cc", 0, 0);
+function Build() {
+  var width = canvasW/scale;
+  this.menu = new entity(28, canvasH/scale, width-24, 0, 0, types.BOX, "#cc00cc", 0, 0);
   this.menu.image = null;
   this.menu.alpha = .4;
   this.buttons = [];
   this.curItm = null;
-  this.nButtons = 10;
+  this.nButtons = 5;
   this.canBuild=false;
   this.hoverTile;
 
-  // Add 10 buttons
+  // Add Buttons
   for(i = 0; i<this.nButtons;i++){
-    this.buttons.push(new Button(32,32,canvasW-48,50+(i*80),"#131a2d", getValueByIndex(actions,i)));
+    this.buttons.push(new Button(20,20,width-22,(i*22)+2,"#131a2d", getValueByIndex(actions,i)));
   }
 
   this.update = function(){
@@ -19,7 +19,6 @@ function Build(scale) {
     for(i = 0; i<this.nButtons;i++){
       b = this.buttons[i];
       b.update();
-
       if(collision(mousePos.x,mousePos.y,32,32,b.entity.x, b.entity.y, b.entity.width, b.entity.height)){
         b.entity.hover=true;
       } else {
@@ -66,7 +65,7 @@ function Build(scale) {
     for (var i = 0; i < this.buttons.length; i++) {
       b = this.buttons[i];
       if(rectColiding(b.entity.hitbox, clickRec)){
-        b.processAction();
+        b.processAction(this.menu);
         return false;
       }
     }
@@ -76,7 +75,6 @@ function Build(scale) {
   this.processBuilding = function(processClick, level){
     if(processClick){
       processClick = false;
-
     }
   }
 }

@@ -82,7 +82,7 @@ function entity(w, h, x, y, angle, type, colour, hitboxOffsetX = 0, hitboxOffset
       // Animate Image
       if (this.image == null || this.isButton) {
         ctx.fillStyle = this.colour;
-        ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.width * .5), (this.height * .5));
+        ctx.fillRect(this.width*.5, this.height*.5, this.width, this.height);
         // Image
       } else {
         ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width , this.height);

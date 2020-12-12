@@ -1,4 +1,6 @@
 function Cart() {
+  this.build = new Build();
+  
   // Render & Logic
   this.update = function(delta, time) {
     // Controls
@@ -6,20 +8,28 @@ function Cart() {
     if (right()) this.hero.move(direction.RIGHT); 
     if (up())    this.hero.move(direction.UP);
     if (down())  this.hero.move(direction.DOWN);
-    if(one())    cart.reset();
+    if (one())   cart.reset();
 
     // Set Hero Current Tile
     this.hero.updateCollisionTiles(this.level.tileSize, this.level.columnCount, this.level.tiles);
     
     renderStarField(time);
     this.level.draw(this.hero, delta);
-    processClick = false;
 
     // HERO
     this.hero.entity.update(delta);
-
+    
+    this.build.update();
+    
+    if(processClick){
+      this.build.tick();
+    }
+    
+    processClick=false;
+    
     // Mouse
     this.updateMouse();
+    
   }
   
   this.updateMouse = function(){
