@@ -21,42 +21,12 @@ var clickCol;
 var processClick = false;
 var scaleX = 1.346;
 var scaleY = 1.38;
-var PCID = -1;
-var BID = 0;
-var SCORE = 404;
-var VENDNUM=3;
-var SERVEREVENT=10;
-var VENDEVENT=10;
-var AMMOCOST=5;
-var AMMOGIFT=5;
-var TEXTTIME=2;
-var HEROTEXTTIME=.4;
-var DELIVERED=25;
-var EXITPENALTY=20;
-var SHOOTDIST=400;
-var TABLEPRICE=100;
-var CHAIRPRICE=25;
-var VENDPRICE=800;
-var PCPRICE=150;
-var SERVERPRICE=150;
-var RESETCHANCE = 80;
-var AMMOSTART = 100;
-var NEWPERSONCHANCE = 70;
-var EXITCHANCEPEN = 5;
-var AUTOPRICE=1000;
-var SHOOTWAIT=3;
 var GAMEOVER=false;
-var UPPRICE=1000;
 var COL1 = "990099";
 var COL2 = "05f2db";
 var BSPEED=300;
-// UPGRADES
-var SHOOTUPGRADE=false;
-var DATAUPGRADE=false;
-var AMMOGIFTUPGRADE=false;
 var WIN = false;
-
-var targets=[];
+var SCORE = 0;
 var atlas = new Image();
 atlas.src = "atlas.png";
 var cart = new Cart();
@@ -138,8 +108,8 @@ var mainGame = {
   }
 }
 
-function updateGameArea() {  
-  // Music  
+function updateGameArea() {
+  // Music
   if(music && songLoaded){
     audio.play();
     audio.loop = true;
