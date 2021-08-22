@@ -3,7 +3,6 @@
 // ╚═══════════════════════════════╝
 var debug = false;
 var mainGame;
-var controllers = [];
 var canvasW = 1216;
 var canvasH = 832;
 var gameStarted = false;
@@ -32,8 +31,8 @@ atlas.src = "atlas.png";
 var cart = new Cart();
 
 // Audio
-//genAudio();
-songLoaded=true;
+genAudio();
+songLoaded=false;
 var music=false;
 var start=false;
 
@@ -112,8 +111,8 @@ var mainGame = {
 function updateGameArea() {
   // Music
   if(music && songLoaded){
-    //audio.play();
-    //audio.loop = true;
+    audio.play();
+    audio.loop = true;
     music=false;
     gameStarted=true;
   }
