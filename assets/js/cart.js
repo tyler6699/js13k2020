@@ -4,7 +4,7 @@ function Cart() {
   this.scale = 4;
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
   this.hero.sx = 16;
-  this.speed = 5;
+  this.speed = 8;
   this.level = new level(canvasW, canvasH, 0);
   this.hero.currentLevel = 0;
   this.level.reset(this.hero, this.scale);
@@ -13,11 +13,11 @@ function Cart() {
   // Render & Logic
   this.update = function(delta, time) {
     // Controls
-    if (left()) this.hero.x -= this.getMoveAmount(-this.speed,0);
-    if (right()) this.hero.x += this.getMoveAmount(this.speed,0);
-    if (up()) this.hero.y -= this.getMoveAmount(0,-this.speed);
-    if (down()) this.hero.y += this.getMoveAmount(0,this.speed);
-    if (space()) this.menu.curItm=actions.GUN;
+    if (left())   this.hero.x -= this.getMoveAmount(-this.speed,0);
+    if (right())  this.hero.x += this.getMoveAmount(this.speed,0);
+    if (up())     this.hero.y -= this.getMoveAmount(0,-this.speed);
+    if (down())   this.hero.y += this.getMoveAmount(0,this.speed);
+    if (space())  this.menu.curItm=actions.GUN;
     if(one()) cart.reset();
 
     // Set Hero Current Tile
@@ -71,11 +71,10 @@ function Cart() {
     gradient.addColorStop(".5", "#"+COL1);
     ctx.fillStyle = gradient;
     ctx.font = "italic 40px Arial";
-    ctx.fillText("$: " + SCORE, 900, 50);
-    ctx.font = "italic 30px Arial";
-    ctx.fillText("GAMEOVER: " + GAMEOVER, 30, 810);
-    ctx.fillText("WIN: " + WIN, 300, 810);
-
+    ctx.fillText("SCORE " + SCORE, 900, 50);
+    //ctx.font = "italic 30px Arial";
+    //ctx.fillText("GAMEOVER: " + GAMEOVER, 30, 810);
+    //ctx.fillText("WIN: " + WIN, 300, 810);
 
     //if(processClick) processClick = cart.menu.tick();
     //cart.menu.checkBuild();

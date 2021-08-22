@@ -7,8 +7,6 @@ function Tile(size, x, y, angle, type, solid, column, row) {
 
   this.update = function(delta) {
     this.entity.update(delta);
-    // Tick Person
-    if(this.person() != null) this.entity.person.tick();
   }
 
   //this.tick = function(hero){}

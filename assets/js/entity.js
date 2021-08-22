@@ -148,45 +148,87 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     this.yDrawOffset = 0;
     this.hitboxOffsetY = 0;
     this.isSolid = true;
-
+    
     switch(this.type) {
-       case types.WALL_R:
-         this.sx=80;
-         break;
-       case types.WALL_RT:
-         this.sx=128;
-         break;
-       case types.WALL_LT:
-         this.sx=16;
-         this.sy=16;
-         break;
-       case types.WALL_L:
-         this.sx=64;
-         break;
-       case types.WALL_T:
-         this.sy=16;
-         break;
-       case types.WALL_B:
-         this.sx=112;
-         break;
-       case types.WALL_BR:
-         this.sx=32;
-         this.sy=16;
-         break;
-       case types.WALL_BL:
-         this.sx=48;
-         this.sy=16;
-         break;
-       case types.FLOOR:
-         this.sx=48;
-         this.alpha = .4;
-         this.isSolid = false;
-         this.drawTile = false;
-         break;
-       case types.AIR:
-         this.sx=144;
-         this.isSolid = false;
-         break;
+      case types.WALL:
+        this.sy=16;
+        this.isSolid = false;
+        break;
+      case types.WALL_R:
+        break;
+      case types.WALL_RT:
+        this.sx=16;
+        this.sy=16;
+        break;
+      case types.WALL_LT:
+        this.sx=32;
+        this.sy=0;
+        break;
+      case types.WALL_L:
+        break;
+      case types.WALL_T:
+        this.sx=16;
+        this.sy=0;
+        break;
+      case types.WALL_B:
+        this.sx=16;
+        this.sy=0;
+        break;
+      case types.WALL_BR:
+        this.sx=16;
+        this.sy=16;
+        break;
+      case types.WALL_BL:
+        this.sx=16;
+        this.sy=16;
+        break;
+      case types.FLOOR:
+        this.sx=32;
+        this.sy=32;
+        this.alpha = .9;
+        this.isSolid = false;
+        this.drawTile = false;
+        break;
+      case types.AIR:
+        this.sx=144;
+        this.isSolid = false;
+        break;
+      case types.GRID_1:
+        this.sx=96;
+        this.sy=32;
+        this.isSolid = false;
+        break;
+      case types.GRID_2:
+        this.sx=112;
+        this.sy=32;
+        this.isSolid = false;
+        break;
+      case types.GRID_3:
+        this.sx=80;
+        this.sy=32;
+        this.isSolid = false;
+        break;
+      case types.GRID_4:
+        this.sx=48;
+        this.sy=32;
+        this.isSolid = false;
+        break;
+      case types.ROCK_1:
+        this.sx=48;
+        this.isSolid = false;
+        break;
+      case types.ROCK_2:
+        this.sx=64;
+        this.isSolid = false;
+        break;
+      case types.ROCK_3:
+        this.sx=80;
+        this.isSolid = false;
+        break;
+      case types.ROCK_4:
+        this.sx=96;
+        this.isSolid = false;
+        break;
      }
   }
 }

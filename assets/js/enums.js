@@ -10,16 +10,15 @@ const types = {
   FLOOR:8,
   AIR:9,
   HERO:10,
-  TABLE:11,
-  CHAIR_T:12,
-  CHAIR_B:13,
-  PC:14,
-  PC_B:15,
-  BOX:16,
-  SERVER:17,
-  PERSON:18,
-  VEND:19,
-  AUTO:20
+  GRID_1:11,
+  GRID_2:12,
+  GRID_3:13,
+  GRID_4:14,
+  WALL:15,
+  ROCK_1:16,
+  ROCK_2:17,
+  ROCK_3:18,
+  ROCK_4:19
 }
 
 const actions = {

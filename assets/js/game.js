@@ -32,7 +32,8 @@ atlas.src = "atlas.png";
 var cart = new Cart();
 
 // Audio
-genAudio();
+//genAudio();
+songLoaded=true;
 var music=false;
 var start=false;
 
@@ -111,8 +112,8 @@ var mainGame = {
 function updateGameArea() {
   // Music
   if(music && songLoaded){
-    audio.play();
-    audio.loop = true;
+    //audio.play();
+    //audio.loop = true;
     music=false;
     gameStarted=true;
   }
@@ -139,10 +140,7 @@ function updateGameArea() {
     ctx.fillStyle = "WHITE";
     ctx.fillText("-- CLICK TO START --", 180, 400);
     ctx.font = "italic 50px Arial";
-    ctx.fillText("JS13K 2020 - Theme 404", 200, 200);
-    //ctx.font = "italic 50px Arial";
-    ctx.fillText("Get over 20 users, $10404", 200, 500);
-    ctx.fillText("and a 100% rating to WIN.", 200, 600);
+    ctx.fillText("JS13K 2021 - Theme SPACE", 200, 200);
     ctx.fillText("@CarelessLabs", 200, 700);
     renderStarField(timeElapsed);
     ctx.restore();
