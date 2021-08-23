@@ -4,6 +4,7 @@ function Tile(size, x, y, angle, type, solid, column, row) {
   this.column = column;
   this.row = row;
   this.active = true;
+  this.door = null;
 
   this.update = function(delta) {
     this.entity.update(delta);
@@ -24,3 +25,4 @@ function Tile(size, x, y, angle, type, solid, column, row) {
   }
   
 }
+

@@ -5,6 +5,7 @@ function level(canvasW, canvasH, id, scale) {
   this.startY=0;
   this.active = false;
   this.complete = false;
+  this.roomNo = id;
   var tileSize = 16;
   var levelArray;
   
@@ -122,19 +123,29 @@ function level(canvasW, canvasH, id, scale) {
   }
   
   this.doorR = function(){
-    this.tiles[112].entity.setT(types.WALL);
-    this.tiles[131].entity.setT(types.DOOR);
-    this.tiles[150].entity.setT(types.DOOR);
-    this.tiles[150].entity.setT(types.DOOR);
+    this.addDoor(112,id+1);
+    this.addDoor(131,id+1);
+    this.addDoor(150,id+1);
   }
   
   this.doorB = function(){
-    this.tiles[218].entity.setT(types.DOOR);
-    this.tiles[217].entity.setT(types.DOOR);
-    this.tiles[219].entity.setT(types.DOOR);
-    this.tiles[238].entity.setT(types.AIR);
-    this.tiles[237].entity.setT(types.AIR);
-    this.tiles[236].entity.setT(types.AIR);
+    this.addDoor(218,id+3);
+    this.addDoor(217,id+3);
+    this.addDoor(219,id+3);
+    this.addAir(238);
+    this.addAir(237);
+    this.addAir(236);
+  }
+  
+  this.addDoor = function(t, room){
+    tile = this.tiles[t];
+    tile.entity.setT(types.DOOR);
+    tile.door = new door(room);
+  }
+  
+  this.addAir = function(t){
+    tile = this.tiles[t];
+    tile.entity.setT(types.AIR);
   }
 
 }

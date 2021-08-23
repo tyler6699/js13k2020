@@ -37,6 +37,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.hover=false;
   this.hoverText="";
   this.hoverText2="";
+  
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -129,6 +130,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
 
   this.isHero = function(){
     return this.type == types.HERO;
+  }
+  
+  this.isDoor = function(){
+    return this.type == types.DOOR;
   }
   
   this.setT = function(t){

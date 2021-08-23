@@ -61,9 +61,15 @@ function Cart() {
         canMove = true;
         for (var t = 0; t < this.hero.colArr.length; t++) {
           tile = this.hero.colArr[t];
-          if(tile.entity.isSolid && rectColiding(tile.entity.hb, rec)){
-            canMove = false;
-            break;
+          
+          if(rectColiding(tile.entity.hb, rec)){
+            if(tile.entity.isSolid){
+              canMove = false;
+              break;
+            } else if(tile.entity.isDoor && tile.door != null){
+              this.level = this.levels[tile.door.loadRoom];
+              break;
+            }  
           }
         }
         if(canMove) amount ++;
