@@ -28,9 +28,6 @@ atlas.src = "atlas.png";
 var cart = new Cart();
 
 // Audio
-//genAudio();
-songLoaded=false;
-var music=false;
 var start=false;
 
 // Called by body onload on index page
@@ -106,16 +103,9 @@ var mainGame = {
 }
 
 function updateGameArea() {
-  // Music
-  //if(music && songLoaded){
-    //audio.play();
-    //audio.loop = true;
-    //music=false;
   if(start){
     gameStarted=true;  
   }
-    
-  //}
 
   // Delta
   prevDelta = currentDelta;
