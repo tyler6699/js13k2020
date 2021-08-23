@@ -28,7 +28,7 @@ function level(canvasW, canvasH, id, scale) {
     }
   }
 
-  this.reset = function(id, scale){
+  this.reset = function(id, scaled){
     this.tiles = [];
     this.backTiles = [];
     this.decorTiles = [];
@@ -39,8 +39,8 @@ function level(canvasW, canvasH, id, scale) {
     // Decor and back tiles
     for (row = 0; row < rows; row++) {
       for (col = 0; col < cols; col++) {
-        xx = col * tileSize * scale;
-        yy = row * tileSize * scale;
+        xx = col * scaled;
+        yy = row * scaled;
         
         if(row > 1 && row < 13 && col > 0 && col < 18){
           this.backTiles.push(new Tile(tileSize, xx, yy, 0, types.FLOOR, false, col, row));

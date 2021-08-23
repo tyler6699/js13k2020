@@ -118,7 +118,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
           ctx.fillStyle = "#"+COL1;
           ctx.fillRect(-215, -50, 167, 100);
           ctx.fillStyle = this.colour;
-          ctx.fillRect(-200, -32, 165, 64);
+          ctx.fillRect(-200, -32, 165, this.scaled);
           ctx.globalAlpha = 1;
           ctx.font = "italic 25px Arial";
           ctx.fillStyle = "#"+COL1;

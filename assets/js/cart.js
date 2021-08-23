@@ -2,6 +2,8 @@ function Cart() {
   xOffset = 0;
   yOffset = 0;
   this.scale = 4;
+  this.cube = 16; // width of tiles
+  this.scaled = this.scale*this.cube;
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
   this.hero.setType();
 
@@ -11,9 +13,10 @@ function Cart() {
   // Set up levels
   for(i=0;i<9;i++){
     var lvl = new level(canvasW, canvasH, i, this.scale);
-    lvl.reset(i, this.scale);
+    lvl.reset(i, this.scaled);
     this.levels.push(lvl);
   }
+  
   this.level = this.levels[0];
   this.hero.currentLevel = 0;
   this.menu = new Build(this.scale);
@@ -29,8 +32,8 @@ function Cart() {
     if(one()) cart.reset();
 
     // Set Hero Current Tile
-    heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / 64);
-    heroCol = Math.floor((this.hero.x - this.hero.mhWidthScaled) / 64);
+    heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / this.scaled);
+    heroCol = Math.floor((this.hero.x - this.hero.mhWidthScaled) / this.scaled);
     heroTileIndex = heroCol + (19*heroRow);
     if(this.currentTile != null) this.prevTile = this.currentTile;
     this.currentTile = this.level.tiles[heroTileIndex];
@@ -85,7 +88,6 @@ function Cart() {
     this.hero.update(delta);
 
     //this.menu.update();
-
     // Mouse
     mainGame.canvas.style.cursor='none';
     let mx = mousePos.x;

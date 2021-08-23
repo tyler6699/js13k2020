@@ -3,8 +3,8 @@
 // ╚═══════════════════════════════╝
 var debug = false;
 var mainGame;
-var canvasW = 1216;
-var canvasH = 864;
+var canvasW = 1232;//1216;
+var canvasH = 846;//832;
 var gameStarted = false;
 var showtutorial = true;
 var delta = 0.0;
@@ -18,8 +18,6 @@ var hoverIndex;
 var clickRow;
 var clickCol;
 var processClick = false;
-var scaleX = 1.346;
-var scaleY = 1.38;
 var GAMEOVER=false;
 var COL1 = "990099";
 var COL2 = "05f2db";
@@ -78,9 +76,8 @@ var mainGame = {
       mainGame.keys = (mainGame.keys || []);
       mainGame.keys[e.button] = false;
       clickedAt.set(mousePos.x, mousePos.y);
-      // Grid Clicked 64 ( Tiles are 16 * scale of 4 = 64)
-      clickRow = Math.floor(clickedAt.y / 64);
-      clickCol = Math.floor(clickedAt.x / 64);
+      clickRow = Math.floor(clickedAt.y / this.scaled);
+      clickCol = Math.floor(clickedAt.x / this.scaled);
       clickIndex = clickCol + (19*clickRow);
       processClick = true;
       if(!music&&!start){
@@ -90,9 +87,10 @@ var mainGame = {
     window.addEventListener('mousemove', function(e) {
       e.preventDefault();
       var rect = mainGame.canvas.getBoundingClientRect();
-      mousePos.set((e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY);
-      row = Math.floor(mousePos.y / 64);
-      col = Math.floor(mousePos.x / 64);
+      mousePos.set((e.clientX - rect.left) / (rect.right - rect.left) * canvasW, 
+                   (e.clientY - rect.top) / (rect.bottom - rect.top) * canvasH);
+      row = Math.floor(mousePos.y / this.scaled);
+      col = Math.floor(mousePos.x / this.scaled);
       hoverIndex = col + (19*row);
     })
     // Disable right click context menu
