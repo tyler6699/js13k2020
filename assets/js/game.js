@@ -6,7 +6,6 @@ var mainGame;
 var canvasW = 1232;//1216;
 var canvasH = 846;//832;
 var gameStarted = false;
-var showtutorial = true;
 var delta = 0.0;
 var prevDelta = Date.now();
 var currentDelta = Date.now();
@@ -80,8 +79,8 @@ var mainGame = {
       clickCol = Math.floor(clickedAt.x / this.scaled);
       clickIndex = clickCol + (19*clickRow);
       processClick = true;
-      if(!music&&!start){
-        music=true;
+      if(!start){
+        start=true;
       }
     })
     window.addEventListener('mousemove', function(e) {
@@ -111,8 +110,11 @@ function updateGameArea() {
   //if(music && songLoaded){
     //audio.play();
     //audio.loop = true;
-    music=false;
-    gameStarted=true;
+    //music=false;
+  if(start){
+    gameStarted=true;  
+  }
+    
   //}
 
   // Delta
@@ -126,22 +128,29 @@ function updateGameArea() {
     mainGame.clear();
     ctx = mainGame.context;
     ctx.save();
-    ctx.globalAlpha = .3;
-    ctx.fillStyle = "#"+COL1;
-    ctx.fillRect(75, 75, 1070, 680);
-    ctx.globalAlpha = 1;
-    ctx.font = "italic 90px Arial";
-    ctx.fillStyle = "WHITE";
-    ctx.fillText("-- CLICK TO START --", 180, 400);
-    ctx.font = "italic 50px Arial";
-    ctx.fillText("JS13K 2021 - Theme SPACE", 200, 200);
-    ctx.fillText("@CarelessLabs", 200, 700);
+    drawBox(ctx,0.3,"#"+COL1,75,75,1070,680)
+    writeTxt(ctx, 1, "italic 90px Arial","WHITE","-- CLICK TO START --", 180, 400);
+    writeTxt(ctx, 1, "italic 50px Arial","WHITE","JS13K 2021 - Theme SPACE", 200, 200);
+    writeTxt(ctx, 1, "italic 50px Arial","WHITE","@CarelessLabs", 200, 700);
     renderStarField(timeElapsed);
     ctx.restore();
   } else {
     mainGame.clear();
     cart.update(delta / 1e3, timeElapsed);
   }
+}
+
+function drawBox(ctx,a,colour,xy,w,h) {
+  ctx.globalAlpha = a;
+  ctx.fillStyle = colour;
+  ctx.fillRect(75, 75, 1070, 680);
+}
+
+function writeTxt(ctx,a,font,colour,txt,x,y) {
+  ctx.globalAlpha = a;
+  ctx.font = font;
+  ctx.fillStyle = colour;
+  ctx.fillText(txt, x, y);
 }
 
 function left() {

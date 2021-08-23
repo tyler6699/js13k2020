@@ -1,12 +1,12 @@
-function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitboxOffsetY = 0, isButton = false) {
+function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, isButton = false) {
   this.scale = scale;
   this.type = type;
   this.width = w;
   this.height = h;
   this.mhWidth = w / -2;
   this.mhHeight = h / -2;
-  this.mhWidthScaled = (w / -2) * scale;
-  this.mhHeightScaled = (h / -2) * scale;
+  this.mhWScaled = (w / -2) * scale;
+  this.mhHScaled = (h / -2) * scale;
   this.hWidth = w / 2;
   this.hHeight = h / 2;
   this.yOffset = 0;
@@ -19,22 +19,20 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.image = atlas;
   this.animated = false;
   this.anination = null;
-  this.hitboxOffsetX = hitboxOffsetX;
-  this.hitboxOffsetY = hitboxOffsetY;
+  this.hbOffX = hbOffX;
+  this.hbOffY = hbOffY;
   this.alpha = 1;
   this.currentTile=0;
-  this.collisionArray = [];
+  this.colArr = [];
   this.isSolid = false;
   this.isButton = isButton;
   this.pc = null;
-  this.person = null;
   this.gun = null;
   this.ammo = 5;
   this.time=0;
   this.showText="";
   this.showTextTime=0;
   this.showTextY=0;
-  this.currentGift=0;
   this.shootTime=0;
   this.hover=false;
   this.hoverText="";
@@ -44,11 +42,11 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.sy=0;
 
   this.setHitbox = function() {
-    this.hitbox = new rectanlge(0, 0, 0, 0);
+    this.hb = new rectanlge(0, 0, 0, 0);
     this.sensor = new rectanlge(0, 0, 0, 0);
     if(this.isButton){
-      this.hitbox.w = this.width * 2;
-      this.hitbox.h = this.height * 2;
+      this.hb.w = this.width * 2;
+      this.hb.h = this.height * 2;
     }
   }
   this.setHitbox();
@@ -56,14 +54,14 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.updateHitbox = function() {
     // Buttons are rendered the screen size and do not need scaling
     if(this.isButton){
-      this.hitbox.x = this.x - this.width;
-      this.hitbox.y = this.y - this.height;
+      this.hb.x = this.x - this.width;
+      this.hb.y = this.y - this.height;
     } else {
       // Images are all scaled up so hitboxes are also scaled up
-      this.hitbox.x = this.x + ((this.hitboxOffsetX * this.scale)/2);
-      this.hitbox.y = this.y + ((this.hitboxOffsetX * this.scale)/2);
-      this.hitbox.w = (this.width * this.scale) - (this.hitboxOffsetX * this.scale);
-      this.hitbox.h = (this.height * this.scale) - (this.hitboxOffsetY * this.scale);
+      this.hb.x = this.x + ((this.hbOffX * this.scale)/2);
+      this.hb.y = this.y + ((this.hbOffX * this.scale)/2);
+      this.hb.w = (this.width * this.scale) - (this.hbOffX * this.scale);
+      this.hb.h = (this.height * this.scale) - (this.hbOffY * this.scale);
 
       this.sensor.x = this.x-5;
       this.sensor.y = this.y-5;
@@ -104,8 +102,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
         ctx.font = "italic 25px Arial";
         ctx.fillStyle = gradient;
         ctx.fillText(this.showText, 0, this.showTextY+(10*this.showTextTime));
-      } else {
-        this.currentGift=0;
       }
 
       if(this.isButton){
@@ -145,7 +141,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     this.sy=0;
     this.sx=0;
     this.yDrawOffset = 0;
-    this.hitboxOffsetY = 0;
+    this.hbOffY = 0;
     this.isSolid = true;
     
     switch(this.type) {

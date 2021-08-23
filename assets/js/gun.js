@@ -32,7 +32,7 @@ function Bullet(ox,oy,dx,dy){
   this.mhHeight = this.h / -2;
   this.dst=0;
   this.active=true;
-  this.hitbox = new rectanlge(ox, oy, this.w, this.h);
+  this.hb = new rectanlge(ox, oy, this.w, this.h);
   this.colour="#a205a2";
   this.dist=0;
   // Vector
@@ -58,29 +58,29 @@ function Bullet(ox,oy,dx,dy){
       if(this.v.x < 0 || this.v.x>1300 || this.v.y < 0 || this.v.y > 840 || this.dist > SHOOTDIST){
         this.active = false;
       }
-      this.hitbox.x = this.v.x + this.mhWidth;
-      this.hitbox.y = this.v.y + this.mhHeight;
+      this.hb.x = this.v.x + this.mhWidth;
+      this.hb.y = this.v.y + this.mhHeight;
       
       //Collision Test
       for(j=0;j< pcs.length; j++){
-        pc=pcs[j];
-        person = pc.getPerson();
-        if(person != null){
-          if(rectColiding(pc.hitbox,this.hitbox) && person.progress != null && person.progress.percent < 1){
-            person.progress.percent = 1;
-            if(person.progress.happy < 5){
-              person.progress.happy += 2;
-            }
-            person.progress.delivered=true;
-            person.progress.mHappy=false;
-            SCORE+=DELIVERED;
-            targets[pc.id]=false;
-            this.active=false;
-            cart.hero.showTextY=-5;
-            cart.hero.showTextTime=HEROTEXTTIME;
-            cart.hero.showText="+ S" + DELIVERED;
-          }
-        }
+        // pc=pcs[j];
+        // person = pc.getPerson();
+        // if(person != null){
+        //   if(rectColiding(pc.hb,this.hb) && person.progress != null && person.progress.percent < 1){
+        //     person.progress.percent = 1;
+        //     if(person.progress.happy < 5){
+        //       person.progress.happy += 2;
+        //     }
+        //     person.progress.delivered=true;
+        //     person.progress.mHappy=false;
+        //     SCORE+=DELIVERED;
+        //     targets[pc.id]=false;
+        //     this.active=false;
+        //     cart.hero.showTextY=-5;
+        //     cart.hero.showTextTime=HEROTEXTTIME;
+        //     cart.hero.showText="+ S" + DELIVERED;
+        //   }
+        // }
       }
       
       // Draw

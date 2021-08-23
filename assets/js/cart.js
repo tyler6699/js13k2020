@@ -1,10 +1,10 @@
 function Cart() {
-  xOffset = 0;
-  yOffset = 0;
+  xOff = 0;
+  yOff = 0;
   this.scale = 4;
   this.cube = 16; // width of tiles
   this.scaled = this.scale*this.cube;
-  this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
+  this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOff, yOff);
   this.hero.setType();
 
   this.speed = 7;
@@ -32,36 +32,36 @@ function Cart() {
     if(one()) cart.reset();
 
     // Set Hero Current Tile
-    heroRow = Math.floor((this.hero.y - this.hero.mhHeightScaled) / this.scaled);
-    heroCol = Math.floor((this.hero.x - this.hero.mhWidthScaled) / this.scaled);
+    heroRow = Math.floor((this.hero.y - this.hero.mhHScaled) / this.scaled);
+    heroCol = Math.floor((this.hero.x - this.hero.mhWScaled) / this.scaled);
     heroTileIndex = heroCol + (19*heroRow);
     if(this.currentTile != null) this.prevTile = this.currentTile;
     this.currentTile = this.level.tiles[heroTileIndex];
 
     if(this.currentTile != this.prevTile){
-      this.hero.collisionArray = [];
+      this.hero.colArr = [];
       // Add surrounding tiles
-      if(heroTileIndex) this.hero.collisionArray.push(this.level.tiles[heroTileIndex-1]);  // LEFT
-      this.hero.collisionArray.push(this.level.tiles[heroTileIndex+1]);  // RIGHT
-      this.hero.collisionArray.push(this.level.tiles[heroTileIndex+18]); // TOP LEFT
-      this.hero.collisionArray.push(this.level.tiles[heroTileIndex+19]); // ABOVE
-      this.hero.collisionArray.push(this.level.tiles[heroTileIndex+20]); // TOP RIGHT
-      this.hero.collisionArray.push(this.level.tiles[heroTileIndex-18]); // BOTTOM LEFT
-      this.hero.collisionArray.push(this.level.tiles[heroTileIndex-19]); // BELOW
-      this.hero.collisionArray.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
+      if(heroTileIndex) this.hero.colArr.push(this.level.tiles[heroTileIndex-1]);  // LEFT
+      this.hero.colArr.push(this.level.tiles[heroTileIndex+1]);  // RIGHT
+      this.hero.colArr.push(this.level.tiles[heroTileIndex+18]); // TOP LEFT
+      this.hero.colArr.push(this.level.tiles[heroTileIndex+19]); // ABOVE
+      this.hero.colArr.push(this.level.tiles[heroTileIndex+20]); // TOP RIGHT
+      this.hero.colArr.push(this.level.tiles[heroTileIndex-18]); // BOTTOM LEFT
+      this.hero.colArr.push(this.level.tiles[heroTileIndex-19]); // BELOW
+      this.hero.colArr.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
     }
 
     // check for each pixel if the hero can move (1,2,3,4,5)
     this.gMove = function(xx,yy){
-      rec = cloneRectanlge(this.hero.hitbox);
+      rec = cloneRectanlge(this.hero.hb);
       rec.x += xx;
       rec.y += yy;
       amount = 0;
       for(var i = 1; i<this.speed; i++){
         canMove = true;
-        for (var t = 0; t < this.hero.collisionArray.length; t++) {
-          tile = this.hero.collisionArray[t];
-          if(tile.entity.isSolid && rectColiding(tile.entity.hitbox, rec)){
+        for (var t = 0; t < this.hero.colArr.length; t++) {
+          tile = this.hero.colArr[t];
+          if(tile.entity.isSolid && rectColiding(tile.entity.hb, rec)){
             canMove = false;
             break;
           }
@@ -104,7 +104,7 @@ function Cart() {
   this.reset = function(){
     GAMEOVER=false;
     WIN=false;
-    this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
+    this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOff, yOff);
     this.hero.sx = 16;
     this.level = new level(canvasW, canvasH, 0);
     this.level.reset(this.hero, this.scale);

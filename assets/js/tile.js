@@ -1,5 +1,5 @@
 function Tile(size, x, y, angle, type, solid, column, row) {
-  this.entity = new entity(size, size, x, y, angle, type, "", 4, hitboxOffsetX = 0, hitboxOffsetY = 0);
+  this.entity = new entity(size, size, x, y, angle, type, "", 4, hbOffX = 0, hbOffY = 0);
   this.entity.setType();
   this.column = column;
   this.row = row;
@@ -22,8 +22,5 @@ function Tile(size, x, y, angle, type, solid, column, row) {
   this.isFloor = function(){
     return this.entity.isFloor();
   }
-
-  this.person = function(){
-    return this.entity.person;
-  }
+  
 }

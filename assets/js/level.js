@@ -1,23 +1,21 @@
 function level(canvasW, canvasH, id, scale) {
   this.tiles = [];
-  this.backTiles = [];
+  this.bTiles = [];
   this.startX=0;
   this.startY=0;
-  this.canvasHalfW = canvasW / 2;
-  this.canvasHalfH = canvasH / 2;
   this.active = false;
   this.complete = false;
   var tileSize = 16;
   var levelArray;
   
   this.draw = function(hero, delta){
-    for (i = 0; i < this.backTiles.length; i++) {
-      var tile = this.backTiles[i];
+    for (i = 0; i < this.bTiles.length; i++) {
+      var tile = this.bTiles[i];
       tile.update(delta);
     }
     
-    for (i = 0; i < this.decorTiles.length; i++) {
-      var tile = this.decorTiles[i];
+    for (i = 0; i < this.dTiles.length; i++) {
+      var tile = this.dTiles[i];
       tile.update(delta);
     }
 
@@ -30,23 +28,23 @@ function level(canvasW, canvasH, id, scale) {
 
   this.reset = function(id, scaled){
     this.tiles = [];
-    this.backTiles = [];
-    this.decorTiles = [];
+    this.bTiles = [];
+    this.dTiles = [];
     
     var rows = 13;
     var cols = 19;
     
     // Decor and back tiles
-    for (row = 0; row < rows; row++) {
-      for (col = 0; col < cols; col++) {
-        xx = col * scaled;
-        yy = row * scaled;
+    for (r = 0; r < rows; r++) {
+      for (c = 0; c < cols; c++) {
+        xx = c * scaled;
+        yy = r * scaled;
         
-        if(row > 1 && row < 13 && col > 0 && col < 18){
-          this.backTiles.push(new Tile(tileSize, xx, yy, 0, types.FLOOR, false, col, row));
+        if(r > 1 && r < 13 && c > 0 && c < 18){
+          this.bTiles.push(new Tile(tileSize, xx, yy, 0, types.FLOOR, false, c, r));
         }
         
-        if(row > 1 && row < 12 && col > 0 && col < 18) {
+        if(r > 1 && r < 12 && c > 0 && c < 18) {
           var type = null;
           
           // GRID Background Patterns
@@ -60,37 +58,37 @@ function level(canvasW, canvasH, id, scale) {
             type = types.GRID_4;
           }
           if(type != null){
-            this.decorTiles.push(new Tile(tileSize, xx, yy, 0, type, false, col, row));
+            this.dTiles.push(new Tile(tileSize, xx, yy, 0, type, false, c, r));
           }
         }  
       }
     }
     
     // Main level tiles
-    for (row = 0; row < rows; row++) {
-      for (col = 0; col < cols; col++) {
-        xx = col * tileSize * scale;
-        yy = row * tileSize * scale;
+    for (r = 0; r < rows; r++) {
+      for (c = 0; c < cols; c++) {
+        xx = c * tileSize * scale;
+        yy = r * tileSize * scale;
         var tile;
         var type = types.WALL;
         var angle = 0;
 
         // Create a room
-        if(row == 2 && (col > 1 && col < 17)){
+        if(r == 2 && (c > 1 && c < 17)){
           type = types.WALL;
-        } else if (row == 12 && (col > 0 && col < 18)){
+        } else if (r == 12 && (c > 0 && c < 18)){
           type = types.WALL;
-        } else if(row == 0 || col == 0 || row == 12 || col == 18){
+        } else if(r == 0 || c == 0 || r == 12 || c == 18){
           type = types.AIR;
-        } else if ((col == 1) || (col == 17) || (row==1 && col == 1) || (row==1 && col == 17) || 
-                    (row==1 && col > 1 && col < 17) || (row==11 && col == 17) || 
-                    (row==11 && col == 1) || (row==11 && col > 1 && col < 17)){
+        } else if ((c == 1) || (c == 17) || (r==1 && c == 1) || (r==1 && c == 17) || 
+                    (r==1 && c > 1 && c < 17) || (r==11 && c == 17) || 
+                    (r==11 && c == 1) || (r==11 && c > 1 && c < 17)){
           type = types.BLOCK;
         } else {
           type = types.AIR
           
           // ROCK DECOR
-          if(randomNum(0,100) > 90 && row > 2){
+          if(randomNum(0,100) > 90 && r > 2){
             var rock = randomNum(0,3);
             switch(rock) {
               case 0:
@@ -109,7 +107,7 @@ function level(canvasW, canvasH, id, scale) {
           }
         }
         
-        tile = new Tile(tileSize, xx, yy, angle, type, false, col, row);
+        tile = new Tile(tileSize, xx, yy, angle, type, false, c, r);
         this.tiles.push(tile);
       }
     }
