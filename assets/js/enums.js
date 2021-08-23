@@ -18,7 +18,8 @@ const types = {
   ROCK_1:16,
   ROCK_2:17,
   ROCK_3:18,
-  ROCK_4:19
+  ROCK_4:19,
+  DOOR:20
 }
 
 const actions = {

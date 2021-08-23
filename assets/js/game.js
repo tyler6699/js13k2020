@@ -4,7 +4,7 @@
 var debug = false;
 var mainGame;
 var canvasW = 1216;
-var canvasH = 832;
+var canvasH = 864;
 var gameStarted = false;
 var showtutorial = true;
 var delta = 0.0;
@@ -31,7 +31,7 @@ atlas.src = "atlas.png";
 var cart = new Cart();
 
 // Audio
-genAudio();
+//genAudio();
 songLoaded=false;
 var music=false;
 var start=false;
@@ -110,21 +110,18 @@ var mainGame = {
 
 function updateGameArea() {
   // Music
-  if(music && songLoaded){
-    audio.play();
-    audio.loop = true;
+  //if(music && songLoaded){
+    //audio.play();
+    //audio.loop = true;
     music=false;
     gameStarted=true;
-  }
+  //}
 
   // Delta
   prevDelta = currentDelta;
   currentDelta = Date.now();
   delta = currentDelta - prevDelta;
   timeElapsed += delta;
-
-  // Update Gamepads
-  navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
 
   if (!gameStarted) {
     // intro Screen

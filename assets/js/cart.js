@@ -1,22 +1,30 @@
 function Cart() {
-  xOffset = 5;
-  yOffset = 5;
+  xOffset = 0;
+  yOffset = 0;
   this.scale = 4;
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOffset, yOffset);
-  this.hero.sx = 16;
-  this.speed = 8;
-  this.level = new level(canvasW, canvasH, 0);
+  this.hero.setType();
+
+  this.speed = 7;
+  this.levels = [];
+  
+  // Set up levels
+  for(i=0;i<9;i++){
+    var lvl = new level(canvasW, canvasH, i, this.scale);
+    lvl.reset(i, this.scale);
+    this.levels.push(lvl);
+  }
+  this.level = this.levels[0];
   this.hero.currentLevel = 0;
-  this.level.reset(this.hero, this.scale);
   this.menu = new Build(this.scale);
 
   // Render & Logic
   this.update = function(delta, time) {
     // Controls
-    if (left())   this.hero.x -= this.getMoveAmount(-this.speed,0);
-    if (right())  this.hero.x += this.getMoveAmount(this.speed,0);
-    if (up())     this.hero.y -= this.getMoveAmount(0,-this.speed);
-    if (down())   this.hero.y += this.getMoveAmount(0,this.speed);
+    if (left())   this.hero.x -= this.gMove(-this.speed,0);
+    if (right())  this.hero.x += this.gMove(this.speed,0);
+    if (up())     this.hero.y -= this.gMove(0,-this.speed);
+    if (down())   this.hero.y += this.gMove(0,this.speed);
     if (space())  this.menu.curItm=actions.GUN;
     if(one()) cart.reset();
 
@@ -41,7 +49,7 @@ function Cart() {
     }
 
     // check for each pixel if the hero can move (1,2,3,4,5)
-    this.getMoveAmount = function(xx,yy){
+    this.gMove = function(xx,yy){
       rec = cloneRectanlge(this.hero.hitbox);
       rec.x += xx;
       rec.y += yy;
@@ -61,7 +69,6 @@ function Cart() {
     }
 
     // Render
-    // Star Field
     renderStarField(time);
     this.level.draw(this.hero, delta);
 
@@ -72,14 +79,6 @@ function Cart() {
     ctx.fillStyle = gradient;
     ctx.font = "italic 40px Arial";
     ctx.fillText("SCORE " + SCORE, 900, 50);
-    //ctx.font = "italic 30px Arial";
-    //ctx.fillText("GAMEOVER: " + GAMEOVER, 30, 810);
-    //ctx.fillText("WIN: " + WIN, 300, 810);
-
-    //if(processClick) processClick = cart.menu.tick();
-    //cart.menu.checkBuild();
-
-    //this.menu.processBuilding(processClick,this.level, this.customers);
     processClick = false;
 
     // HERO

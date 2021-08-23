@@ -26,7 +26,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.collisionArray = [];
   this.isSolid = false;
   this.isButton = isButton;
-  this.drawTile = false;
   this.pc = null;
   this.person = null;
   this.gun = null;
@@ -86,11 +85,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
       ctx.save();
       ctx.translate(this.x, this.y);
 
-      if(this.drawTile){
-        ctx.globalAlpha = .4;
-        ctx.drawImage(this.image, 48, 0, 16, 16, 8, 8, 64, 64);
-      }
-
       ctx.globalAlpha = this.alpha;
       // Animate Image
       if (this.image == null || this.isButton) {
@@ -140,6 +134,11 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
   this.isHero = function(){
     return this.type == types.HERO;
   }
+  
+  this.setT = function(t){
+    this.type = t;
+    this.setType();
+  }
 
   this.setType = function(){
     this.alpha = 1;
@@ -150,46 +149,28 @@ function entity(w, h, x, y, angle, type, colour, scale, hitboxOffsetX = 0, hitbo
     this.isSolid = true;
     
     switch(this.type) {
+      case types.HERO:
+        this.sx=96;
+        this.sy=16;
+        this.isSolid = true;
+        break;
       case types.WALL:
         this.sy=16;
         this.isSolid = false;
         break;
-      case types.WALL_R:
-        break;
-      case types.WALL_RT:
+      case types.BLOCK:
         this.sx=16;
-        this.sy=16;
-        break;
-      case types.WALL_LT:
-        this.sx=32;
-        this.sy=0;
-        break;
-      case types.WALL_L:
-        break;
-      case types.WALL_T:
-        this.sx=16;
-        this.sy=0;
-        break;
-      case types.WALL_B:
-        this.sx=16;
-        this.sy=0;
-        break;
-      case types.WALL_BR:
-        this.sx=16;
-        this.sy=16;
-        break;
-      case types.WALL_BL:
-        this.sx=16;
-        this.sy=16;
         break;
       case types.FLOOR:
         this.sx=32;
         this.sy=32;
         this.alpha = .9;
         this.isSolid = false;
-        this.drawTile = false;
         break;
       case types.AIR:
+        this.sx=144;
+        this.isSolid = false;
+      case types.DOOR:
         this.sx=144;
         this.isSolid = false;
         break;
