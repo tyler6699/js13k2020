@@ -24,5 +24,9 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     return this.entity.isFloor();
   }
   
+  this.doorSet = function(){
+    return this.door != null;
+  }
+  
 }
 

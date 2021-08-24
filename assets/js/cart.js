@@ -23,6 +23,7 @@ function Cart() {
 
   // Render & Logic
   this.update = function(delta, time) {
+    this.door = null;
     // Controls
     if (left())   this.hero.x -= this.gMove(-this.speed,0);
     if (right())  this.hero.x += this.gMove(this.speed,0);
@@ -31,6 +32,13 @@ function Cart() {
     if (space())  this.menu.curItm=actions.GUN;
     if(one()) cart.reset();
 
+    // Check for door hit
+    if(this.door != null){
+      this.level = this.levels[this.door.loadRoom];
+      this.hero.x = this.door.exitX;
+      this.hero.y = this.door.exitY;
+      this.door = null;
+    }
     // Set Hero Current Tile
     heroRow = Math.floor((this.hero.y - this.hero.mhHScaled) / this.scaled);
     heroCol = Math.floor((this.hero.x - this.hero.mhWScaled) / this.scaled);
@@ -57,19 +65,23 @@ function Cart() {
       rec.x += xx;
       rec.y += yy;
       amount = 0;
+      stop=false;
       for(var i = 1; i<this.speed; i++){
         canMove = true;
         for (var t = 0; t < this.hero.colArr.length; t++) {
           tile = this.hero.colArr[t];
-          
-          if(rectColiding(tile.entity.hb, rec)){
-            if(tile.entity.isSolid){
-              canMove = false;
-              break;
-            } else if(tile.entity.isDoor && tile.door != null){
-              this.level = this.levels[tile.door.loadRoom];
-              break;
-            }  
+          if(!stop){
+            if(rectColiding(tile.entity.hb, rec)){
+              if(tile.entity.isSolid){
+                canMove = false;
+                break;
+              } else if(tile.entity.isDoor && tile.doorSet()){
+                console.log("Door");
+                this.door = tile.door;
+                stop = true;
+                break;
+              }  
+            }
           }
         }
         if(canMove) amount ++;

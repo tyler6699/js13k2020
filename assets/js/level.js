@@ -119,33 +119,83 @@ function level(canvasW, canvasH, id, scale) {
         this.doorR();
         this.doorB();
         break;
+      case 1:
+        this.doorR();
+        this.doorL();
+        this.doorB();
+        break;
+      case 2:
+        this.doorL();
+        this.doorB();
+        break;
+      case 3:
+        this.doorR();
+        this.doorB();
+        this.doorT();
+        break;
+      case 4:
+        this.doorR();
+        this.doorL();
+        this.doorT();
+        this.doorB();
+        break;
+      case 5:
+        this.doorL();
+        this.doorT();
+        this.doorB();
+        break;
+      case 6:
+        this.doorR();
+        this.doorT();
+        break;
+      case 7:
+        this.doorR();
+        this.doorL();
+        this.doorT();
+        break;
+      case 8:
+        this.doorT();
+        this.doorL();
+        break;
     }
   }
   
   this.doorR = function(){
-    this.addDoor(112,id+1);
-    this.addDoor(131,id+1);
-    this.addDoor(150,id+1);
+    [113,132,151].forEach(e => this.addDoor(e,id+1,130,387));
+    [131,150].forEach(e => this.addAir(e));
+    this.addWall(112);
+  }
+  
+  this.doorL = function(){
+    [95,114,133].forEach(e => this.addDoor(e,id-1,1024,405));
+    [115,134].forEach(e => this.addAir(e));
+    this.addWall(96);
   }
   
   this.doorB = function(){
-    this.addDoor(218,id+3);
-    this.addDoor(217,id+3);
-    this.addDoor(219,id+3);
-    this.addAir(238);
-    this.addAir(237);
-    this.addAir(236);
+    [236,237,238].forEach(e => this.addDoor(e,id+3,575,138));
+    [217,218,219].forEach(e => this.addAir(e));
   }
   
-  this.addDoor = function(t, room){
+  this.doorT = function(){
+    [27,28,29].forEach(e => this.addDoor(e,id-3,580,700));
+    [46,47,48].forEach(e => this.addAir(e));
+  }
+  
+  this.addDoor = function(t,room,x,y){
     tile = this.tiles[t];
     tile.entity.setT(types.DOOR);
-    tile.door = new door(room);
+    tile.door = new door(room,x,y);
   }
   
   this.addAir = function(t){
     tile = this.tiles[t];
     tile.entity.setT(types.AIR);
+  }
+  
+  this.addWall = function(t){
+    tile = this.tiles[t];
+    tile.entity.setT(types.WALL);
   }
 
 }
