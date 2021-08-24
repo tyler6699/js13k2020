@@ -5,15 +5,16 @@ function Gun(){
   this.addBullets = function(ox,oy,dx,dy){
     // Remove old drawBullets
     if(this.ammo>0){
+      console.log(ox+":"+oy+":"+dx+":"+dy);
       this.bullets.push(new Bullet(ox,oy,dx,dy));
       this.ammo--;
     }
   }
   
-  this.drawBullets = function(delta, pcs){
+  this.drawBullets = function(delta){
     for (i = 0; i < this.bullets.length; i++) {
       var b = this.bullets[i];
-      b.draw(delta, pcs);
+      b.draw(delta);
     }
     // Remove bullets
     this.bullets = this.bullets.filter(function (b) {
@@ -43,7 +44,7 @@ function Bullet(ox,oy,dx,dy){
   this.dx = this.dx / this.length;
   this.dy = this.dy / this.length;
   
-  this.draw = function(delta, pcs){
+  this.draw = function(delta){
     // Update Position
     if(this.active){ 
       // Previous position
@@ -62,7 +63,7 @@ function Bullet(ox,oy,dx,dy){
       this.hb.y = this.v.y + this.mhHeight;
       
       //Collision Test
-      for(j=0;j< pcs.length; j++){
+      //for(j=0;j< pcs.length; j++){
         // pc=pcs[j];
         // person = pc.getPerson();
         // if(person != null){
@@ -81,14 +82,14 @@ function Bullet(ox,oy,dx,dy){
         //     cart.hero.showText="+ S" + DELIVERED;
         //   }
         // }
-      }
+      //}
       
       // Draw
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.v.x, this.v.y);
       ctx.fillStyle = this.colour;
-      ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.w * .5), (this.h * .5));         
+      ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.w * .5), (this.h * .5));        
       ctx.restore();
     }
   }

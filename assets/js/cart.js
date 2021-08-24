@@ -6,6 +6,7 @@ function Cart() {
   this.scaled = this.scale*this.cube;
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOff, yOff);
   this.hero.setType();
+  this.hero.gun = new Gun();
 
   this.speed = 7;
   this.levels = [];
@@ -23,7 +24,9 @@ function Cart() {
 
   // Render & Logic
   this.update = function(delta, time) {
+    // Track Hero Door collisions
     this.door = null;
+    
     // Controls
     if (left())   this.hero.x -= this.gMove(-this.speed,0);
     if (right())  this.hero.x += this.gMove(this.speed,0);
@@ -39,6 +42,7 @@ function Cart() {
       if(this.door.exitY != -1) this.hero.y = this.door.exitY;
       this.door = null;
     }
+    
     // Set Hero Current Tile
     heroRow = Math.floor((this.hero.y - this.hero.mhHScaled) / this.scaled);
     heroCol = Math.floor((this.hero.x - this.hero.mhWScaled) / this.scaled);
@@ -59,6 +63,15 @@ function Cart() {
       this.hero.colArr.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
     }
 
+    //GUN TEST
+    if(processClick){
+      ox = cart.hero.x - cart.hero.mhWScaled ;
+      oy = cart.hero.y - cart.hero.mhHScaled;
+      dx = clickedAt.x;
+      dy = clickedAt.y;
+      cart.hero.gun.addBullets(ox,oy,dx,dy);
+    }
+    
     // check for each pixel if the hero can move (1,2,3,4,5)
     this.gMove = function(xx,yy){
       rec = cloneRectanlge(this.hero.hb);
@@ -104,6 +117,7 @@ function Cart() {
 
     // HERO
     this.hero.update(delta);
+    this.hero.gun.drawBullets(delta);
 
     //this.menu.update();
     // Mouse
