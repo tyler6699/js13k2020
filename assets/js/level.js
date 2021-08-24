@@ -161,24 +161,24 @@ function level(canvasW, canvasH, id, scale) {
   }
   
   this.doorR = function(){
-    [113,132,151].forEach(e => this.addDoor(e,id+1,130,387));
+    [113,132,151].forEach(e => this.addDoor(e,id+1,130,-1));
     [131,150].forEach(e => this.addAir(e));
     this.addWall(112);
   }
   
   this.doorL = function(){
-    [95,114,133].forEach(e => this.addDoor(e,id-1,1024,405));
+    [95,114,133].forEach(e => this.addDoor(e,id-1,1024,-1));
     [115,134].forEach(e => this.addAir(e));
     this.addWall(96);
   }
   
   this.doorB = function(){
-    [236,237,238].forEach(e => this.addDoor(e,id+3,575,138));
+    [236,237,238].forEach(e => this.addDoor(e,id+3,-1,138));
     [217,218,219].forEach(e => this.addAir(e));
   }
   
   this.doorT = function(){
-    [27,28,29].forEach(e => this.addDoor(e,id-3,580,700));
+    [27,28,29].forEach(e => this.addDoor(e,id-3,-1,700));
     [46,47,48].forEach(e => this.addAir(e));
   }
   

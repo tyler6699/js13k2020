@@ -35,8 +35,8 @@ function Cart() {
     // Check for door hit
     if(this.door != null){
       this.level = this.levels[this.door.loadRoom];
-      this.hero.x = this.door.exitX;
-      this.hero.y = this.door.exitY;
+      if(this.door.exitX != -1) this.hero.x = this.door.exitX;
+      if(this.door.exitY != -1) this.hero.y = this.door.exitY;
       this.door = null;
     }
     // Set Hero Current Tile
