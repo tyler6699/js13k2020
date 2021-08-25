@@ -5,7 +5,6 @@ function Gun(){
   this.addBullets = function(ox,oy,dx,dy){
     // Remove old drawBullets
     if(this.ammo>0){
-      console.log(ox+":"+oy+":"+dx+":"+dy);
       this.bullets.push(new Bullet(ox,oy,dx,dy));
       this.ammo--;
     }
@@ -36,13 +35,21 @@ function Bullet(ox,oy,dx,dy){
   this.hb = new rectanlge(ox, oy, this.w, this.h);
   this.colour="#a205a2";
   this.dist=0;
+  
   // Vector
   this.v = new vec2(ox+10, oy+10);
-  this.dx = dx - ox;
-  this.dy = dy - oy;
-  this.length = Math.sqrt( ((this.dx)*(this.dx)) + ((this.dy)*(this.dy)) );
-  this.dx = this.dx / this.length;
-  this.dy = this.dy / this.length;
+  
+  // Old Method
+  // this.dx = dx - ox;
+  // this.dy = dy - oy;
+  // this.length = Math.sqrt( ((this.dx)*(this.dx)) + ((this.dy)*(this.dy)) );
+  // this.dx = this.dx / this.length;
+  // this.dy = this.dy / this.length;
+  
+  // atan2: convert vector to angle, sin/cos to convert back to vector.
+  dir = Math.atan2(oy-dy,ox-dx) + (Math.PI) + Math.random()*.1;
+  this.dx = Math.cos(dir);
+  this.dy = Math.sin(dir);
   
   this.draw = function(delta){
     // Update Position
@@ -68,18 +75,6 @@ function Bullet(ox,oy,dx,dy){
         // person = pc.getPerson();
         // if(person != null){
         //   if(rectColiding(pc.hb,this.hb) && person.progress != null && person.progress.percent < 1){
-        //     person.progress.percent = 1;
-        //     if(person.progress.happy < 5){
-        //       person.progress.happy += 2;
-        //     }
-        //     person.progress.delivered=true;
-        //     person.progress.mHappy=false;
-        //     SCORE+=DELIVERED;
-        //     targets[pc.id]=false;
-        //     this.active=false;
-        //     cart.hero.showTextY=-5;
-        //     cart.hero.showTextTime=HEROTEXTTIME;
-        //     cart.hero.showText="+ S" + DELIVERED;
         //   }
         // }
       //}

@@ -9,7 +9,7 @@ var gameStarted = false;
 var delta = 0.0;
 var prevDelta = Date.now();
 var currentDelta = Date.now();
-var timeElapsed = 0;
+var TIME = 0;
 var mousePos = new vec2(0,0);
 var clickedAt = new vec2(0,0);
 var clickIndex;
@@ -17,15 +17,16 @@ var hoverIndex;
 var clickRow;
 var clickCol;
 var processClick = false;
+var holdClick = false;
 var GAMEOVER=false;
 var COL1 = "990099";
 var COL2 = "05f2db";
 var BSPEED=1000;
 var WIN = false;
 var SCORE = 0;
-var AMMOSTART=100;
+var AMMOSTART=10000;
 var BID = 0;
-var SHOOTDIST = 800;
+var SHOOTDIST = 600;
 var atlas = new Image();
 atlas.src = "atlas.png";
 var cart = new Cart();
@@ -69,6 +70,7 @@ var mainGame = {
       e.preventDefault();
       mainGame.keys = (mainGame.keys || []);
       mainGame.keys[e.button] = true;
+      holdClick = true;
     })
     window.addEventListener('mouseup', function(e) {
       e.preventDefault();
@@ -78,6 +80,7 @@ var mainGame = {
       clickRow = Math.floor(clickedAt.y / this.scaled);
       clickCol = Math.floor(clickedAt.x / this.scaled);
       clickIndex = clickCol + (19*clickRow);
+      holdClick = false;
       processClick = true;
       if(!start){
         start=true;
@@ -91,6 +94,11 @@ var mainGame = {
       row = Math.floor(mousePos.y / this.scaled);
       col = Math.floor(mousePos.x / this.scaled);
       hoverIndex = col + (19*row);
+      
+      clickedAt.set(mousePos.x, mousePos.y);
+      clickRow = Math.floor(clickedAt.y / this.scaled);
+      clickCol = Math.floor(clickedAt.x / this.scaled);
+      clickIndex = clickCol + (19*clickRow);
     })
     // Disable right click context menu
     this.canvas.oncontextmenu = function(e) {
@@ -114,7 +122,7 @@ function updateGameArea() {
   prevDelta = currentDelta;
   currentDelta = Date.now();
   delta = currentDelta - prevDelta;
-  timeElapsed += delta;
+  TIME += delta;
 
   if (!gameStarted) {
     // intro Screen
@@ -125,11 +133,11 @@ function updateGameArea() {
     writeTxt(ctx, 1, "italic 90px Arial","WHITE","-- CLICK TO START --", 180, 400);
     writeTxt(ctx, 1, "italic 50px Arial","WHITE","JS13K 2021 - Theme SPACE", 200, 200);
     writeTxt(ctx, 1, "italic 50px Arial","WHITE","@CarelessLabs", 200, 700);
-    renderStarField(timeElapsed);
+    renderStarField(TIME);
     ctx.restore();
   } else {
     mainGame.clear();
-    cart.update(delta / 1e3, timeElapsed);
+    cart.update(delta / 1e3, TIME);
   }
 }
 

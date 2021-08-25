@@ -64,7 +64,7 @@ function Cart() {
     }
 
     //GUN TEST
-    if(processClick){
+    if(processClick || holdClick){
       ox = cart.hero.x - cart.hero.mhWScaled ;
       oy = cart.hero.y - cart.hero.mhHScaled;
       dx = clickedAt.x;
