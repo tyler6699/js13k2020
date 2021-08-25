@@ -1,16 +1,25 @@
 function Gun(){
   this.ammo=AMMOSTART;
   this.bullets=[];
+  // TODO Limit rate of fire
+  this.rate=.1;
+  this.wait=0;
   
   this.addBullets = function(ox,oy,dx,dy){
     // Remove old drawBullets
-    if(this.ammo>0){
+    if(this.ammo>0 && this.wait<=0){
+      this.wait=this.rate;
       this.bullets.push(new Bullet(ox,oy,dx,dy));
       this.ammo--;
     }
   }
   
   this.drawBullets = function(delta){
+    // tick
+    if(this.wait>0){
+      this.wait-=delta;
+    }
+  
     for (i = 0; i < this.bullets.length; i++) {
       var b = this.bullets[i];
       b.draw(delta);
@@ -35,6 +44,7 @@ function Bullet(ox,oy,dx,dy){
   this.hb = new rectanlge(ox, oy, this.w, this.h);
   this.colour="#a205a2";
   this.dist=0;
+  this.accuracy=.15;
   
   // Vector
   this.v = new vec2(ox+10, oy+10);
@@ -47,7 +57,7 @@ function Bullet(ox,oy,dx,dy){
   // this.dy = this.dy / this.length;
   
   // atan2: convert vector to angle, sin/cos to convert back to vector.
-  dir = Math.atan2(oy-dy,ox-dx) + (Math.PI) + Math.random()*.1;
+  dir = Math.atan2(oy-dy,ox-dx) + (Math.PI) + Math.random()*this.accuracy;
   this.dx = Math.cos(dir);
   this.dy = Math.sin(dir);
   

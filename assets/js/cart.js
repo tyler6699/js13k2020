@@ -37,6 +37,7 @@ function Cart() {
 
     // Check for door hit
     if(this.door != null){
+      this.hero.gun.bullets=[];
       this.level = this.levels[this.door.loadRoom];
       if(this.door.exitX != -1) this.hero.x = this.door.exitX;
       if(this.door.exitY != -1) this.hero.y = this.door.exitY;
