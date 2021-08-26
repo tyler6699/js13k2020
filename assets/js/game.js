@@ -10,6 +10,7 @@ var delta = 0.0;
 var prevDelta = Date.now();
 var currentDelta = Date.now();
 var TIME = 0;
+var introT = 0;
 var mousePos = new vec2(0,0);
 var clickedAt = new vec2(0,0);
 var clickIndex;

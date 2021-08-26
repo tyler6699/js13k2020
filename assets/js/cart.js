@@ -42,6 +42,7 @@ function Cart() {
       if(this.door.exitX != -1) this.hero.x = this.door.exitX;
       if(this.door.exitY != -1) this.hero.y = this.door.exitY;
       this.door = null;
+      introT = 32;
     }
     
     // Set Hero Current Tile
@@ -72,7 +73,7 @@ function Cart() {
       dy = clickedAt.y;
       cart.hero.gun.addBullets(ox,oy,dx,dy);
     }
-    
+        
     // check for each pixel if the hero can move (1,2,3,4,5)
     this.gMove = function(xx,yy){
       rec = cloneRectanlge(this.hero.hb);
@@ -132,6 +133,22 @@ function Cart() {
     mainGame.context.fillRect(mx-mw,my-mh,mw*2,mh*2);
     mainGame.context.fillRect(mx-mh,my-mw,mh*2,mw*2);
     mainGame.context.globalCompositeOperation = 'source-over';
+    
+    if(introT > 0){
+      for(i = 0;i <= canvasW/33;i++){
+        for(j = 0;j <= canvasH/33;j++){
+          ctx = mainGame.context;
+          ctx.save();
+          ctx.translate(i*32, j*32);
+          col = i%2==0&&j%2==0 ? "#000" : "#FFF";
+          ctx.fillStyle = col;
+          ctx.globalAlpha = .5;
+          ctx.fillRect(introT/-2, introT/-2, introT, introT);
+          ctx.restore();
+        }
+      }
+      introT -= delta*48;
+    }
   }
 
   this.reset = function(){
