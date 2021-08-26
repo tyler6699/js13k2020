@@ -14,7 +14,8 @@ module.exports = function(grunt) {
       build: {
         files: [{
           expand: false,
-          src: ["assets/js/enums.js",   
+          src: ["assets/js/door.js",
+                "assets/js/enums.js",   
                 "assets/js/tile.js",
                 "assets/js/utility.js",
                 "assets/js/level.js",

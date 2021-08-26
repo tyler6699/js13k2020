@@ -5,7 +5,6 @@ function Cart() {
   this.cube = 16; // width of tiles
   this.scaled = this.scale*this.cube;
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOff, yOff);
-  this.hero.setType();
   this.hero.gun = new Gun();
 
   this.speed = 7;
@@ -54,15 +53,11 @@ function Cart() {
 
     if(this.currentTile != this.prevTile){
       this.hero.colArr = [];
+      
       // Add surrounding tiles
       if(heroTileIndex) this.hero.colArr.push(this.level.tiles[heroTileIndex-1]);  // LEFT
-      this.hero.colArr.push(this.level.tiles[heroTileIndex+1]);  // RIGHT
-      this.hero.colArr.push(this.level.tiles[heroTileIndex+18]); // TOP LEFT
-      this.hero.colArr.push(this.level.tiles[heroTileIndex+19]); // ABOVE
-      this.hero.colArr.push(this.level.tiles[heroTileIndex+20]); // TOP RIGHT
-      this.hero.colArr.push(this.level.tiles[heroTileIndex-18]); // BOTTOM LEFT
-      this.hero.colArr.push(this.level.tiles[heroTileIndex-19]); // BELOW
-      this.hero.colArr.push(this.level.tiles[heroTileIndex-20]); // BOTTOM RIGHT
+      [-1,1,18,19,20,-18,-19,-20].forEach(e => this.hero.colArr.push(this.level.tiles[heroTileIndex+e]));
+      this.level.mobs.forEach(e => this.hero.colArr.push(e));
     }
 
     //GUN TEST
@@ -85,12 +80,13 @@ function Cart() {
         canMove = true;
         for (var t = 0; t < this.hero.colArr.length; t++) {
           tile = this.hero.colArr[t];
+          obj = tile.entity == null ? tile : tile.entity;
           if(!stop){
-            if(rectColiding(tile.entity.hb, rec)){
-              if(tile.entity.isSolid){
+            if(rectColiding(obj.hb, rec)){
+              if(obj.isSolid){
                 canMove = false;
                 break;
-              } else if(tile.entity.isDoor && tile.doorSet()){
+              } else if(tile.isDoor && tile.doorSet()){
                 console.log("Door");
                 this.door = tile.door;
                 stop = true;

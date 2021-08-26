@@ -1,6 +1,5 @@
 function Tile(size, x, y, angle, type, solid, column, row) {
   this.entity = new entity(size, size, x, y, angle, type, "", 4, hbOffX = 0, hbOffY = 0);
-  this.entity.setType();
   this.column = column;
   this.row = row;
   this.active = true;
@@ -16,7 +15,6 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     if (this.entity.type >= Object.values(types).length){
       this.entity.type = 0;
     }
-
     this.entity.setType();
   }
   

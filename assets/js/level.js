@@ -11,8 +11,6 @@ function level(canvasW, canvasH, id, scale) {
   var levelArray;
   
   this.draw = function(hero, delta){
-    // Draw Tiles
-    // Background, Decor, Tiles
     this.bTiles.forEach(e => e.update(delta));
     this.dTiles.forEach(e => e.update(delta));
     this.tiles.forEach(e => e.update(delta));
@@ -157,17 +155,15 @@ function level(canvasW, canvasH, id, scale) {
     console.log("Level: " + id + " Mobs: " + noMobs);
     for (m = 0; m < noMobs; m++) {
       // Add a random enemy
-      //mob = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", scale, xOff, yOff);
-      //this.mobs.push(mob);
+      mob = new entity(16, 16, 200, 200, 0, types.DOOR_BLOCK, "", scale, xOff, yOff);
+      mob.isSolid = true;
+      this.mobs.push(mob);
     }
-  }
-  
-  addMob = function(){
   }
   
   this.doorR = function(){
     [113,132,151].forEach(e => this.addDoor(e,id+1,130,-1,types.AIR,true));
-    [112,131,150].forEach(e => this.addDoor(e,0,0,0,types.DOOR_BLOCK,false));
+    [112,131,150].forEach(e => this.addDoor(e,0,0,0,types.AIR,false));
     //this.addWall(112);
   }
   

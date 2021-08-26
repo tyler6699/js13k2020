@@ -223,4 +223,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
         break;
      }
   }
+  
+  this.setType();
 }
