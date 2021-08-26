@@ -19,11 +19,9 @@ function Gun(){
     if(this.wait>0){
       this.wait-=delta;
     }
-  
-    for (i = 0; i < this.bullets.length; i++) {
-      var b = this.bullets[i];
-      b.draw(delta);
-    }
+    
+    this.bullets.forEach(e => e.draw(delta));
+
     // Remove bullets
     this.bullets = this.bullets.filter(function (b) {
       return b.active == true;
