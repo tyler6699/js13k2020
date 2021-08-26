@@ -26,5 +26,9 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     return this.door != null;
   }
   
+  this.isTile = function(){
+    return true;
+  }
+  
 }
 

@@ -6,7 +6,6 @@ function Cart() {
   this.scaled = this.scale*this.cube;
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOff, yOff);
   this.hero.gun = new Gun();
-
   this.speed = 7;
   this.levels = [];
   
@@ -27,10 +26,10 @@ function Cart() {
     this.door = null;
     
     // Controls
-    if (left())   this.hero.x -= this.gMove(-this.speed,0);
-    if (right())  this.hero.x += this.gMove(this.speed,0);
-    if (up())     this.hero.y -= this.gMove(0,-this.speed);
-    if (down())   this.hero.y += this.gMove(0,this.speed);
+    if (left())   this.hero.x -= this.gMove(-1,0);
+    if (right())  this.hero.x += this.gMove(1,0);
+    if (up())     this.hero.y -= this.gMove(0,-1);
+    if (down())   this.hero.y += this.gMove(0,1);
     if (space())  this.menu.curItm=actions.GUN;
     if(one()) cart.reset();
 
@@ -70,24 +69,37 @@ function Cart() {
     }
         
     // check for each pixel if the hero can move (1,2,3,4,5)
+    // The array contains tiles and mobs (Entities)
     this.gMove = function(xx,yy){
       rec = cloneRectanlge(this.hero.hb);
-      rec.x += xx;
-      rec.y += yy;
-      amount = 0;
+      // move the full amount
+      rec.x += xx * this.speed;
+      rec.y += yy * this.speed;
+      amount = this.speed;
       stop=false;
-      for(var i = 1; i<this.speed; i++){
+      canMove = true;
+      
+      //var count = 0;
+      //var counta = 0;
+      //var countb =0;
+      
+      // Move full amount and then try decreasing 
+      for(var i = this.speed; i>0; i--){
+        //count++;
         canMove = true;
+        
         for (var t = 0; t < this.hero.colArr.length; t++) {
+          // counta++;
           tile = this.hero.colArr[t];
           obj = tile.entity == null ? tile : tile.entity;
+          
           if(!stop){
-            if(rectColiding(obj.hb, rec)){
+            if(obj.active && rectColiding(obj.hb, rec)){
+              // countb++;
               if(obj.isSolid){
                 canMove = false;
                 break;
-              } else if(tile.isDoor && tile.doorSet()){
-                console.log("Door");
+              } else if(tile.isTile() && tile.isDoor && tile.doorSet()){
                 this.door = tile.door;
                 stop = true;
                 break;
@@ -95,8 +107,49 @@ function Cart() {
             }
           }
         }
-        if(canMove) amount ++;
+        if(canMove || stop){
+          //console.log("Moved: " + amount + " x: " + rec.x + " y: " + rec.y);
+          break;
+        } else {
+          amount--;
+          rec.x -= xx;
+          rec.y -= yy;
+          //console.log("changed x: " + rec.x + " y: " + rec.y);
+        }
       }
+      
+      // Check if you can move incrementally
+      // for(var i = 1; i<this.speed; i++){
+      //   count++; // REMOVE
+      //   canMove = true;
+      //   rec.x += xx;
+      //   rec.y += yy;
+      // 
+      //   for (var t = 0; t < this.hero.colArr.length; t++) {
+      //     counta++; // REMOVE
+      //     tile = this.hero.colArr[t];
+      //     obj = tile.entity == null ? tile : tile.entity;
+      //     if(!stop){
+      //       if(obj.active && rectColiding(obj.hb, rec)){
+      //         countb++; // REMOVE
+      //         if(obj.isSolid){
+      //           canMove = false;
+      //           break;
+      //         } else if(tile.isTile() && tile.isDoor && tile.doorSet()){
+      //           this.door = tile.door;
+      //           stop = true;
+      //           break;
+      //         }  
+      //       }
+      //     }
+      //   }
+      //   if(canMove){
+      //     amount++;
+      //   } else {
+      //     break;
+      //   }
+      // }
+      //console.log("Number of loops: " + count + " inner loops: " + counta + " collisions: " + countb + " amount: " + amount);
       return amount;
     }
 

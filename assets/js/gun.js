@@ -59,6 +59,16 @@ function Bullet(ox,oy,dx,dy){
   this.dx = Math.cos(dir);
   this.dy = Math.sin(dir);
   
+  this.checkHits = function(e){
+    if(rectColiding(e.hb,this.hb)){
+      e.hp--;
+      if(e.hp < 0){
+        e.active = false;
+        e.isSolid = false;
+      }
+    }
+  }
+  
   this.draw = function(delta){
     // Update Position
     if(this.active){ 
@@ -78,14 +88,7 @@ function Bullet(ox,oy,dx,dy){
       this.hb.y = this.v.y + this.mhHeight;
       
       //Collision Test
-      //for(j=0;j< pcs.length; j++){
-        // pc=pcs[j];
-        // person = pc.getPerson();
-        // if(person != null){
-        //   if(rectColiding(pc.hb,this.hb) && person.progress != null && person.progress.percent < 1){
-        //   }
-        // }
-      //}
+      cart.level.mobs.forEach(e => this.checkHits(e));
       
       // Draw
       ctx = mainGame.context;
