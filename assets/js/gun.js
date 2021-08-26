@@ -46,14 +46,7 @@ function Bullet(ox,oy,dx,dy){
   
   // Vector
   this.v = new vec2(ox+10, oy+10);
-  
-  // Old Method
-  // this.dx = dx - ox;
-  // this.dy = dy - oy;
-  // this.length = Math.sqrt( ((this.dx)*(this.dx)) + ((this.dy)*(this.dy)) );
-  // this.dx = this.dx / this.length;
-  // this.dy = this.dy / this.length;
-  
+    
   // atan2: convert vector to angle, sin/cos to convert back to vector.
   dir = Math.atan2(oy-dy,ox-dx) + (Math.PI) + Math.random()*this.accuracy;
   this.dx = Math.cos(dir);

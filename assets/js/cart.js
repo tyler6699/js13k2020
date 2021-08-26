@@ -156,6 +156,16 @@ function Cart() {
       }
       introT -= delta*48;
     }
+    
+    // Clear Mobs
+    // Remove bullets
+    this.level.mobs = this.level.mobs.filter(function (m) {
+      return m.active == true;
+    });
+    
+    if(this.level.mobs.length == 0){
+      console.log("Open the gate");
+    }
   }
 
   this.reset = function(){
