@@ -19,7 +19,9 @@ const types = {
   ROCK_2:17,
   ROCK_3:18,
   ROCK_4:19,
-  DOOR:20
+  DOOR:20,
+  DOOR_BLOCK:21,
+  DOOR_WALL:22
 }
 
 const actions = {

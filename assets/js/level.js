@@ -161,41 +161,39 @@ function level(canvasW, canvasH, id, scale) {
   }
   
   this.doorR = function(){
-    [113,132,151].forEach(e => this.addDoor(e,id+1,130,-1));
-    [131,150].forEach(e => this.addAir(e));
-    this.addWall(112);
+    [113,132,151].forEach(e => this.addDoor(e,id+1,130,-1,types.AIR,true));
+    [112,131,150].forEach(e => this.addDoor(e,0,0,0,types.DOOR_BLOCK,false));
+    //this.addWall(112);
   }
   
   this.doorL = function(){
-    [95,114,133].forEach(e => this.addDoor(e,id-1,1024,-1));
-    [115,134].forEach(e => this.addAir(e));
-    this.addWall(96);
+    [95,114,133].forEach(e => this.addDoor(e,id-1,1024,-1,types.AIR,true));
+    [96,115,134].forEach(e => this.addDoor(e,0,0,0,types.DOOR_BLOCK,false));
+    //this.addWall(96);
   }
   
   this.doorB = function(){
-    [236,237,238].forEach(e => this.addDoor(e,id+3,-1,138));
-    [217,218,219].forEach(e => this.addAir(e));
+    [236,237,238].forEach(e => this.addDoor(e,id+3,-1,138,types.DOOR_WALL,true));
+    [217,218,219].forEach(e => this.addDoor(e,0,0,0,types.DOOR_BLOCK,false));
   }
   
   this.doorT = function(){
-    [27,28,29].forEach(e => this.addDoor(e,id-3,-1,700));
-    [46,47,48].forEach(e => this.addAir(e));
+    [27,28,29].forEach(e => this.addDoor(e,id-3,-1,700,types.DOOR_BLOCK,true));
+    [46,47,48].forEach(e => this.addDoor(e,0,0,0,types.DOOR_WALL,false));
   }
-  
-  this.addDoor = function(t,room,x,y){
+    
+  this.addDoor = function(t,room,x,y,type,d=false){
     tile = this.tiles[t];
-    tile.entity.setT(types.DOOR);
-    tile.door = new door(room,x,y);
+    tile.entity.setT(type);
+    if(d)tile.door = new door(room,x,y);
   }
   
   this.addAir = function(t){
-    tile = this.tiles[t];
-    tile.entity.setT(types.AIR);
+    this.tiles[t].entity.setT(types.AIR);
   }
   
   this.addWall = function(t){
-    tile = this.tiles[t];
-    tile.entity.setT(types.WALL);
+    this.tiles[t].entity.setT(types.WALL);
   }
 
 }
