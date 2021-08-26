@@ -1,6 +1,7 @@
 function level(canvasW, canvasH, id, scale) {
   this.tiles = [];
   this.bTiles = [];
+  this.mobs = [];
   this.startX=0;
   this.startY=0;
   this.active = false;
@@ -31,6 +32,7 @@ function level(canvasW, canvasH, id, scale) {
     this.tiles = [];
     this.bTiles = [];
     this.dTiles = [];
+    this.mobs = [];
     
     var rows = 13;
     var cols = 19;
@@ -158,6 +160,16 @@ function level(canvasW, canvasH, id, scale) {
         this.doorL();
         break;
     }
+    
+    // MOBS
+    noMobs = randomNum(0,3)+STAGE;
+    console.log("Level: " + id + " Mobs: " + noMobs);
+    for (m = 0; m < noMobs; m++) {
+      
+    }
+  }
+  
+  addMob = function(){
   }
   
   this.doorR = function(){

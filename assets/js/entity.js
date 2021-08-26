@@ -178,12 +178,12 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
         break;
       case types.DOOR_BLOCK:
         this.sx=112;
-        this.isSolid = false;
+        this.isSolid = true;
         break;
       case types.DOOR_WALL:
         this.sy=16;
         this.sx=112;
-        this.isSolid = false;
+        this.isSolid = true;
         break;
       case types.GRID_1:
         this.sx=96;

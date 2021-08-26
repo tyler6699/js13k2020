@@ -28,6 +28,7 @@ var SCORE = 0;
 var AMMOSTART=10000;
 var BID = 0;
 var SHOOTDIST = 600;
+var STAGE=1;
 var atlas = new Image();
 atlas.src = "atlas.png";
 var cart = new Cart();
