@@ -68,34 +68,26 @@ function Cart() {
       cart.hero.gun.addBullets(ox,oy,dx,dy);
     }
         
-    // check for each pixel if the hero can move (1,2,3,4,5)
+    // check for each pixel if the hero can move, starting with full amount
     // The array contains tiles and mobs (Entities)
     this.gMove = function(xx,yy){
       rec = cloneRectanlge(this.hero.hb);
-      // move the full amount
       rec.x += xx * this.speed;
       rec.y += yy * this.speed;
       amount = this.speed;
       stop=false;
       canMove = true;
       
-      //var count = 0;
-      //var counta = 0;
-      //var countb =0;
-      
       // Move full amount and then try decreasing 
       for(var i = this.speed; i>0; i--){
-        //count++;
         canMove = true;
         
         for (var t = 0; t < this.hero.colArr.length; t++) {
-          // counta++;
           tile = this.hero.colArr[t];
           obj = tile.entity == null ? tile : tile.entity;
           
           if(!stop){
             if(obj.active && rectColiding(obj.hb, rec)){
-              // countb++;
               if(obj.isSolid){
                 canMove = false;
                 break;
@@ -108,48 +100,14 @@ function Cart() {
           }
         }
         if(canMove || stop){
-          //console.log("Moved: " + amount + " x: " + rec.x + " y: " + rec.y);
           break;
         } else {
           amount--;
           rec.x -= xx;
           rec.y -= yy;
-          //console.log("changed x: " + rec.x + " y: " + rec.y);
         }
       }
       
-      // Check if you can move incrementally
-      // for(var i = 1; i<this.speed; i++){
-      //   count++; // REMOVE
-      //   canMove = true;
-      //   rec.x += xx;
-      //   rec.y += yy;
-      // 
-      //   for (var t = 0; t < this.hero.colArr.length; t++) {
-      //     counta++; // REMOVE
-      //     tile = this.hero.colArr[t];
-      //     obj = tile.entity == null ? tile : tile.entity;
-      //     if(!stop){
-      //       if(obj.active && rectColiding(obj.hb, rec)){
-      //         countb++; // REMOVE
-      //         if(obj.isSolid){
-      //           canMove = false;
-      //           break;
-      //         } else if(tile.isTile() && tile.isDoor && tile.doorSet()){
-      //           this.door = tile.door;
-      //           stop = true;
-      //           break;
-      //         }  
-      //       }
-      //     }
-      //   }
-      //   if(canMove){
-      //     amount++;
-      //   } else {
-      //     break;
-      //   }
-      // }
-      //console.log("Number of loops: " + count + " inner loops: " + counta + " collisions: " + countb + " amount: " + amount);
       return amount;
     }
 
