@@ -83,21 +83,26 @@ function Cart() {
         canMove = true;
         
         for (var t = 0; t < this.hero.colArr.length; t++) {
-          tile = this.hero.colArr[t];
-          obj = tile.entity == null ? tile : tile.entity;
+          obj = this.hero.colArr[t];
           
-          if(!stop){
-            if(obj.active && rectColiding(obj.hb, rec)){
-              if(obj.isSolid){
+          if(obj.isTile()){
+            if(!stop && rectColiding(obj.entity.hb,rec)){
+              if(obj.active && obj.entity.isSolid){
                 canMove = false;
                 break;
-              } else if(tile.isTile() && tile.isDoor && tile.doorSet()){
-                this.door = tile.door;
+              } else if(obj.isDoor && obj.doorSet()){  
+                this.door = obj.door;
                 stop = true;
                 break;
-              }  
+              }
+            }
+          } else { // MOB
+            if(!stop && obj.active && obj.isSolid && rectColiding(obj.hb, rec)){
+              canMove = false;
+              break;
             }
           }
+          
         }
         if(canMove || stop){
           break;
@@ -163,8 +168,8 @@ function Cart() {
       return m.active == true;
     });
     
-    if(this.level.mobs.length == 0){
-      console.log("Open the gate");
+    if(this.level.mobs.length == 0 && !this.level.gatesOpen){
+      this.level.openDoors();
     }
   }
 

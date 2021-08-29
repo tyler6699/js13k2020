@@ -134,7 +134,11 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   }
   
   this.isDoor = function(){
-    return this.type == types.DOOR;
+    return (this.type == types.DOOR || this.type == types.DOOR_BLOCK || this.type == types.DOOR_WALL);
+  }
+  
+  this.isDoorBlock = function(){
+    return (this.type == types.DOOR_BLOCK || this.type == types.DOOR_WALL);
   }
   
   this.isTile = function(){
@@ -188,7 +192,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
       case types.DOOR_WALL:
         this.sy=16;
         this.sx=112;
-        this.isSolid = true;
+        this.isSolid = false;
         break;
       case types.GRID_1:
         this.sx=96;

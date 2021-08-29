@@ -30,5 +30,9 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     return true;
   }
   
+  this.isDoor = function(){
+    return this.door != null;
+  }
+  
 }
 

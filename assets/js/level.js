@@ -7,6 +7,7 @@ function level(canvasW, canvasH, id, scale) {
   this.active = false;
   this.complete = false;
   this.roomNo = id;
+  this.gatesOpen = false;
   var tileSize = 16;
   var levelArray;
   
@@ -159,6 +160,16 @@ function level(canvasW, canvasH, id, scale) {
       mob.isSolid = true;
       this.mobs.push(mob);
     }
+  }
+  
+  this.openDoors = function(){
+    this.gatesOpen = true;
+    this.tiles.forEach((t, i) => {
+      if(t.entity.isDoorBlock()){
+        t.entity.setT(types.AIR);
+        if(t.door != null) t.door.open = true;
+      }
+    });
   }
   
   this.doorR = function(){
