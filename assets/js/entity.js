@@ -3,6 +3,9 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.type = type;
   this.type2 = null;
   this.renT2 = false;
+  this.type3 = null;
+  this.t3yOff=0;
+  this.renT3 = false;
   this.width = w;
   this.height = h;
   this.mhWidth = w / -2;
@@ -105,6 +108,11 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
         ctx.drawImage(this.image, 0, 16, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
         ctx.translate(0,48-this.mvY);
         ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+      }else if(this.type3 != null && this.mvY != 0){
+          ctx.translate(0,64-(48-this.mvY));
+          ctx.drawImage(this.image, 112, 16, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+          ctx.translate(0,-64+(48-this.mvY));
+          ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
       } else if (this.type2 != null && this.renT2) {
         ctx.globalAlpha = 1;
         ctx.translate(0,-48);

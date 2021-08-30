@@ -30,6 +30,7 @@ function level(canvasW, canvasH, id, scale) {
           t.entity.mvY++;
         }
       }
+      // Door open fully
       if(t.entity.mvY == 0){
         t.entity.mvY=0;
         t.entity.alpha = .5;
@@ -236,7 +237,12 @@ function level(canvasW, canvasH, id, scale) {
     tile.entity.setT(type);
     if(d)tile.door = new door(room,x,y);
     // Draw a wall when doors opening or opened
-    if(t==112 || t==96) tile.entity.type2 = types.DOOR_WALL;
+    if([112,96].includes(t)){
+      tile.entity.type2 = types.DOOR_WALL;
+    }
+    if([217,218,219,27,28,29].includes(t)){
+      tile.entity.type3 = types.DOOR_WALL;
+    }
   }
   
   this.addAir = function(t){
