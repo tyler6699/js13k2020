@@ -19,6 +19,7 @@ var clickRow;
 var clickCol;
 var processClick = false;
 var holdClick = false;
+var holdClickT = 0;
 var GAMEOVER=false;
 var COL1 = "990099";
 var COL2 = "05f2db";
@@ -83,6 +84,7 @@ var mainGame = {
       clickCol = Math.floor(clickedAt.x / this.scaled);
       clickIndex = clickCol + (19*clickRow);
       holdClick = false;
+      holdClickT = 0;
       processClick = true;
       if(!start){
         start=true;

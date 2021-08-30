@@ -60,7 +60,8 @@ function Cart() {
     }
 
     //GUN TEST
-    if(processClick || holdClick){
+    if(holdClick) holdClickT += delta;
+    if(processClick || holdClickT > .25){
       ox = cart.hero.x - cart.hero.mhWScaled ;
       oy = cart.hero.y - cart.hero.mhHScaled;
       dx = clickedAt.x;
@@ -102,7 +103,6 @@ function Cart() {
               break;
             }
           }
-          
         }
         if(canMove || stop){
           break;

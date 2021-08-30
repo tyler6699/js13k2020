@@ -1,5 +1,6 @@
 function level(canvasW, canvasH, id, scale) {
   this.tiles = [];
+  this.mvTiles = [];
   this.bTiles = [];
   this.mobs = [];
   this.startX=0;
@@ -8,6 +9,7 @@ function level(canvasW, canvasH, id, scale) {
   this.complete = false;
   this.roomNo = id;
   this.gatesOpen = false;
+  this.doors=[0,0,0,0]; // 0=LEFT, 1=RIGHT, 2=TOP, 3=BOTTOM
   var tileSize = 16;
   var levelArray;
   
@@ -16,6 +18,29 @@ function level(canvasW, canvasH, id, scale) {
     this.dTiles.forEach(e => e.update(delta));
     this.tiles.forEach(e => e.update(delta));
     this.mobs.forEach(e => e.update(delta));
+    
+    // Door Animations
+    this.mvTiles.forEach((t, i) => {
+      if(t.entity.mvY != 0){
+        if(t.entity.mvY > 0){
+          t.entity.y++;
+          t.entity.mvY--;
+        } else {
+          t.entity.y--;
+          t.entity.mvY++;
+        }
+      }
+      if(t.entity.mvY == 0){
+        t.entity.mvY=0;
+        t.entity.alpha = .5;
+        t.entity.isSolid = false;
+        t.entity.renT2 = true;
+      }
+    });
+    
+    this.mvTiles = this.mvTiles.filter(function (t) {
+      return t.entity.mvY != 0;
+    });    
   }
 
   this.reset = function(id, scaled){
@@ -110,50 +135,59 @@ function level(canvasW, canvasH, id, scale) {
       case 0:
         this.doorR();
         this.doorB();
+        this.doors = [0,1,0,1];
         break;
       case 1:
         this.doorR();
         this.doorL();
         this.doorB();
+        this.doors = [1,1,0,1];
         break;
       case 2:
         this.doorL();
         this.doorB();
+        this.doors = [1,0,0,1];
         break;
       case 3:
         this.doorR();
         this.doorB();
         this.doorT();
+        this.doors = [0,1,1,1];
         break;
       case 4:
         this.doorR();
         this.doorL();
         this.doorT();
         this.doorB();
+        this.doors = [1,1,1,1];
         break;
       case 5:
         this.doorL();
         this.doorT();
         this.doorB();
+        this.doors = [1,0,1,1];
         break;
       case 6:
         this.doorR();
         this.doorT();
+        this.doors = [0,1,1,0];
         break;
       case 7:
         this.doorR();
         this.doorL();
         this.doorT();
+        this.doors = [1,1,1,0];
         break;
       case 8:
         this.doorT();
         this.doorL();
+        this.doors = [1,0,1,0];
         break;
     }
     
     // MOBS
     noMobs = randomNum(0,3)+STAGE;
-    console.log("Level: " + id + " Mobs: " + noMobs);
+    //console.log("Level: " + id + " Mobs: " + noMobs);
     for (m = 0; m < noMobs; m++) {
       // Add a random enemy
       mob = new entity(16, 16, 200, 200 + m * 80, 0, types.DOOR_BLOCK, "", scale, xOff, yOff);
@@ -163,29 +197,32 @@ function level(canvasW, canvasH, id, scale) {
   }
   
   this.openDoors = function(){
+    // Put walls in place
     this.gatesOpen = true;
+    
     this.tiles.forEach((t, i) => {
-      if(t.entity.isDoorBlock()){
+      if(t.entity.isDoorWall()){
         t.entity.setT(types.AIR);
-        if(t.door != null) t.door.open = true;
+      } else if(t.entity.isDoorTop()){
+        t.entity.mvY = 48;
+        this.mvTiles.push(t);
       }
+      if(t.door != null) t.door.open = true;
     });
   }
   
   this.doorR = function(){
     [113,132,151].forEach(e => this.addDoor(e,id+1,130,-1,types.AIR,true));
     [112,131,150].forEach(e => this.addDoor(e,0,0,0,types.DOOR_BLOCK,false));
-    //this.addWall(112);
   }
   
   this.doorL = function(){
     [95,114,133].forEach(e => this.addDoor(e,id-1,1024,-1,types.AIR,true));
     [96,115,134].forEach(e => this.addDoor(e,0,0,0,types.DOOR_BLOCK,false));
-    //this.addWall(96);
   }
   
   this.doorB = function(){
-    [236,237,238].forEach(e => this.addDoor(e,id+3,-1,138,types.DOOR_WALL,true));
+    [236,237,238].forEach(e => this.addDoor(e,id+3,-1,160,types.DOOR_WALL,true));
     [217,218,219].forEach(e => this.addDoor(e,0,0,0,types.DOOR_BLOCK,false));
   }
   
@@ -198,6 +235,8 @@ function level(canvasW, canvasH, id, scale) {
     tile = this.tiles[t];
     tile.entity.setT(type);
     if(d)tile.door = new door(room,x,y);
+    // Draw a wall when doors opening or opened
+    if(t==112 || t==96) tile.entity.type2 = types.DOOR_WALL;
   }
   
   this.addAir = function(t){

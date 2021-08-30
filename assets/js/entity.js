@@ -1,6 +1,8 @@
 function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, isButton = false) {
   this.scale = scale;
   this.type = type;
+  this.type2 = null;
+  this.renT2 = false;
   this.width = w;
   this.height = h;
   this.mhWidth = w / -2;
@@ -38,6 +40,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.hoverText="";
   this.hoverText2="";
   this.hp=0;
+  this.mvY=0;
   
   // ATLAS Positions
   this.sx=0;
@@ -86,6 +89,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
       ctx.translate(this.x, this.y);
 
       ctx.globalAlpha = this.alpha;
+      
       // Animate Image
       if (this.image == null || this.isButton) {
         ctx.fillStyle = this.colour;
@@ -93,6 +97,18 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
         // Image
       } else {
         ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+      }
+      
+      // Moving Doors
+      if(this.type2 != null && this.mvY != 0){
+        ctx.translate(0,-48+this.mvY);
+        ctx.drawImage(this.image, 0, 16, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+        ctx.translate(0,48-this.mvY);
+        ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+      } else if (this.type2 != null && this.renT2) {
+        ctx.globalAlpha = 1;
+        ctx.translate(0,-48);
+        ctx.drawImage(this.image, 0, 16, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
       }
 
       // SHOW TEXT
@@ -137,8 +153,12 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
     return (this.type == types.DOOR || this.type == types.DOOR_BLOCK || this.type == types.DOOR_WALL);
   }
   
-  this.isDoorBlock = function(){
-    return (this.type == types.DOOR_BLOCK || this.type == types.DOOR_WALL);
+  this.isDoorWall = function(){
+    return this.type == types.DOOR_WALL;
+  }
+  
+  this.isDoorTop = function(){
+    return this.type == types.DOOR_BLOCK;
   }
   
   this.isTile = function(){
