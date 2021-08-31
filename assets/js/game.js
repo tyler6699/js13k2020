@@ -79,16 +79,11 @@ var mainGame = {
       e.preventDefault();
       mainGame.keys = (mainGame.keys || []);
       mainGame.keys[e.button] = false;
-      clickedAt.set(mousePos.x, mousePos.y);
-      clickRow = Math.floor(clickedAt.y / this.scaled);
-      clickCol = Math.floor(clickedAt.x / this.scaled);
-      clickIndex = clickCol + (19*clickRow);
+      setclicks();
       holdClick = false;
       holdClickT = 0;
       processClick = true;
-      if(!start){
-        start=true;
-      }
+      if(!start) start=true;
     })
     window.addEventListener('mousemove', function(e) {
       e.preventDefault();
@@ -99,10 +94,7 @@ var mainGame = {
       col = Math.floor(mousePos.x / this.scaled);
       hoverIndex = col + (19*row);
       
-      clickedAt.set(mousePos.x, mousePos.y);
-      clickRow = Math.floor(clickedAt.y / this.scaled);
-      clickCol = Math.floor(clickedAt.x / this.scaled);
-      clickIndex = clickCol + (19*clickRow);
+      setclicks();
     })
     // Disable right click context menu
     this.canvas.oncontextmenu = function(e) {
@@ -115,6 +107,13 @@ var mainGame = {
   clear: function() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
+}
+
+function setclicks(){
+  clickedAt.set(mousePos.x, mousePos.y);
+  clickRow = Math.floor(clickedAt.y / this.scaled);
+  clickCol = Math.floor(clickedAt.x / this.scaled);
+  clickIndex = clickCol + (19*clickRow);
 }
 
 function updateGameArea() {
@@ -180,4 +179,8 @@ function space() {
 
 function one() {
   return mainGame.keys && (mainGame.keys[ONE]);
+}
+
+function map() {
+  return mainGame.keys && (mainGame.keys[M]);
 }

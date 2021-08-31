@@ -7,6 +7,7 @@ var W = 87;
 var A = 65;
 var S = 83;
 var D = 68;
+var M = 77;
 var LMB = 0;
 var RMB = 2;
 var SPACE = 32;

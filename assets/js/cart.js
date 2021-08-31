@@ -171,6 +171,29 @@ function Cart() {
     if(this.level.mobs.length == 0 && !this.level.gatesOpen){
       this.level.openDoors();
     }
+    
+    if (map()){
+      // Render Map
+      ctx = mainGame.context;
+      ctx.save();
+      ctx.translate(0, 0);
+      ctx.globalAlpha = .8;
+      ctx.fillStyle = "WHITE";
+      offX = (canvasW/2) - 180;
+      offY = (canvasH/2) - 180;
+      this.levels.forEach((l, i) => {
+        var X = (i % 3) * 120;
+        var Y = Math.floor(i / 3) * 120;
+        c = l.gatesOpen ? "GREEN" : "RED";
+        ctx.fillStyle=c;
+        ctx.fillRect(X+offX, Y+offY, 100, 100);
+        if(this.level == l){
+          ctx.fillStyle="BLACK";
+          ctx.fillRect(X+25+offX, Y+25+offY, 50, 50);
+        }
+      });      
+      ctx.restore();
+    }
   }
 
   this.reset = function(){
