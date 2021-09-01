@@ -5,6 +5,7 @@ function Cart() {
   this.cube = 16; // width of tiles
   this.scaled = this.scale*this.cube;
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOff, yOff);
+  this.hero.hp=100;
   this.hero.gun = new Gun();
   this.speed = 7;
   this.levels = [];
@@ -172,30 +173,48 @@ function Cart() {
       this.level.openDoors();
     }
     
-    if (map()){
-      // Render Map
-      ctx = mainGame.context;
-      ctx.save();
-      ctx.translate(0, 0);
-      ctx.globalAlpha = .8;
-      ctx.fillStyle = "WHITE";
-      offX = (canvasW/2) - 180;
-      offY = (canvasH/2) - 180;
-      this.levels.forEach((l, i) => {
-        var X = (i % 3) * 120;
-        var Y = Math.floor(i / 3) * 120;
-        c = l.gatesOpen ? "GREEN" : "RED";
-        ctx.fillStyle=c;
-        ctx.fillRect(X+offX, Y+offY, 100, 100);
-        if(this.level == l){
-          ctx.fillStyle="BLACK";
-          ctx.fillRect(X+25+offX, Y+25+offY, 50, 50);
-        }
-      });      
-      ctx.restore();
-    }
+    if (map()) this.renderMap();
+    this.renderHP();
   }
-
+  
+  this.renderHP = function(){
+    // Render HP
+    ctx = mainGame.context;
+    ctx.save();
+    ctx.translate(0, 0);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "#001832";
+    ctx.fillRect(20, 20, 300, 40);     
+    ctx.fillStyle = "#a12161";
+    l = this.hero.hp * 2.8;
+    ctx.fillRect(30,30, l, 20); 
+    ctx.restore();
+  }
+  
+  this.renderMap = function(){
+    // Render Map
+    ctx = mainGame.context;
+    ctx.save();
+    ctx.translate(0, 0);
+    ctx.globalAlpha = .8;
+    ctx.fillStyle = "WHITE";
+    offX = (canvasW/2) - 180;
+    offY = (canvasH/2) - 180;
+    
+    this.levels.forEach((l, i) => {
+      var X = (i % 3) * 120;
+      var Y = Math.floor(i / 3) * 120;
+      c = l.gatesOpen ? "#a12161" : "#001832";
+      ctx.fillStyle=c;
+      ctx.fillRect(X+offX, Y+offY, 100, 100);
+      if(this.level == l){
+        ctx.fillStyle="BLACK";
+        ctx.fillRect(X+offX+(this.hero.x+32)*0.04, Y+offY+(this.hero.y+32)*0.055, 50, 50);
+      }
+    });      
+    ctx.restore();
+  }
+  
   this.reset = function(){
     GAMEOVER=false;
     WIN=false;

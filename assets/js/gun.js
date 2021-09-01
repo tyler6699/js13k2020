@@ -40,7 +40,7 @@ function Bullet(ox,oy,dx,dy){
   this.dst=0;
   this.active=true;
   this.hb = new rectanlge(ox, oy, this.w, this.h);
-  this.colour="#a205a2";
+  this.colour="#a12161";
   this.dist=0;
   this.accuracy=.15;
   

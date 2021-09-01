@@ -3,8 +3,8 @@
 // ╚═══════════════════════════════╝
 var debug = false;
 var mainGame;
-var canvasW = 1232;//1216;
-var canvasH = 846;//832;
+var canvasW = 1232;
+var canvasH = 846;
 var gameStarted = false;
 var delta = 0.0;
 var prevDelta = Date.now();
