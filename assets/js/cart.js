@@ -209,7 +209,7 @@ function Cart() {
       ctx.fillRect(X+offX, Y+offY, 100, 100);
       if(this.level == l){
         ctx.fillStyle="BLACK";
-        ctx.fillRect(X+offX+(this.hero.x+32)*0.04, Y+offY+(this.hero.y+32)*0.055, 50, 50);
+        ctx.fillRect(X+offX+(this.hero.x*0.065), Y+offY+(this.hero.y*0.095), 20, 20);
       }
     });      
     ctx.restore();
