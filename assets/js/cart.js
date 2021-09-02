@@ -27,8 +27,14 @@ function Cart() {
     this.door = null;
     
     // Controls
-    if (left())   this.hero.x -= this.gMove(-1,0);
-    if (right())  this.hero.x += this.gMove(1,0);
+    if (left()){
+      this.hero.x -= this.gMove(-1,0);
+      this.hero.flip = true;
+    }
+    if (right()){
+      this.hero.x += this.gMove(1,0);
+      this.hero.flip = false;
+    }
     if (up())     this.hero.y -= this.gMove(0,-1);
     if (down())   this.hero.y += this.gMove(0,1);
     if (space())  this.menu.curItm=actions.GUN;

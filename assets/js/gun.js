@@ -34,7 +34,7 @@ function Bullet(ox,oy,dx,dy){
   this.scale = 4;
   this.speed = BSPEED;
   this.w = 50;
-  this.h = 50;
+  this.h = 20;
   this.mhWidth = this.w / -2;
   this.mhHeight = this.h / -2;
   this.dst=0;
@@ -51,7 +51,8 @@ function Bullet(ox,oy,dx,dy){
   dir = Math.atan2(oy-dy,ox-dx) + (Math.PI) + Math.random()*this.accuracy;
   this.dx = Math.cos(dir);
   this.dy = Math.sin(dir);
-  
+  this.angle = Math.atan2(oy - dy, ox - dx);
+
   this.checkHits = function(e){
     if(rectColiding(e.hb,this.hb) && e.hp>=0){
       e.hp--;
@@ -89,6 +90,7 @@ function Bullet(ox,oy,dx,dy){
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.v.x, this.v.y);
+      ctx.rotate(this.angle);
       ctx.fillStyle = this.colour;
       ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.w * .5), (this.h * .5));        
       ctx.restore();

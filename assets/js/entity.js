@@ -45,6 +45,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.hp=0;
   this.mvY=0;
   this.breaks=false;
+  this.flip=false;
   
   // ATLAS Positions
   this.sx=0;
@@ -86,12 +87,12 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   // Render
   this.update = function(delta) {
     this.updateHitbox();
-
+    
     if(this.active) {
       ctx = mainGame.context;
       ctx.save();
       ctx.translate(this.x, this.y);
-
+      ctx.rotate(this.angle);
       ctx.globalAlpha = this.alpha;
       
       // Animate Image
@@ -100,7 +101,15 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
         ctx.fillRect((this.mhWidth *.5) * this.scale, (this.mhHeight * .5) * this.scale, (this.width * .5) * this.scale, (this.height * .5) * this.scale);
         // Image
       } else {
-        ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+        if (this.flip){
+          ctx.scale(-1, 1); 
+          // TODO: Fix the drawImage, should not need to translate
+          ctx.translate(-80,0);
+          ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+        } else {
+          ctx.scale(1, 1);
+          ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+        } 
       }
       
       // Moving Doors
