@@ -169,6 +169,10 @@ function Cart() {
       return m.active == true;
     });
     
+    this.level.mobs = this.level.mobs.filter(function (m) {
+      return m.active == true;
+    });
+    
     if(this.level.mobs.length == 0 && !this.level.gatesOpen){
       this.level.openDoors();
     }

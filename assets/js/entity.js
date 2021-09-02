@@ -44,6 +44,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.hoverText2="";
   this.hp=0;
   this.mvY=0;
+  this.breaks=false;
   
   // ATLAS Positions
   this.sx=0;
@@ -257,6 +258,23 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
       case types.ROCK_4:
         this.sx=96;
         this.isSolid = false;
+        break;
+      case types.BARREL:
+        this.hp=5;
+        this.breaks=true;
+        this.sx=48;
+        this.sy=16;
+        break;
+      case types.TREE:
+        this.breaks=true;
+        this.sx=16;
+        this.sy=32;
+        break;
+      case types.CUBE:
+        this.hp=10;
+        this.breaks=true;
+        this.sx=32;
+        this.sy=16;
         break;
      }
   }

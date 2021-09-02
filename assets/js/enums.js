@@ -13,7 +13,10 @@ const types = {
   ROCK_4:13,
   DOOR:14,
   DOOR_BLOCK:15,
-  DOOR_WALL:16
+  DOOR_WALL:16,
+  BARREL:17,
+  TREE:18,
+  CUBE:19
 }
 
 const actions = {

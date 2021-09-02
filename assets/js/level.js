@@ -1,5 +1,6 @@
 function level(canvasW, canvasH, id, scale) {
   this.tiles = [];
+  this.breakTiles=[];
   this.mvTiles = [];
   this.bTiles = [];
   this.mobs = [];
@@ -37,7 +38,11 @@ function level(canvasW, canvasH, id, scale) {
     
     this.mvTiles = this.mvTiles.filter(function (t) {
       return t.entity.mvY != 0;
-    });    
+    });  
+      
+    this.breakTiles = this.tiles.filter(function (t) {
+      return t.entity.breaks == true;
+    }); 
   }
 
   this.reset = function(id, scaled){
@@ -72,6 +77,7 @@ function level(canvasW, canvasH, id, scale) {
           } else if(randomNum(0,100) > 70){
             type = types.GRID_4;
           }
+          
           if(type != null){
             this.dTiles.push(new Tile(tileSize, xx, yy, 0, type, false, c, r));
           }
@@ -120,6 +126,18 @@ function level(canvasW, canvasH, id, scale) {
                 break;
             }
           }
+        }
+        
+        if(randomNum(0,100) > 98 && (r > 2 && r<11 && c>1 && c<17) && type == types.AIR){
+            type = types.BARREL;
+        }
+        
+        if(randomNum(0,100) > 98 && (r > 2 && r<11 && c>1 && c<17) && type == types.AIR){
+            type = types.TREE;
+        }
+        
+        if(randomNum(0,100) > 99 && (r > 2 && r<11 && c>1 && c<17) && type == types.AIR){
+            type = types.CUBE;
         }
         
         tile = new Tile(tileSize, xx, yy, angle, type, false, c, r);

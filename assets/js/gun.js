@@ -53,8 +53,9 @@ function Bullet(ox,oy,dx,dy){
   this.dy = Math.sin(dir);
   
   this.checkHits = function(e){
-    if(rectColiding(e.hb,this.hb)){
+    if(rectColiding(e.hb,this.hb) && e.hp>=0){
       e.hp--;
+      this.active=false;
       if(e.hp < 0){
         e.active = false;
         e.isSolid = false;
@@ -82,6 +83,7 @@ function Bullet(ox,oy,dx,dy){
       
       //Collision Test
       cart.level.mobs.forEach(e => this.checkHits(e));
+      cart.level.breakTiles.forEach(e => this.checkHits(e.entity));
       
       // Draw
       ctx = mainGame.context;
