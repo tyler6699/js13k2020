@@ -69,10 +69,11 @@ function Cart() {
     //GUN TEST
     if(holdClick) holdClickT += delta;
     if(processClick || holdClickT > .25){
-      ox = cart.hero.x - cart.hero.mhWScaled ;
+      ox = cart.hero.x - cart.hero.mhWScaled;
       oy = cart.hero.y - cart.hero.mhHScaled;
       dx = clickedAt.x;
       dy = clickedAt.y;
+      
       cart.hero.gun.addBullets(ox,oy,dx,dy);
     }
         

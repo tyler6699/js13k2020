@@ -9,7 +9,29 @@ function Gun(){
     // Remove old drawBullets
     if(this.ammo>0 && this.wait<=0){
       this.wait=this.rate;
-      this.bullets.push(new Bullet(ox,oy,dx,dy));
+      //this.bullets.push(new Bullet(ox,oy,dx,dy));
+      
+      // Snap mouse cursor to this radius
+      var radius = 60;
+      
+      // Angle of mouse and hero centre
+      var angle = Math.atan2(dy - oy, dx - ox);
+      
+      // Get X and Y a fixed radius from the hero
+      var x = ox + radius * Math.cos(angle);
+      var y = oy + radius * Math.sin(angle);
+      
+      // Add more bullets that are a fixed distance appart
+      xx = ox + radius * Math.cos(angle+0.349066);
+      yy = oy + radius * Math.sin(angle+0.349066);
+      this.bullets.push(new Bullet(ox,oy,xx,yy));
+      
+      xx = ox + radius * Math.cos(angle-0.349066);
+      yy = oy + radius * Math.sin(angle-0.349066);
+      this.bullets.push(new Bullet(ox,oy,xx,yy));
+
+      this.bullets.push(new Bullet(ox,oy,x,y));
+      // 
       this.ammo--;
     }
   }
@@ -42,13 +64,15 @@ function Bullet(ox,oy,dx,dy){
   this.hb = new rectanlge(ox, oy, this.w, this.h);
   this.colour="#a12161";
   this.dist=0;
-  this.accuracy=.15;
+  // 0 is perfect
+  // .5 is awful
+  this.accuracy=.2;
   
   // Vector
   this.v = new vec2(ox+10, oy+10);
     
   // atan2: convert vector to angle, sin/cos to convert back to vector.
-  dir = Math.atan2(oy-dy,ox-dx) + (Math.PI) + Math.random()*this.accuracy;
+  dir = Math.atan2(oy-dy,ox-dx) + (Math.PI) + (Math.random() - 0.5) * 2 * this.accuracy;
   this.dx = Math.cos(dir);
   this.dy = Math.sin(dir);
   this.angle = Math.atan2(oy - dy, ox - dx);
