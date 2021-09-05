@@ -9,6 +9,8 @@ function Cart() {
   this.hero.gun = new Gun();
   this.speed = 5;
   this.levels = [];
+  // Array to get tiles surrounding an entity
+  this.surTiles = [-1,1,18,19,20,-18,-19,-20];
   
   // Set up levels
   for(i=0;i<9;i++){
@@ -61,7 +63,7 @@ function Cart() {
       this.hero.colArr = [];
       
       // Add surrounding tiles
-      [-1,1,18,19,20,-18,-19,-20].forEach(e => this.hero.colArr.push(this.level.tiles[heroTileIndex+e]));
+      cart.surTiles.forEach(e => this.hero.colArr.push(this.level.tiles[heroTileIndex+e]));
       this.level.mobs.forEach(e => this.hero.colArr.push(e.entity));
     }
 

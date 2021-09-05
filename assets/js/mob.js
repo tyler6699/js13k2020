@@ -20,7 +20,7 @@ function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0) {
     }
     
     this.colArr=[];
-    [-1,1,18,19,20,-18,-19,-20].forEach(e => this.colArr.push(cart.level.tiles[index+e].entity));
+    cart.surTiles.forEach(e => this.colArr.push(cart.level.tiles[index+e].entity));
     this.colArr.push(cart.hero);
     cart.level.mobs.forEach(e => this.colArr.push(e.entity));
         
