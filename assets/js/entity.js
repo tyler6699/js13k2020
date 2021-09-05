@@ -1,4 +1,4 @@
-function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, isButton = false) {
+function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, isButton = false, maxHP = 0) {
   this.scale = scale;
   this.type = type;
   this.type2 = null;
@@ -42,7 +42,8 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.hover=false;
   this.hoverText="";
   this.hoverText2="";
-  this.hp=0;
+  this.maxHP=maxHP;
+  this.hp=this.maxHP;
   this.mvY=0;
   this.breaks=false;
   this.flip=false;
