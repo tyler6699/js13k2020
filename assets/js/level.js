@@ -202,12 +202,12 @@ function level(canvasW, canvasH, id, scale) {
     
     // MOBS
     noMobs = randomNum(0,3)+STAGE;
-    //console.log("Level: " + id + " Mobs: " + noMobs);
+    console.log("Level: " + id + " Mobs: " + noMobs);
     for (m = 0; m < noMobs; m++) {
       // Add a random enemy
-      mob = new entity(16, 16, 200, 200 + m * 80, 0, types.DOOR_BLOCK, "", scale, xOff, yOff);
-      mob.isSolid = true;
-      this.mobs.push(mob);
+      mb = new mob(16, 16, 200, 200 + m * 80, 0, types.DOOR_BLOCK, "", scale, xOff, yOff);
+      mb.isSolid = false;
+      this.mobs.push(mb);
     }
   }
   

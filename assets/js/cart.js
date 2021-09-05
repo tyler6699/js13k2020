@@ -7,7 +7,7 @@ function Cart() {
   this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOff, yOff);
   this.hero.hp=100;
   this.hero.gun = new Gun();
-  this.speed = 7;
+  this.speed = 5;
   this.levels = [];
   
   // Set up levels
@@ -61,9 +61,8 @@ function Cart() {
       this.hero.colArr = [];
       
       // Add surrounding tiles
-      if(heroTileIndex) this.hero.colArr.push(this.level.tiles[heroTileIndex-1]);  // LEFT
       [-1,1,18,19,20,-18,-19,-20].forEach(e => this.hero.colArr.push(this.level.tiles[heroTileIndex+e]));
-      this.level.mobs.forEach(e => this.hero.colArr.push(e));
+      this.level.mobs.forEach(e => this.hero.colArr.push(e.entity));
     }
 
     //GUN TEST
@@ -173,11 +172,7 @@ function Cart() {
     // Clear Mobs
     // Remove bullets
     this.level.mobs = this.level.mobs.filter(function (m) {
-      return m.active == true;
-    });
-    
-    this.level.mobs = this.level.mobs.filter(function (m) {
-      return m.active == true;
+      return m.entity.active == true;
     });
     
     if(this.level.mobs.length == 0 && !this.level.gatesOpen){

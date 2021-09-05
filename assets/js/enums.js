@@ -29,3 +29,7 @@ const actions = {
   AUTO:6,
   UP:7
 }
+
+const mobtype = {
+  FOLLOW:0
+}

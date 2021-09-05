@@ -9,9 +9,9 @@ function Gun(){
     // Remove old drawBullets
     if(this.ammo>0 && this.wait<=0){
       this.wait=this.rate;
-      //this.bullets.push(new Bullet(ox,oy,dx,dy));
-      
+            
       // Snap mouse cursor to this radius
+      // https://i.stack.imgur.com/7Rmf4.gif
       var radius = 60;
       
       // Angle of mouse and hero centre
@@ -21,17 +21,18 @@ function Gun(){
       var x = ox + radius * Math.cos(angle);
       var y = oy + radius * Math.sin(angle);
       
-      // Add more bullets that are a fixed distance appart
-      xx = ox + radius * Math.cos(angle+0.349066);
-      yy = oy + radius * Math.sin(angle+0.349066);
-      this.bullets.push(new Bullet(ox,oy,xx,yy));
-      
-      xx = ox + radius * Math.cos(angle-0.349066);
-      yy = oy + radius * Math.sin(angle-0.349066);
-      this.bullets.push(new Bullet(ox,oy,xx,yy));
-
       this.bullets.push(new Bullet(ox,oy,x,y));
+            
+      // Add more bullets that are a fixed distance appart
+      // 1 degree is 0.0174533 radians
+      // xx = ox + radius * Math.cos(angle+0.349066);
+      // yy = oy + radius * Math.sin(angle+0.349066);
+      // this.bullets.push(new Bullet(ox,oy,xx,yy));
       // 
+      // xx = ox + radius * Math.cos(angle-0.349066);
+      // yy = oy + radius * Math.sin(angle-0.349066);
+      // this.bullets.push(new Bullet(ox,oy,xx,yy));
+
       this.ammo--;
     }
   }
@@ -66,7 +67,7 @@ function Bullet(ox,oy,dx,dy){
   this.dist=0;
   // 0 is perfect
   // .5 is awful
-  this.accuracy=.2;
+  this.accuracy=.1;
   
   // Vector
   this.v = new vec2(ox+10, oy+10);
@@ -107,7 +108,7 @@ function Bullet(ox,oy,dx,dy){
       this.hb.y = this.v.y + this.mhHeight;
       
       //Collision Test
-      cart.level.mobs.forEach(e => this.checkHits(e));
+      cart.level.mobs.forEach(e => this.checkHits(e.entity));
       cart.level.breakTiles.forEach(e => this.checkHits(e.entity));
       
       // Draw
