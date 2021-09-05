@@ -72,5 +72,27 @@ function renderStarField(time){
 }
 
 function getValueByIndex(e,i){
-    return Object.values(e)[i];
+  return Object.values(e)[i];
 }
+
+function drawImg(ctx, img, sx, sy, w, h, x, y, alpha, scale){
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(x, y);
+  ctx.drawImage(img, sx, sy, w, h, w/2, h/2, w * scale, h * scale);
+  ctx.restore();
+}
+
+function drawRect(ctx, ox, oy, x, y, w, h, col, alpha){
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(ox, oy);
+  ctx.fillStyle = col;
+  ctx.fillRect(x,y,w,h);
+  ctx.restore();
+}
+
+//// Draw HP
+// ctx.fillStyle = "#00dcf8";
+// w=(48/e.maxHP)*e.hp;
+// ctx.fillRect(16,14,w,10);

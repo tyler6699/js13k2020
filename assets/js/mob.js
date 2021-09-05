@@ -28,18 +28,9 @@ function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, max
     this.entity.update(delta);
     
     if(this.entity.hp < this.entity.maxHP){
-      //ctx.save();
-      ctx.save();
       var e = this.entity;
-      ctx.globalAlpha = .8
-      // Draw HP box;
-      ctx.translate(e.x, e.y+(e.height*e.scale+10));
-      ctx.drawImage(e.image, 0, 32, e.width, 8, e.hWidth, 4, e.width * e.scale, 7 * e.scale);
-      // Draw HP
-      ctx.fillStyle = "#00dcf8";
-      w=(48/e.maxHP)*e.hp;
-      ctx.fillRect(16,14,w,10);
-      ctx.restore();
+      drawImg(ctx, e.image, 0, 32, e.width, 8, e.x, e.y+(e.height*e.scale+10), .8, e.scale);
+      drawRect(ctx, e.x, e.y+(e.height*e.scale+12),16,14,(48/e.maxHP)*e.hp,12,"#00dcf8",.8)
     }
   }
   
