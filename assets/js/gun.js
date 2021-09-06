@@ -81,7 +81,6 @@ function Bullet(ox,oy,dx,dy){
   this.checkHits = function(e){
     if(rectColiding(e.hb,this.hb) && e.hp>=0){
       e.hp--;
-      console.log(e.hp);
       this.active=false;
       if(e.hp < 0){
         e.active = false;
