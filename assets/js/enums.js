@@ -31,5 +31,6 @@ const actions = {
 }
 
 const mobtype = {
-  FOLLOW:0
+  FOLLOW:0,
+  SIMPLE:1
 }

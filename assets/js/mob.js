@@ -1,6 +1,6 @@
 function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, maxHP) {
   this.entity = new entity(w, h, x, y, angle, type, colour, scale, xOff, yOff, false, maxHP);
-  this.type=0;
+  this.type=mobtype.FOLLOW;
   this.speed = randomNum(1,2);
   this.colArr = [];
   this.noX=false;
@@ -50,6 +50,9 @@ function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, max
       } else {
         this.entity.x = x < cart.hero.x ? x += this.move(this.speed,0) : x += this.move(-this.speed,0);
       }
+    } else if(this.type==mobtype.SIMPLE){
+      this.entity.y = y < cart.hero.y ? y += this.move(0,this.speed) : y += this.move(0,-this.speed)
+      this.entity.x = x < cart.hero.x ? x += this.move(this.speed,0) : x += this.move(-this.speed,0);
     }
     
     // Add surrounding tiles and other entities for collision checks
