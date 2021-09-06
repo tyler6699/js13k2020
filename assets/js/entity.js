@@ -48,6 +48,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.breaks=false;
   this.broke=false;
   this.flip=false;
+  this.idle=0;
   
   // ATLAS Positions
   this.sx=0;
@@ -82,12 +83,9 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
     }
   }
 
-  this.isFloor = function(){
-    return this.type == types.FLOOR;
-  }
-
   // Render
   this.update = function(delta) {
+    this.idle+=delta;
     this.updateHitbox();
     
     if(this.active) {
@@ -149,26 +147,6 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
         ctx.fillStyle = gradient;
         ctx.fillText(this.showText, 0, this.showTextY+(10*this.showTextTime));
       }
-
-      if(this.isButton){
-        by=32;
-        bx=48;
-        ctx.drawImage(this.image, bx, by, 10, 10, -16, -16, 32, 32);
-
-        if(this.hover){
-          ctx.globalAlpha = .8;
-          ctx.fillStyle = "#"+COL1;
-          ctx.fillRect(-215, -50, 167, 100);
-          ctx.fillStyle = this.colour;
-          ctx.fillRect(-200, -32, 165, this.scaled);
-          ctx.globalAlpha = 1;
-          ctx.font = "italic 25px Arial";
-          ctx.fillStyle = "#"+COL1;
-          ctx.fillText(this.hoverText, -180, -5);
-          ctx.fillText(this.hoverText2, -180, 20);
-        }
-      }
-
       ctx.restore();
     }
   }
@@ -189,6 +167,14 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
     return this.type == types.DOOR_BLOCK;
   }
   
+  this.isBarrel = function(){
+    return this.type == types.BARREL;
+  }
+  
+  this.isTree = function(){
+    return this.type == types.TREE;
+  }
+  
   this.isTile = function(){
     return false;
   }
@@ -196,6 +182,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.setT = function(t){
     this.type = t;
     this.setType();
+  }
+  
+  this.isFloor = function(){
+    return this.type == types.FLOOR;
   }
 
   this.setType = function(){

@@ -1,5 +1,5 @@
 function Tile(size, x, y, angle, type, solid, column, row) {
-  this.entity = new entity(size, size, x, y, angle, type, "", 4, hbOffX = 0, hbOffY = 0);
+  this.entity = new entity(size, size, x, y, angle, type, "", 4, 0, 0);
   this.column = column;
   this.row = row;
   this.active = true;

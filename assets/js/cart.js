@@ -1,15 +1,10 @@
 function Cart() {
-  xOff = 0;
-  yOff = 0;
   this.scale = 4;
   this.cube = 16; // width of tiles
   this.scaled = this.scale*this.cube;
-  this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOff, yOff);
-  this.hero.hp=100;
-  this.hero.gun = new Gun();
+  this.hero = new hero(16, 16, canvasW/2, canvasH/2, 0, types.HERO, this.scale);
   this.speed = 5;
-  this.levels = [];
-  // Array to get tiles surrounding an entity
+  this.levels = []; // Array to get tiles surrounding an entity
   this.surTiles = [-1,1,18,19,20,-18,-19,-20];
   
   // Set up levels
@@ -20,7 +15,7 @@ function Cart() {
   }
   
   this.level = this.levels[0];
-  this.hero.currentLevel = 0;
+  this.hero.e.currentLevel = 0;
   this.menu = new Build(this.scale);
 
   // Render & Logic
@@ -30,58 +25,58 @@ function Cart() {
     
     // Controls
     if (left()){
-      this.hero.x -= this.gMove(-1,0);
-      this.hero.flip = true;
+      this.hero.e.x -= this.gMove(-1,0);
+      this.hero.e.flip = true;
     }
     if (right()){
-      this.hero.x += this.gMove(1,0);
-      this.hero.flip = false;
+      this.hero.e.x += this.gMove(1,0);
+      this.hero.e.flip = false;
     }
-    if (up())     this.hero.y -= this.gMove(0,-1);
-    if (down())   this.hero.y += this.gMove(0,1);
+    if (up())     this.hero.e.y -= this.gMove(0,-1);
+    if (down())   this.hero.e.y += this.gMove(0,1);
     if (space())  this.menu.curItm=actions.GUN;
     if(one()) cart.reset();
 
     // Check for door hit
     if(this.door != null){
-      this.hero.gun.bullets=[];
+      this.hero.e.gun.bullets=[];
       this.level = this.levels[this.door.loadRoom];
-      if(this.door.exitX != -1) this.hero.x = this.door.exitX;
-      if(this.door.exitY != -1) this.hero.y = this.door.exitY;
+      if(this.door.exitX != -1) this.hero.e.x = this.door.exitX;
+      if(this.door.exitY != -1) this.hero.e.y = this.door.exitY;
       this.door = null;
       introT = 32;
     }
     
     // Set Hero Current Tile
-    heroRow = Math.floor((this.hero.y - this.hero.mhHScaled) / this.scaled);
-    heroCol = Math.floor((this.hero.x - this.hero.mhWScaled) / this.scaled);
+    heroRow = Math.floor((this.hero.e.y - this.hero.e.mhHScaled) / this.scaled);
+    heroCol = Math.floor((this.hero.e.x - this.hero.e.mhWScaled) / this.scaled);
     heroTileIndex = heroCol + (19*heroRow);
     if(this.currentTile != null) this.prevTile = this.currentTile;
     this.currentTile = this.level.tiles[heroTileIndex];
 
     if(this.currentTile != this.prevTile){
-      this.hero.colArr = [];
+      this.hero.e.colArr = [];
       
       // Add surrounding tiles
-      cart.surTiles.forEach(e => this.hero.colArr.push(this.level.tiles[heroTileIndex+e]));
-      this.level.mobs.forEach(e => this.hero.colArr.push(e.entity));
+      cart.surTiles.forEach(e => this.hero.e.colArr.push(this.level.tiles[heroTileIndex+e]));
+      this.level.mobs.forEach(e => this.hero.e.colArr.push(e.entity));
     }
 
     //GUN TEST
     if(holdClick) holdClickT += delta;
     if(processClick || holdClickT > .25){
-      ox = cart.hero.x - cart.hero.mhWScaled;
-      oy = cart.hero.y - cart.hero.mhHScaled;
+      ox = this.hero.e.x - this.hero.e.mhWScaled;
+      oy = this.hero.e.y - this.hero.e.mhHScaled;
       dx = clickedAt.x;
       dy = clickedAt.y;
       
-      cart.hero.gun.addBullets(ox,oy,dx,dy);
+      this.hero.e.gun.addBullets(ox,oy,dx,dy);
     }
         
     // check for each pixel if the hero can move, starting with full amount
     // The array contains tiles and mobs (Entities)
     this.gMove = function(xx,yy){
-      rec = cloneRectanlge(this.hero.hb);
+      rec = cloneRectanlge(this.hero.e.hb);
       rec.x += xx * this.speed;
       rec.y += yy * this.speed;
       amount = this.speed;
@@ -92,8 +87,8 @@ function Cart() {
       for(var i = this.speed; i>0; i--){
         canMove = true;
         
-        for (var t = 0; t < this.hero.colArr.length; t++) {
-          obj = this.hero.colArr[t];
+        for (var t = 0; t < this.hero.e.colArr.length; t++) {
+          obj = this.hero.e.colArr[t];
           
           if(obj.isTile()){
             if(!stop && rectColiding(obj.entity.hb,rec)){
@@ -127,7 +122,7 @@ function Cart() {
 
     // Render
     renderStarField(time);
-    this.level.draw(this.hero, delta);
+    this.level.draw(this.hero.e, delta);
 
     // Draw Text
     gradient = ctx.createLinearGradient(0, 0, canvasW, 0);
@@ -135,15 +130,15 @@ function Cart() {
     gradient.addColorStop(".5", "#"+COL1);
     ctx.fillStyle = gradient;
     ctx.font = "italic 40px Arial";
-    ctx.fillText("SCORE " + SCORE, 900, 50);
+    ctx.fillText("AMMO " + this.hero.e.gun.ammo, 900, 50);
+    
+    // Reset mouse click checker
     processClick = false;
 
     // HERO
     this.hero.update(delta);
-    this.hero.gun.drawBullets(delta);
 
-    //this.menu.update();
-    // Mouse
+    // MOUSE
     mainGame.canvas.style.cursor='none';
     let mx = mousePos.x;
     let my = mousePos.y;
@@ -171,12 +166,12 @@ function Cart() {
       introT -= delta*48;
     }
     
-    // Clear Mobs
-    // Remove bullets
+    // Clear dead Mobs
     this.level.mobs = this.level.mobs.filter(function (m) {
       return m.entity.active == true;
     });
     
+    // Ceck if the doors can open
     if(this.level.mobs.length == 0 && !this.level.gatesOpen){
       this.level.openDoors();
     }
@@ -186,7 +181,6 @@ function Cart() {
   }
   
   this.renderHP = function(){
-    // Render HP
     ctx = mainGame.context;
     ctx.save();
     ctx.translate(0, 0);
@@ -194,13 +188,12 @@ function Cart() {
     ctx.fillStyle = "#001832";
     ctx.fillRect(20, 20, 300, 40);     
     ctx.fillStyle = "#a12161";
-    l = this.hero.hp * 2.8;
+    l = this.hero.e.hp * 2.8;
     ctx.fillRect(30,30, l, 20); 
     ctx.restore();
   }
   
   this.renderMap = function(){
-    // Render Map
     ctx = mainGame.context;
     ctx.save();
     ctx.translate(0, 0);
@@ -217,7 +210,7 @@ function Cart() {
       ctx.fillRect(X+offX, Y+offY, 100, 100);
       if(this.level == l){
         ctx.fillStyle="BLACK";
-        ctx.fillRect(X+offX+(this.hero.x*0.065), Y+offY+(this.hero.y*0.095), 20, 20);
+        ctx.fillRect(X+offX+(this.hero.e.x*0.065), Y+offY+(this.hero.e.y*0.095), 20, 20);
       }
     });      
     ctx.restore();
@@ -226,9 +219,9 @@ function Cart() {
   this.reset = function(){
     GAMEOVER=false;
     WIN=false;
-    this.hero = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, xOff, yOff);
-    this.hero.sx = 16;
+    this.hero.e = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, 0, 0);
+    this.hero.e.sx = 16;
     this.level = new level(canvasW, canvasH, 0);
-    this.level.reset(this.hero, this.scale);
+    this.level.reset(this.hero.e, this.scale);
   }
 }

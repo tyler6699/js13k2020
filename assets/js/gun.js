@@ -1,7 +1,6 @@
 function Gun(){
   this.ammo=AMMOSTART;
   this.bullets=[];
-  // TODO Limit rate of fire
   this.rate=.1;
   this.wait=0;
   
@@ -38,7 +37,6 @@ function Gun(){
   }
   
   this.drawBullets = function(delta){
-    // tick
     if(this.wait>0){
       this.wait-=delta;
     }
@@ -82,8 +80,18 @@ function Bullet(ox,oy,dx,dy){
     if(rectColiding(e.hb,this.hb) && e.hp>=0){
       e.hp--;
       this.active=false;
+      
       if(e.hp < 0){
-        e.active = false;
+        if(e.isBarrel()){
+          e.sx=0;
+          e.sy=48;
+          e.broke=true;
+        } else if(e.isTree()){
+            e.sy=48;
+            e.broke=true;
+        } else {
+          e.active = false;
+        }
         e.isSolid = false;
       }
     }

@@ -1,0 +1,37 @@
+TODO
+
+Character
+ - HP
+ - Death
+ - Animation
+Shooting
+ - bullet sprites
+ - hit Animation
+ - Guns
+mob 
+ - movement
+ - Shooting
+ 
+ 
+ Broken Barrels turn into green patches that hurt you
+ 
+Entity Button Draw 
+ // if(this.isButton){
+ //   by=32;
+ //   bx=48;
+ //   ctx.drawImage(this.image, bx, by, 10, 10, -16, -16, 32, 32);
+ // 
+ //   if(this.hover){
+ //     ctx.globalAlpha = .8;
+ //     ctx.fillStyle = "#"+COL1;
+ //     ctx.fillRect(-215, -50, 167, 100);
+ //     ctx.fillStyle = this.colour;
+ //     ctx.fillRect(-200, -32, 165, this.scaled);
+ //     ctx.globalAlpha = 1;
+ //     ctx.font = "italic 25px Arial";
+ //     ctx.fillStyle = "#"+COL1;
+ //     ctx.fillText(this.hoverText, -180, -5);
+ //     ctx.fillText(this.hoverText2, -180, 20);
+ //   }
+ // }
+

@@ -20,6 +20,7 @@ module.exports = function(grunt) {
                 "assets/js/utility.js",
                 "assets/js/level.js",
                 "assets/js/entity.js",
+                "assets/js/hero.js",
                 "assets/js/mob.js",
                 "assets/js/cart.js",
                 "assets/js/game.js",

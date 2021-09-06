@@ -1,5 +1,5 @@
-function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, maxHP) {
-  this.entity = new entity(w, h, x, y, angle, type, colour, scale, xOff, yOff, false, maxHP);
+function mob(w, h, x, y, angle, type, scale, maxHP) {
+  this.entity = new entity(w, h, x, y, angle, type, "", scale, 0, 0, false, maxHP);
   this.type=mobtype.FOLLOW;
   this.spd = randomNum(1,2);
   this.colArr = [];
@@ -39,26 +39,24 @@ function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, max
       if(this.noX && this.waitX>0){
         this.waitX-=delta;
         this.entity.y = y += this.move(0,this.tryYSpeed);
-        console.log("Move UP");
       } else {
-        this.entity.y = y < cart.hero.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd);
+        this.entity.y = y < cart.hero.e.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd);
       }
       if(this.noY && this.waitY>0){
         this.waitY-=delta;
         this.entity.x = x += this.move(this.tryXSpeed,0);
-        console.log("MoveRIght");
       } else {
-        this.entity.x = x < cart.hero.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
+        this.entity.x = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
       }
     } else if(this.type==mobtype.SIMPLE){
-      this.entity.y = y < cart.hero.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd)
-      this.entity.x = x < cart.hero.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
+      this.entity.y = y < cart.hero.e.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd)
+      this.entity.x = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
     }
     
     // Add surrounding tiles and other entities for collision checks
     this.colArr=[];
     cart.surTiles.forEach(e => this.colArr.push(cart.level.tiles[index+e].entity));
-    this.colArr.push(cart.hero);
+    this.colArr.push(cart.hero.e);
     cart.level.mobs.forEach(e => this.colArr.push(e.entity));
         
     this.entity.update(delta);
@@ -81,10 +79,8 @@ function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, max
       obj = this.colArr[t];
       
       if(obj != this.entity && obj.isSolid && rectColiding(obj.hb,rec)){
-        if(obj.isHero){
-        //  this.hitHero=true
-          console.log("hit hero");
-        };
+        // if(obj.isHero){
+        // };
         canMove = false;
         amount=0;
         break;

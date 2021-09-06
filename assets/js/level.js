@@ -205,7 +205,7 @@ function level(canvasW, canvasH, id, scale) {
     // console.log("Level: " + id + " Mobs: " + noMobs);
     for (m = 0; m < noMobs; m++) {
       // Add a random enemy
-      mb = new mob(16, 16, 200, 200 + m * 80, 0, types.DOOR_BLOCK, "", scale, xOff, yOff, 10);
+      mb = new mob(16, 16, 200, 200 + m * 80, 0, types.DOOR_BLOCK, scale, 10);
       mb.isSolid = false;
       this.mobs.push(mb);
     }
