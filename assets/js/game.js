@@ -87,9 +87,9 @@ var mainGame = {
     })
     window.addEventListener('mousemove', function(e) {
       e.preventDefault();
-      var rect = mainGame.canvas.getBoundingClientRect();
-      mousePos.set((e.clientX - rect.left) / (rect.right - rect.left) * canvasW, 
-                   (e.clientY - rect.top) / (rect.bottom - rect.top) * canvasH);
+      var r = mainGame.canvas.getBoundingClientRect();
+      mousePos.set((e.clientX - r.left) / (r.right - r.left) * canvasW, 
+                   (e.clientY - r.top) / (r.bottom - r.top) * canvasH);
       row = Math.floor(mousePos.y / this.scaled);
       col = Math.floor(mousePos.x / this.scaled);
       hoverIndex = col + (19*row);

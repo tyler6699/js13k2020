@@ -1,16 +1,16 @@
 function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, maxHP) {
   this.entity = new entity(w, h, x, y, angle, type, colour, scale, xOff, yOff, false, maxHP);
   this.type=mobtype.FOLLOW;
-  this.speed = randomNum(1,2);
+  this.spd = randomNum(1,2);
   this.colArr = [];
   this.noX=false;
   this.noY=false;
-  this.waitXStuck=1;
-  this.waitYStuck=1;
+  this.waitX=1;
+  this.waitY=1;
   //this.hitHero=false;
   this.time=0;
-  this.tryXSpeed=this.speed;
-  this.tryYSpeed=this.speed;
+  this.tryXSpeed=this.spd;
+  this.tryYSpeed=this.spd;
   
   this.update = function(delta) {  
     this.time+=delta;
@@ -19,11 +19,11 @@ function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, max
       this.time=0
       this.noX=false;
       this.noY=false;
-      this.waitYStuck=0;
-      this.waitXStuck=0;
+      this.waitY=0;
+      this.waitX=0;
       //this.hitHero=false;
-      this.tryXSpeed = randomNum(0,10)>5 ? this.speed : -this.speed;
-      this.tryYSpeed = randomNum(0,10)>5 ? this.speed : -this.speed;
+      this.tryXSpeed = randomNum(0,10)>5 ? this.spd : -this.spd;
+      this.tryYSpeed = randomNum(0,10)>5 ? this.spd : -this.spd;
     }
     var x = this.entity.x;
     var y = this.entity.y;
@@ -36,23 +36,23 @@ function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, max
     // basic follow
     if(this.type == mobtype.FOLLOW){
       //this.hitHero=false;
-      if(this.noX && this.waitXStuck>0){
-        this.waitXStuck-=delta;
+      if(this.noX && this.waitX>0){
+        this.waitX-=delta;
         this.entity.y = y += this.move(0,this.tryYSpeed);
         console.log("Move UP");
       } else {
-        this.entity.y = y < cart.hero.y ? y += this.move(0,this.speed) : y += this.move(0,-this.speed);
+        this.entity.y = y < cart.hero.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd);
       }
-      if(this.noY && this.waitYStuck>0){
-        this.waitYStuck-=delta;
+      if(this.noY && this.waitY>0){
+        this.waitY-=delta;
         this.entity.x = x += this.move(this.tryXSpeed,0);
         console.log("MoveRIght");
       } else {
-        this.entity.x = x < cart.hero.x ? x += this.move(this.speed,0) : x += this.move(-this.speed,0);
+        this.entity.x = x < cart.hero.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
       }
     } else if(this.type==mobtype.SIMPLE){
-      this.entity.y = y < cart.hero.y ? y += this.move(0,this.speed) : y += this.move(0,-this.speed)
-      this.entity.x = x < cart.hero.x ? x += this.move(this.speed,0) : x += this.move(-this.speed,0);
+      this.entity.y = y < cart.hero.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd)
+      this.entity.x = x < cart.hero.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
     }
     
     // Add surrounding tiles and other entities for collision checks
@@ -95,15 +95,15 @@ function mob(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, max
     if(amount==0){
       if(x != 0){
         this.noX=true;
-        this.waitXStuck=.8;
+        this.waitX=.8;
       } else {
         this.noY=true;
-        this.waitYStuck=.8;
+        this.waitY=.8;
       }
     } else {
-      if(x != 0 && this.waitXStuck==0){
+      if(x != 0 && this.waitX==0){
         this.noX=false;
-      } else if(this.waitYStuck==0) {
+      } else if(this.waitY==0) {
         this.noY=false;
       }
     }

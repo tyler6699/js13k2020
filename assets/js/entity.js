@@ -46,6 +46,7 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.hp=this.maxHP;
   this.mvY=0;
   this.breaks=false;
+  this.broke=false;
   this.flip=false;
   
   // ATLAS Positions
@@ -96,38 +97,46 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
       ctx.rotate(this.angle);
       ctx.globalAlpha = this.alpha;
       
+      img = this.image;
+      s   = this.scale;
+      mhw = this.mhWidth;
+      mhh = this.mhHeight;
+      hw  = this.hWidth;
+      hh  = this.hHeight;
+      w   = this.width;
+      h   = this.height;
+      ydo  = this.yDrawOffset;
+      
       // Animate Image
       if (this.image == null || this.isButton) {
         ctx.fillStyle = this.colour;
-        ctx.fillRect((this.mhWidth *.5) * this.scale, (this.mhHeight * .5) * this.scale, (this.width * .5) * this.scale, (this.height * .5) * this.scale);
-        // Image
+        ctx.fillRect((mhw *.5) * s, (mhh * .5) * s, (w * .5) * s, (h * .5) * s);
+      // Image
       } else {
         if (this.flip){
-          ctx.scale(-1, 1); 
-          // TODO: Fix the drawImage, should not need to translate
+          ctx.scale(-1, 1); // TODO: Fix the drawImage, should not need to translate
           ctx.translate(-80,0);
-          ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
         } else {
           ctx.scale(1, 1);
-          ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
         } 
+        ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh + ydo, w * s, h * s);
       }
       
       // Moving Doors
       if(this.type2 != null && this.mvY != 0){
         ctx.translate(0,-48+this.mvY);
-        ctx.drawImage(this.image, 0, 16, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+        ctx.drawImage(img, 0, 16, w, h, hw, hh + ydo, w * s, h * s);
         ctx.translate(0,48-this.mvY);
-        ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+        ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh + ydo, w * s, h * s);
       }else if(this.type3 != null && this.mvY != 0){
           ctx.translate(0,64-(48-this.mvY));
-          ctx.drawImage(this.image, 112, 16, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+          ctx.drawImage(img, 112, 16, w, h, hw, hh + ydo, w * s, h * s);
           ctx.translate(0,-64+(48-this.mvY));
-          ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+          ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh + ydo, w * s, h * s);
       } else if (this.type2 != null && this.renT2) {
         ctx.globalAlpha = 1;
         ctx.translate(0,-48);
-        ctx.drawImage(this.image, 0, 16, this.width, this.height, this.hWidth, this.hHeight + this.yDrawOffset, this.width * this.scale, this.height * this.scale);
+        ctx.drawImage(img, 0, 16, w, h, hw, hh + ydo, w * s, h * s);
       }
 
       // SHOW TEXT
