@@ -95,6 +95,12 @@ function Cart() {
     // Ceck if the doors can open
     if(this.level.mobs.length == 0 && !this.level.gatesOpen){
       this.level.openDoors();
+      this.hero.roomsDone++;
+    }
+    
+    // Level Done Condition
+    if(this.hero.roomsDone == 9){
+      //console.log("Level Done!");
     }
     
     if (map()) this.renderMap();

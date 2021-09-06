@@ -34,7 +34,6 @@ function hero(w, h, x, y, angle, type, scale) {
       if(this.door.exitY != -1) this.e.y = this.door.exitY;
       this.door = null;
       cart.introT = 32;
-      this.roomsDone++;
     }
   }
   
