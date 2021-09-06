@@ -100,6 +100,10 @@ function Cart() {
                 stop = true;
                 break;
               }
+              // Hurt Hero when on Oooze and moving
+              if(obj.entity.isBarrel()){
+                this.hero.e.hp-=.5;
+              }
             }
           } else { // MOB
             if(!stop && obj.active && obj.isSolid && rectColiding(obj.hb, rec)){
