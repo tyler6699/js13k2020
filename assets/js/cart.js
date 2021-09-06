@@ -5,6 +5,7 @@ function Cart() {
   this.hero = new hero(16, 16, canvasW/2, canvasH/2, 0, types.HERO, this.scale);
   this.levels = []; // Array to get tiles surrounding an entity
   this.surTiles = [-1,1,18,19,20,-18,-19,-20];
+  this.introT=0;
   
   // Set up levels
   for(i=0;i<9;i++){
@@ -70,7 +71,7 @@ function Cart() {
     mainGame.context.fillRect(mx-mh,my-mw,mh*2,mw*2);
     mainGame.context.globalCompositeOperation = 'source-over';
     
-    if(introT > 0){
+    if(this.introT > 0){
       for(i = 0;i <= canvasW/33;i++){
         for(j = 0;j <= canvasH/33;j++){
           ctx = mainGame.context;
@@ -79,11 +80,11 @@ function Cart() {
           col = i%2==0&&j%2==0 ? "#000" : "#FFF";
           ctx.fillStyle = col;
           ctx.globalAlpha = .5;
-          ctx.fillRect(introT/-2, introT/-2, introT, introT);
+          ctx.fillRect(this.introT/-2, this.introT/-2, this.introT, this.introT);
           ctx.restore();
         }
       }
-      introT -= delta*48;
+      this.introT -= delta*48;
     }
     
     // Clear dead Mobs

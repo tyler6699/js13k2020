@@ -5,6 +5,7 @@ function hero(w, h, x, y, angle, type, scale) {
   this.speed=5;
   this.door=null;
   this.currentTile=null;
+  this.roomsDone=0;
   
   this.update = function(delta) {  
     this.time+=delta;
@@ -33,6 +34,7 @@ function hero(w, h, x, y, angle, type, scale) {
       if(this.door.exitY != -1) this.e.y = this.door.exitY;
       this.door = null;
       cart.introT = 32;
+      this.roomsDone++;
     }
   }
   
