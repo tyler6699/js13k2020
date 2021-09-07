@@ -11,6 +11,7 @@ function level(canvasW, canvasH, id, scale) {
   this.roomNo = id;
   this.gatesOpen = false;
   this.doors=[0,0,0,0]; // 0=LEFT, 1=RIGHT, 2=TOP, 3=BOTTOM
+  this.showPortal=false;
   var tileSize = 16;
   var levelArray;
   

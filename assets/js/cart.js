@@ -95,12 +95,13 @@ function Cart() {
     // Ceck if the doors can open
     if(this.level.mobs.length == 0 && !this.level.gatesOpen){
       this.level.openDoors();
-      this.hero.roomsDone++;
+      if(this.hero.roomsDone>=0)this.hero.roomsDone++;
     }
     
     // Level Done Condition
     if(this.hero.roomsDone == 9){
-      //console.log("Level Done!");
+      this.levels[this.hero.e.currentLevel].showPortal = true;
+      this.hero.roomsDone = -1;
     }
     
     if (map()) this.renderMap();
@@ -133,6 +134,7 @@ function Cart() {
       var X = (i % 3) * 120;
       var Y = Math.floor(i / 3) * 120;
       c = l.gatesOpen ? "#a12161" : "#001832";
+      if(l.showPortal) c = "GOLD";
       ctx.fillStyle=c;
       ctx.fillRect(X+offX, Y+offY, 100, 100);
       if(this.level == l){

@@ -30,6 +30,7 @@ function hero(w, h, x, y, angle, type, scale) {
     if(this.door != null){
       this.e.gun.bullets=[];
       cart.level = cart.levels[this.door.loadRoom];
+      this.e.currentLevel=this.door.loadRoom;
       if(this.door.exitX != -1) this.e.x = this.door.exitX;
       if(this.door.exitY != -1) this.e.y = this.door.exitY;
       this.door = null;
