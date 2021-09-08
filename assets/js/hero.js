@@ -6,6 +6,9 @@ function hero(w, h, x, y, angle, type, scale) {
   this.door=null;
   this.currentTile=null;
   this.roomsDone=0;
+  this.level=0;
+  this.levelUp=false;
+  this.levelUpTime=0;
   
   this.update = function(delta) {  
     this.time+=delta;
@@ -74,8 +77,10 @@ function hero(w, h, x, y, angle, type, scale) {
         
         if(obj.isTile()){
           if(!stop && rectColiding(obj.entity.hb,rec)){
-            if(obj.entity.isPortal()){
+            if(obj.entity.isPortal() && !this.levelUp){
               canMove = false;
+              this.levelUp=true;
+              this.level++;
               console.log("LEVEL UP");
               break;
             } else if(obj.active && obj.entity.isSolid){

@@ -144,6 +144,19 @@ function updateGameArea() {
     ctx.drawImage(atlas, 96, 16, 16, 13, x-80, y+40, 256, 208);
     ctx.drawImage(atlas, 32, 48, 16, 16, x, y, 256, 256);
     ctx.restore();
+  } else if(this.cart.hero.levelUp) {
+    mainGame.clear();
+    warp(TIME/100);
+    t = TIME/1e3;
+    x = (this.canvasW/2)-128+Math.cos(t)*40;
+    y = (this.canvasH/2)-128+Math.sin(t)*20;
+    ctx.drawImage(atlas, 96, 16, 16, 13, x-80, y+40, 256, 208);
+    ctx.drawImage(atlas, 32, 48, 16, 16, x, y, 256, 256);
+    this.cart.hero.levelUpTime+=delta/1000;
+    if(this.cart.hero.levelUpTime>2){
+      this.cart.hero.levelUpTime=0;
+      this.cart.hero.levelUp=false;
+    }
   } else {
     mainGame.clear();
     cart.update(delta / 1e3, TIME);

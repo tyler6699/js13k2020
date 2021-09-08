@@ -74,15 +74,9 @@ function renderStarField(time){
 function warp(t) {
   for(i=200;i--;
     ctx.fillRect(canvasW/2+i*Math.sin(i)*Z, 423+i*Math.cos(i*9)*Z,Z,Z))
-    ctx.fillStyle=R(255,255,255,i+.1),
+    ctx.fillStyle="rgba(255,255,255," + (i+.1) + ")",
     Z=2**Math.tan(i/9+t/3)
 }
-
-function R(r,g,b,a) {
-  a = a === undefined ? 1 : a;  
-  return "rgba("+(r|0)+","+(g|0)+","+(b|0)+","+a+")";
-}
-
 
 function getValueByIndex(e,i){
   return Object.values(e)[i];
