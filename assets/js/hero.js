@@ -74,7 +74,11 @@ function hero(w, h, x, y, angle, type, scale) {
         
         if(obj.isTile()){
           if(!stop && rectColiding(obj.entity.hb,rec)){
-            if(obj.active && obj.entity.isSolid){
+            if(obj.entity.isPortal()){
+              canMove = false;
+              console.log("LEVEL UP");
+              break;
+            } else if(obj.active && obj.entity.isSolid){
               canMove = false;
               break;
             } else if(obj.isDoor && obj.doorSet()){  

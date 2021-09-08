@@ -42,7 +42,8 @@ function Cart() {
     this.hero.checkGun();
         
     // Render
-    renderStarField(time);
+    renderStarField(TIME);
+    
     this.level.draw(this.hero.e, delta);
 
     // Draw Text
@@ -99,12 +100,14 @@ function Cart() {
     }
     
     // Level Done Condition
-    if(this.hero.roomsDone == 1){
+    if(this.hero.roomsDone==1){
       l = this.levels[this.hero.e.currentLevel];
       l.showPortal = true;
       l.complete();
       this.hero.roomsDone = -1;
-      
+      tile = this.levels[this.hero.e.currentLevel].tiles[142];
+      tile.entity.type = types.PC;
+      tile.entity.setType();
     }
     
     if (map()) this.renderMap();

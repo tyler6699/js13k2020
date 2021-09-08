@@ -187,6 +187,10 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
   this.isFloor = function(){
     return this.type == types.FLOOR;
   }
+  
+  this.isPortal = function(){
+    return this.type == types.PC;
+  }
 
   this.setType = function(){
     this.alpha = 1;
@@ -283,6 +287,11 @@ function entity(w, h, x, y, angle, type, colour, scale, hbOffX = 0, hbOffY = 0, 
         this.hp=10;
         this.breaks=true;
         this.sx=32;
+        this.sy=16;
+        break;
+      case types.PC:
+        this.isSolid = true;
+        this.sx=80;
         this.sy=16;
         break;
      }

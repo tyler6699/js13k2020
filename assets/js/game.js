@@ -138,7 +138,7 @@ function updateGameArea() {
     
     renderStarField(TIME);
     
-    t = TIME/1000;
+    t = TIME/1e3;
     x = (this.canvasW/2)-128+Math.cos(t)*40;
     y = (this.canvasH/2)-128+Math.sin(t)*20;
     ctx.drawImage(atlas, 96, 16, 16, 13, x-80, y+40, 256, 208);

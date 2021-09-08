@@ -65,11 +65,24 @@ function renderStarField(time){
   mainGame.context.fillStyle='#FFF';
   for(let i=2e3;i--;){
     x = (Math.sin(i)*1e9-time/2e3*(i+1e3)/50)%(mainGame.canvas.width+9)-9;
-    y = i*9%mainGame.canvas.height;
+    y = i*9%canvasW;
     s = i%5;
     mainGame.context.fillRect(x,y,s,s);
   }
 }
+
+function warp(t) {
+  for(i=200;i--;
+    ctx.fillRect(canvasW/2+i*Math.sin(i)*Z, 423+i*Math.cos(i*9)*Z,Z,Z))
+    ctx.fillStyle=R(255,255,255,i+.1),
+    Z=2**Math.tan(i/9+t/3)
+}
+
+function R(r,g,b,a) {
+  a = a === undefined ? 1 : a;  
+  return "rgba("+(r|0)+","+(g|0)+","+(b|0)+","+a+")";
+}
+
 
 function getValueByIndex(e,i){
   return Object.values(e)[i];

@@ -16,7 +16,8 @@ const types = {
   DOOR_WALL:16,
   BARREL:17,
   TREE:18,
-  CUBE:19
+  CUBE:19,
+  PC:20
 }
 
 const actions = {
