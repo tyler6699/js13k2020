@@ -12,9 +12,7 @@ mob
  - movement
  - Shooting
  
- 
- Broken Barrels turn into green patches that hurt you
- 
+  
 Entity Button Draw 
  // if(this.isButton){
  //   by=32;

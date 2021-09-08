@@ -46,6 +46,11 @@ function level(canvasW, canvasH, id, scale) {
     }); 
   }
 
+  this.complete = function(){
+    //80,16
+    // SHOW COMPUTER
+  }
+  
   this.reset = function(id, scaled){
     this.tiles = [];
     this.bTiles = [];

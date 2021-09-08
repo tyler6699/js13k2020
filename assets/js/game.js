@@ -132,11 +132,17 @@ function updateGameArea() {
     mainGame.clear();
     ctx = mainGame.context;
     ctx.save();
-    drawBox(ctx,0.3,"#"+COL1,75,75,1070,680)
-    writeTxt(ctx, 1, "italic 90px Arial","WHITE","-- CLICK TO START --", 180, 400);
-    writeTxt(ctx, 1, "italic 50px Arial","WHITE","JS13K 2021 - Theme SPACE", 200, 200);
-    writeTxt(ctx, 1, "italic 50px Arial","WHITE","@CarelessLabs", 200, 700);
+    drawBox(ctx,0.1,"#"+COL1,0,0,canvasW,canvasH)
+    writeTxt(ctx, 1, "italic 50px Arial","WHITE","[ CLICK TO START ]", 380, 720);
+    writeTxt(ctx, 1, "italic 90px Arial","WHITE","SPACE KITTY", 300+Math.cos(TIME/1600)*40, 200+Math.sin(TIME/1600)*20);
+    
     renderStarField(TIME);
+    
+    t = TIME/1000;
+    x = (this.canvasW/2)-128+Math.cos(t)*40;
+    y = (this.canvasH/2)-128+Math.sin(t)*20;
+    ctx.drawImage(atlas, 96, 16, 16, 13, x-80, y+40, 256, 208);
+    ctx.drawImage(atlas, 32, 48, 16, 16, x, y, 256, 256);
     ctx.restore();
   } else {
     mainGame.clear();
@@ -144,10 +150,10 @@ function updateGameArea() {
   }
 }
 
-function drawBox(ctx,a,colour,xy,w,h) {
+function drawBox(ctx,a,colour,x,y,w,h) {
   ctx.globalAlpha = a;
   ctx.fillStyle = colour;
-  ctx.fillRect(75, 75, 1070, 680);
+  ctx.fillRect(x, y, w, h);
 }
 
 function writeTxt(ctx,a,font,colour,txt,x,y) {

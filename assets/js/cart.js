@@ -99,9 +99,12 @@ function Cart() {
     }
     
     // Level Done Condition
-    if(this.hero.roomsDone == 9){
-      this.levels[this.hero.e.currentLevel].showPortal = true;
+    if(this.hero.roomsDone == 1){
+      l = this.levels[this.hero.e.currentLevel];
+      l.showPortal = true;
+      l.complete();
       this.hero.roomsDone = -1;
+      
     }
     
     if (map()) this.renderMap();
