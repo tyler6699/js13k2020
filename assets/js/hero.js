@@ -84,6 +84,9 @@ function hero(w, h, x, y, angle, type, scale) {
               this.level++;
               playSound(NOISEFX,.5);
               break;
+            } else if(obj.entity.isAmmo()){
+              console.log("Ammo");
+              // ammo
             } else if(obj.active && obj.entity.isSolid){
               canMove = false;
               break;

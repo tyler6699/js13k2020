@@ -171,6 +171,10 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
     return false;
   }
   
+  this.isAmmo = function(){
+    return this.type == types.AMMO;
+  }
+  
   this.setT = function(t){
     this.type = t;
     this.setType();
@@ -284,7 +288,7 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         this.sx=80;
         this.sy=16;
         break;
-      case types.CHEST:
+      case types.AMMO:
         this.isSolid = true;
         this.sx=64;
         this.sy=32;

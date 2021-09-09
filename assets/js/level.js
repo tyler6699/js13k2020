@@ -87,9 +87,13 @@ function level(canvasW, canvasH, id, scale) {
       }
     }
     
+    // Count ammo crates added
+    ammo=0;
+    
     // Main level tiles
     for (r = 0; r < rows; r++) {
       for (c = 0; c < cols; c++) {
+        
         ts = tileSize * scale;
         xx = c * ts;
         yy = r * ts;
@@ -104,9 +108,7 @@ function level(canvasW, canvasH, id, scale) {
           type = types.WALL;
         } else if(r == 0 || c == 0 || r == 12 || c == 18){
           type = types.AIR;
-        } else if ((c == 1) || (c == 17) || (r==1 && c == 1) || (r==1 && c == 17) || 
-                    (r==1 && c > 1 && c < 17) || (r==11 && c == 17) || 
-                    (r==11 && c == 1) || (r==11 && c > 1 && c < 17)){
+        } else if (isEdge(r,c)){
           type = types.BLOCK;
         } else {
           type = types.AIR
@@ -131,21 +133,40 @@ function level(canvasW, canvasH, id, scale) {
           }
         }
         
-        if(randomNum(0,100) > 98 && (r > 2 && r<11 && c>1 && c<17) && type == types.AIR){
+        if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type)){
             type = types.BARREL;
         }
         
-        if(randomNum(0,100) > 98 && (r > 2 && r<11 && c>1 && c<17) && type == types.AIR){
+        if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type)){
             type = types.TREE;
         }
         
-        if(randomNum(0,100) > 99 && (r > 2 && r<11 && c>1 && c<17) && type == types.AIR){
+        if(randomNum(0,100) > 99 && inBounds(r,c) && isAir(type)){
             type = types.CUBE;
+        }
+        
+        if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type) && ammo < 3){
+            type = types.AMMO;
+            ammo++;
         }
         
         tile = new Tile(tileSize, xx, yy, angle, type, false, c, r);
         this.tiles.push(tile);
       }
+      ammo = r==rows-1&&c==cols ? 0 : ammo;
+    }
+    
+    function isAir(t){
+        return t == types.AIR;
+    }
+    
+    function isEdge(r,c){
+      return (c == 1) || (c == 17) || (r==1 && c == 1) || (r==1 && c == 17) || (r==1 && c > 1 && c < 17) || 
+             (r==11 && c == 17) || (r==11 && c == 1) || (r==11 && c > 1 && c < 17);
+    }
+                
+    function inBounds(r,c){
+      return r > 2 && r<11 && c>1 && c<17;
     }
     
     // DOORS
