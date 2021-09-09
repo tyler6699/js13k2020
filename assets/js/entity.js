@@ -97,6 +97,11 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
       w   = this.width;
       h   = this.height;
       
+      if(cart.shakeTime>0){
+        cart.shakeTime-=delta/1000;
+        ctx.translate(cart.shake,cart.shake);
+      }
+    
       // Animate Image
       if (this.image == null || this.isButton) {
         ctx.fillStyle = this.colour;

@@ -21,6 +21,7 @@ function Gun(){
       var y = oy + radius * Math.sin(angle);
       
       this.bullets.push(new Bullet(ox,oy,x,y));
+      cart.shakeTime=.2;
       playSound(SHOOT,.5);
       // Add more bullets that are a fixed distance appart
       // 1 degree is 0.0174533 radians

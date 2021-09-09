@@ -6,6 +6,8 @@ function Cart() {
   this.levels = []; // Array to get tiles surrounding an entity
   this.surTiles = [-1,1,18,19,20,-18,-19,-20];
   this.introT=0;
+  this.shake=0;
+  this.shakeTime=0;
   
   // Set up levels
   for(i=0;i<9;i++){
@@ -19,6 +21,9 @@ function Cart() {
 
   // Render & Logic
   this.update = function(delta, time) {
+    // Screen shake
+    this.shake=Math.cos(TIME);
+    
     // Track Hero Door collisions
     this.door = null;
     
