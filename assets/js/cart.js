@@ -22,7 +22,7 @@ function Cart() {
   // Render & Logic
   this.update = function(delta, time) {
     // Screen shake
-    this.shake=Math.cos(TIME);
+    this.shake = shaky ? Math.cos(TIME) : 0;
     
     // Track Hero Door collisions
     this.door = null;
@@ -39,7 +39,6 @@ function Cart() {
     if (up())     this.hero.e.y -= this.hero.gMove(0,-1);
     if (down())   this.hero.e.y += this.hero.gMove(0,1);
     if (space())  this.menu.curItm=actions.GUN;
-    if(one()) cart.reset();
 
     this.hero.checkDoor();
     this.hero.setCurrentTile(this.scaled);

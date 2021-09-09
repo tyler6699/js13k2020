@@ -28,6 +28,7 @@ var SHOOTDIST = 600;
 var STAGE=1;
 var atlas = new Image();
 atlas.src = "atlas.png";
+var shaky = true;
 var cart = new Cart();
 
 // Audio
@@ -54,7 +55,7 @@ var mg = {
     document.body.insertBefore(this.canvas, document.body.childNodes[6]);
     this.frameNo = 0;
     this.interval = setInterval(updateGameArea, 20);
-
+    
     // Keyboard
     window.addEventListener('keydown', function(e) {
       e.preventDefault();
@@ -63,6 +64,8 @@ var mg = {
     })
     window.addEventListener('keyup', function(e) {
       mg.keys[e.keyCode] = (e.type == "keydown");
+      if(e.keyCode==ONE) shaky = !shaky;
+      
     })
     // Mouse Buttons
     window.addEventListener('mousedown', function(e) {
@@ -190,13 +193,9 @@ function down() {
 }
 
 function space() {
-  return mg.keys && (mg.keys[SPACE]);
-}
-
-function one() {
-  return mg.keys && (mg.keys[ONE]);
+  return mg.keys && mg.keys[SPACE];
 }
 
 function map() {
-  return mg.keys && (mg.keys[M]);
+  return mg.keys && mg.keys[M];
 }
