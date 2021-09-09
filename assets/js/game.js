@@ -1,8 +1,7 @@
 // ╔═══════════════════════════════╗
 // ║ JS13K Entry by @CarelessLabs  ║
 // ╚═══════════════════════════════╝
-var debug = false;
-var mainGame;
+var mg;
 var canvasW = 1232;
 var canvasH = 846;
 var gameStarted = false;
@@ -13,8 +12,6 @@ var TIME = 0;
 var introT = 0;
 var mousePos = new vec2(0,0);
 var clickedAt = new vec2(0,0);
-var clickIndex;
-var hoverIndex;
 var clickRow;
 var clickCol;
 var processClick = false;
@@ -26,8 +23,7 @@ var COL2 = "05f2db";
 var BSPEED=1000;
 var WIN = false;
 var SCORE = 0;
-var AMMOSTART=10000;
-var BID = 0;
+var AMMOSTART=50;
 var SHOOTDIST = 600;
 var STAGE=1;
 var atlas = new Image();
@@ -39,10 +35,10 @@ var start=false;
 
 // Called by body onload on index page
 function startGame() {
-  mainGame.start();
+  mg.start();
 }
 
-var mainGame = {
+var mg = {
   canvas: document.createElement("canvas"),
   start: function() {
     this.canvas.width = canvasW;
@@ -62,37 +58,36 @@ var mainGame = {
     // Keyboard
     window.addEventListener('keydown', function(e) {
       e.preventDefault();
-      mainGame.keys = (mainGame.keys || []);
-      mainGame.keys[e.keyCode] = (e.type == "keydown");
+      mg.keys = (mg.keys || []);
+      mg.keys[e.keyCode] = (e.type == "keydown");
     })
     window.addEventListener('keyup', function(e) {
-      mainGame.keys[e.keyCode] = (e.type == "keydown");
+      mg.keys[e.keyCode] = (e.type == "keydown");
     })
     // Mouse Buttons
     window.addEventListener('mousedown', function(e) {
       e.preventDefault();
-      mainGame.keys = (mainGame.keys || []);
-      mainGame.keys[e.button] = true;
+      mg.keys = (mg.keys || []);
+      mg.keys[e.button] = true;
       holdClick = true;
     })
     window.addEventListener('mouseup', function(e) {
       e.preventDefault();
-      mainGame.keys = (mainGame.keys || []);
-      mainGame.keys[e.button] = false;
-      setclicks();
+      mg.keys = (mg.keys || []);
+      mg.keys[e.button] = false;
       holdClick = false;
       holdClickT = 0;
       processClick = true;
       if(!start) start=true;
+      setclicks();
     })
     window.addEventListener('mousemove', function(e) {
       e.preventDefault();
-      var r = mainGame.canvas.getBoundingClientRect();
+      var r = mg.canvas.getBoundingClientRect();
       mousePos.set((e.clientX - r.left) / (r.right - r.left) * canvasW, 
                    (e.clientY - r.top) / (r.bottom - r.top) * canvasH);
       row = Math.floor(mousePos.y / this.scaled);
       col = Math.floor(mousePos.x / this.scaled);
-      hoverIndex = col + (19*row);
       
       setclicks();
     })
@@ -111,14 +106,15 @@ var mainGame = {
 
 function setclicks(){
   clickedAt.set(mousePos.x, mousePos.y);
-  clickRow = Math.floor(clickedAt.y / this.scaled);
-  clickCol = Math.floor(clickedAt.x / this.scaled);
-  clickIndex = clickCol + (19*clickRow);
+  //clickRow = Math.floor(clickedAt.y / this.scaled);
+  //clickCol = Math.floor(clickedAt.x / this.scaled);
+  //clickIndex = clickCol + (19*clickRow);
 }
 
 function updateGameArea() {
   if(start){
     gameStarted=true;  
+    if(audioCtx == null) audioCtx = new AudioContext();
   }
 
   // Delta
@@ -129,12 +125,13 @@ function updateGameArea() {
 
   if (!gameStarted) {
     // intro Screen
-    mainGame.clear();
-    ctx = mainGame.context;
+    mg.clear();
+    ctx = mg.context;
     ctx.save();
     drawBox(ctx,0.1,"#"+COL1,0,0,canvasW,canvasH)
     writeTxt(ctx, 1, "italic 50px Arial","WHITE","[ CLICK TO START ]", 380, 720);
-    writeTxt(ctx, 1, "italic 90px Arial","WHITE","SPACE KITTY", 300+Math.cos(TIME/1600)*40, 200+Math.sin(TIME/1600)*20);
+    z=TIME/1600;
+    writeTxt(ctx, 1, "italic 90px Arial","WHITE","SPACE KITTY", 300+Math.cos(z)*40, 200+Math.sin(z)*20);
     
     renderStarField(TIME);
     
@@ -145,7 +142,7 @@ function updateGameArea() {
     ctx.drawImage(cart.hero.e.image, 96, 16, 16, 13, x-80, y+40, 256, 208);
     ctx.drawImage(cart.hero.e.image, 32, 48, 16, 16, x, y, 256, 256);
   } else if(cart.hero.levelUp) {
-    mainGame.clear();
+    mg.clear();
     warp(TIME/100);
     t = TIME/1e3;  
     x = (1232/2)-128+Math.cos(t)*40;
@@ -158,7 +155,7 @@ function updateGameArea() {
       cart.hero.levelUp=false;
     }
   } else {
-    mainGame.clear();
+    mg.clear();
     cart.update(delta / 1e3, TIME);
   }
 }
@@ -177,29 +174,29 @@ function writeTxt(ctx,a,font,colour,txt,x,y) {
 }
 
 function left() {
-  return mainGame.keys && (mainGame.keys[LEFT] || mainGame.keys[A]);
+  return mg.keys && (mg.keys[LEFT] || mg.keys[A]);
 }
 
 function right() {
-  return mainGame.keys && (mainGame.keys[RIGHT] || mainGame.keys[D]);
+  return mg.keys && (mg.keys[RIGHT] || mg.keys[D]);
 }
 
 function up() {
-  return mainGame.keys && (mainGame.keys[UP] || mainGame.keys[W]);
+  return mg.keys && (mg.keys[UP] || mg.keys[W]);
 }
 
 function down() {
-  return mainGame.keys && (mainGame.keys[DOWN] || mainGame.keys[S]);
+  return mg.keys && (mg.keys[DOWN] || mg.keys[S]);
 }
 
 function space() {
-  return mainGame.keys && (mainGame.keys[SPACE]);
+  return mg.keys && (mg.keys[SPACE]);
 }
 
 function one() {
-  return mainGame.keys && (mainGame.keys[ONE]);
+  return mg.keys && (mg.keys[ONE]);
 }
 
 function map() {
-  return mainGame.keys && (mainGame.keys[M]);
+  return mg.keys && (mg.keys[M]);
 }

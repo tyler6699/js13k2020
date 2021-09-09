@@ -1,9 +1,9 @@
 // Useful Functions and classes
-function setHeroText(text){
-  cart.hero.showTextY=-15;
-  cart.hero.showTextTime=TEXTTIME/2;
-  cart.hero.showText=text;
-}
+// function setHeroText(text){
+//   cart.hero.showTextY=-15;
+//   cart.hero.showTextTime=TEXTTIME/2;
+//   cart.hero.showText=text;
+// }
 
 function rectanlge(x, y, w, h) {
   this.x = x;
@@ -12,29 +12,12 @@ function rectanlge(x, y, w, h) {
   this.h = h;
 }
 
-function getTile(index, level){
-  return level.tiles[index];
-}
-
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function ranColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-
 function cloneRectanlge(rec) {
   return new rectanlge(rec.x, rec.y, rec.w, rec.h);
-}
-
-function vecToRec(vec2, w, h) {
-  return new rectanlge(vec2.x, vec2.y, w, h);
 }
 
 function collision(rx, ry, rw, rh, r2x, r2y, r2w, r2h) {
@@ -62,12 +45,12 @@ function vec2(x,y){
 }
 
 function renderStarField(time){
-  mainGame.context.fillStyle='#FFF';
+  mg.context.fillStyle='#FFF';
   for(let i=2e3;i--;){
-    x = (Math.sin(i)*1e9-time/2e3*(i+1e3)/50)%(mainGame.canvas.width+9)-9;
+    x = (Math.sin(i)*1e9-time/2e3*(i+1e3)/50)%(mg.canvas.width+9)-9;
     y = i*9%canvasW;
     s = i%5;
-    mainGame.context.fillRect(x,y,s,s);
+    mg.context.fillRect(x,y,s,s);
   }
 }
 
@@ -76,10 +59,6 @@ function warp(t) {
     ctx.fillRect(canvasW/2+i*Math.sin(i)*Z, 423+i*Math.cos(i*9)*Z,Z,Z))
     ctx.fillStyle="rgba(255,255,255," + (i+.1) + ")",
     Z=2**Math.tan(i/9+t/3)
-}
-
-function getValueByIndex(e,i){
-  return Object.values(e)[i];
 }
 
 function drawImg(ctx, img, sx, sy, w, h, x, y, alpha, scale){
@@ -98,8 +77,3 @@ function drawRect(ctx, ox, oy, x, y, w, h, col, alpha){
   ctx.fillRect(x,y,w,h);
   ctx.restore();
 }
-
-//// Draw HP
-// ctx.fillStyle = "#00dcf8";
-// w=(48/e.maxHP)*e.hp;
-// ctx.fillRect(16,14,w,10);

@@ -4,8 +4,6 @@ function level(canvasW, canvasH, id, scale) {
   this.mvTiles = [];
   this.bTiles = [];
   this.mobs = [];
-  this.startX=0;
-  this.startY=0;
   this.active = false;
   this.complete = false;
   this.roomNo = id;
@@ -23,11 +21,9 @@ function level(canvasW, canvasH, id, scale) {
     
     // Door Animations
     this.mvTiles.forEach((t, i) => {
-      if(t.entity.mvY != 0){
-        if(t.entity.mvY > 0){
-          t.entity.y++;
-          t.entity.mvY--;
-        }
+      if(t.entity.mvY != 0 && t.entity.mvY > 0){
+        t.entity.y++;
+        t.entity.mvY--;
       }
       // Door open fully
       if(t.entity.mvY == 0){
@@ -94,8 +90,9 @@ function level(canvasW, canvasH, id, scale) {
     // Main level tiles
     for (r = 0; r < rows; r++) {
       for (c = 0; c < cols; c++) {
-        xx = c * tileSize * scale;
-        yy = r * tileSize * scale;
+        ts = tileSize * scale;
+        xx = c * ts;
+        yy = r * ts;
         var tile;
         var type = types.WALL;
         var angle = 0;

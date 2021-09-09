@@ -16,7 +16,6 @@ function Cart() {
   
   this.level = this.levels[0];
   this.hero.e.currentLevel = 0;
-  this.menu = new Build(this.scale);
 
   // Render & Logic
   this.update = function(delta, time) {
@@ -61,21 +60,21 @@ function Cart() {
     this.hero.update(delta);
 
     // MOUSE
-    mainGame.canvas.style.cursor='none';
+    mg.canvas.style.cursor='none';
     let mx = mousePos.x;
     let my = mousePos.y;
     let mw = 2;
     let mh = 15;
-    mainGame.context.globalCompositeOperation = 'difference';
-    mainGame.context.fillStyle='WHITE'
-    mainGame.context.fillRect(mx-mw,my-mh,mw*2,mh*2);
-    mainGame.context.fillRect(mx-mh,my-mw,mh*2,mw*2);
-    mainGame.context.globalCompositeOperation = 'source-over';
+    mg.context.globalCompositeOperation = 'difference';
+    mg.context.fillStyle='WHITE'
+    mg.context.fillRect(mx-mw,my-mh,mw*2,mh*2);
+    mg.context.fillRect(mx-mh,my-mw,mh*2,mw*2);
+    mg.context.globalCompositeOperation = 'source-over';
     
     if(this.introT > 0){
       for(i = 0;i <= canvasW/33;i++){
         for(j = 0;j <= canvasH/33;j++){
-          ctx = mainGame.context;
+          ctx = mg.context;
           ctx.save();
           ctx.translate(i*32, j*32);
           col = i%2==0&&j%2==0 ? "#000" : "#FFF";
@@ -100,7 +99,7 @@ function Cart() {
     }
     
     // Level Done Condition
-    if(this.hero.roomsDone==1){
+    if(this.hero.roomsDone==9){
       l = this.levels[this.hero.e.currentLevel];
       l.showPortal = true;
       l.complete();
@@ -115,7 +114,7 @@ function Cart() {
   }
   
   this.renderHP = function(){
-    ctx = mainGame.context;
+    ctx = mg.context;
     ctx.save();
     ctx.translate(0, 0);
     ctx.globalAlpha = 1;
@@ -128,7 +127,7 @@ function Cart() {
   }
   
   this.renderMap = function(){
-    ctx = mainGame.context;
+    ctx = mg.context;
     ctx.save();
     ctx.translate(0, 0);
     ctx.globalAlpha = .8;
@@ -154,9 +153,8 @@ function Cart() {
   this.reset = function(){
     GAMEOVER=false;
     WIN=false;
-    this.hero.e = new entity(16, 16, canvasW/2, canvasH/2, 0, types.HERO, "", this.scale, 0, 0);
-    this.hero.e.sx = 16;
-    this.level = new level(canvasW, canvasH, 0);
-    this.level.reset(this.hero.e, this.scale);
+    //this.hero = new hero(16, 16, canvasW/2, canvasH/2, 0, types.HERO, this.scale);
+    //this.level = new level(canvasW, canvasH, 0);
+    //this.level.reset(this.hero.e, this.scale);
   }
 }

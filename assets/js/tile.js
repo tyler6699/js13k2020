@@ -9,17 +9,11 @@ function Tile(size, x, y, angle, type, solid, column, row) {
     this.entity.update(delta);
   }
 
-  //this.tick = function(hero){}
-
   this.change = function(){
     if (this.entity.type >= Object.values(types).length){
       this.entity.type = 0;
     }
     this.entity.setType();
-  }
-  
-  this.isFloor = function(){
-    return this.entity.isFloor();
   }
   
   this.doorSet = function(){

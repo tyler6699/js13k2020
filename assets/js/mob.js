@@ -1,5 +1,5 @@
 function mob(w, h, x, y, angle, type, scale, maxHP) {
-  this.entity = new entity(w, h, x, y, angle, type, "", scale, 0, 0, false, maxHP);
+  this.entity = new entity(w, h, x, y, angle, type, "", scale, false, maxHP);
   this.type=mobtype.FOLLOW;
   this.spd = randomNum(1,2);
   this.colArr = [];
@@ -7,7 +7,6 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
   this.noY=false;
   this.waitX=1;
   this.waitY=1;
-  //this.hitHero=false;
   this.time=0;
   this.tryXSpeed=this.spd;
   this.tryYSpeed=this.spd;
@@ -21,7 +20,6 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
       this.noY=false;
       this.waitY=0;
       this.waitX=0;
-      //this.hitHero=false;
       this.tryXSpeed = randomNum(0,10)>5 ? this.spd : -this.spd;
       this.tryYSpeed = randomNum(0,10)>5 ? this.spd : -this.spd;
     }
@@ -32,25 +30,25 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
     row = Math.floor((y - this.entity.mhHScaled) / cart.scaled);
     col = Math.floor((x - this.entity.mhWScaled) / cart.scaled);
     index = col + (19*row);
-    
+    e = this.entity;
     // basic follow
     if(this.type == mobtype.FOLLOW){
       //this.hitHero=false;
       if(this.noX && this.waitX>0){
         this.waitX-=delta;
-        this.entity.y = y += this.move(0,this.tryYSpeed);
+        e.y = y += this.move(0,this.tryYSpeed);
       } else {
-        this.entity.y = y < cart.hero.e.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd);
+        e.y = y < cart.hero.e.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd);
       }
       if(this.noY && this.waitY>0){
         this.waitY-=delta;
-        this.entity.x = x += this.move(this.tryXSpeed,0);
+        e.x = x += this.move(this.tryXSpeed,0);
       } else {
-        this.entity.x = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
+        e.x = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
       }
     } else if(this.type==mobtype.SIMPLE){
-      this.entity.y = y < cart.hero.e.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd)
-      this.entity.x = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
+      e.y = y < cart.hero.e.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd)
+      e.x = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
     }
     
     // Add surrounding tiles and other entities for collision checks
@@ -59,10 +57,9 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
     this.colArr.push(cart.hero.e);
     cart.level.mobs.forEach(e => this.colArr.push(e.entity));
         
-    this.entity.update(delta);
+    e.update(delta);
     
-    if(this.entity.hp < this.entity.maxHP){
-      var e = this.entity;
+    if(e.hp < e.maxHP){
       drawImg(ctx, e.image, 0, 32, e.width, 8, e.x, e.y+(e.height*e.scale+10), .8, e.scale);
       drawRect(ctx, e.x, e.y+(e.height*e.scale+12),16,14,(48/e.maxHP)*e.hp,12,"#00dcf8",.8)
     }
@@ -79,15 +76,12 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
       obj = this.colArr[t];
       
       if(obj != this.entity && obj.isSolid && rectColiding(obj.hb,rec)){
-        // if(obj.isHero){
-        // };
         canMove = false;
         amount=0;
         break;
       }
     }
     
-    // Silly logic to let enemy try and move
     if(amount==0){
       if(x != 0){
         this.noX=true;

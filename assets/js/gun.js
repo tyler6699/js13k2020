@@ -21,7 +21,7 @@ function Gun(){
       var y = oy + radius * Math.sin(angle);
       
       this.bullets.push(new Bullet(ox,oy,x,y));
-            
+      playSound(SHOOT,.5);
       // Add more bullets that are a fixed distance appart
       // 1 degree is 0.0174533 radians
       // xx = ox + radius * Math.cos(angle+0.349066);
@@ -51,7 +51,6 @@ function Gun(){
 }
 
 function Bullet(ox,oy,dx,dy){
-  this.id = BID++;
   this.scale = 4;
   this.speed = BSPEED;
   this.w = 50;
@@ -82,13 +81,12 @@ function Bullet(ox,oy,dx,dy){
       this.active=false;
       
       if(e.hp < 0){
+        playSound(DIEFX,.5);
         if(e.isBarrel()){
           e.sx=0;
           e.sy=48;
-          e.broke=true;
         } else if(e.isTree()){
             e.sy=48;
-            e.broke=true;
         } else {
           e.active = false;
         }
@@ -120,7 +118,7 @@ function Bullet(ox,oy,dx,dy){
       cart.level.breakTiles.forEach(e => this.checkHits(e.entity));
       
       // Draw
-      ctx = mainGame.context;
+      ctx = mg.context;
       ctx.save();
       ctx.translate(this.v.x, this.v.y);
       ctx.rotate(this.angle);

@@ -1,5 +1,5 @@
 function hero(w, h, x, y, angle, type, scale) {
-  this.e = new entity(w, h, x, y, angle, type, "", scale, 0, 0, false, 100);
+  this.e = new entity(w, h, x, y, angle, type, "", scale, false, 100);
   this.e.hp=100;
   this.e.gun = new Gun();
   this.speed=5;
@@ -38,6 +38,7 @@ function hero(w, h, x, y, angle, type, scale) {
       if(this.door.exitY != -1) this.e.y = this.door.exitY;
       this.door = null;
       cart.introT = 32;
+      playSound(LEVEL,5);
     }
   }
   
@@ -81,7 +82,7 @@ function hero(w, h, x, y, angle, type, scale) {
               canMove = false;
               this.levelUp=true;
               this.level++;
-              console.log("LEVEL UP");
+              playSound(NOISEFX,.5);
               break;
             } else if(obj.active && obj.entity.isSolid){
               canMove = false;
