@@ -1,4 +1,5 @@
-function level(canvasW, canvasH, id, scale) {
+function level(num, canvasW, canvasH, id, scale) {
+  STAGE=num;
   this.tiles = [];
   this.breakTiles=[];
   this.mvTiles = [];
@@ -52,6 +53,7 @@ function level(canvasW, canvasH, id, scale) {
     this.bTiles = [];
     this.dTiles = [];
     this.mobs = [];
+    this.showPortal=false;
     
     var rows = 13;
     var cols = 19;
@@ -146,7 +148,7 @@ function level(canvasW, canvasH, id, scale) {
             type = types.CUBE;
         }
         
-        if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type) && ammo < 3){
+        if(randomNum(0,1000) > 985 && inBounds(r,c) && isAir(type) && ammo < 3){
             type = types.AMMO;
             ammo++;
         }
@@ -233,7 +235,7 @@ function level(canvasW, canvasH, id, scale) {
     // console.log("Level: " + id + " Mobs: " + noMobs);
     for (m = 0; m < noMobs; m++) {
       // Add a random enemy
-      mb = new mob(16, 16, 200, 200 + m * 80, 0, types.DOOR_BLOCK, scale, 3);
+      mb = new mob(16, 16, 200, 200 + m * 80, 0, types.DOOR_BLOCK, scale, randomNum(1,5));
       mb.isSolid = false;
       this.mobs.push(mb);
     }

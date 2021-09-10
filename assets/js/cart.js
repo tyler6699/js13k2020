@@ -3,21 +3,24 @@ function Cart() {
   this.cube = 16; // width of tiles
   this.scaled = this.scale*this.cube;
   this.hero = new hero(16, 16, canvasW/2, canvasH/2, 0, types.HERO, this.scale);
-  this.levels = []; // Array to get tiles surrounding an entity
   this.surTiles = [-1,1,18,19,20,-18,-19,-20];
   this.introT=0;
   this.shake=0;
   this.shakeTime=0;
-  
-  // Set up levels
-  for(i=0;i<9;i++){
-    var lvl = new level(canvasW, canvasH, i, this.scale);
-    lvl.reset(i, this.scaled);
-    this.levels.push(lvl);
+    
+  this.genLevel = function(num){
+    this.levels = []; // Array to get tiles surrounding an entity
+    console.log(this.levels);
+    for(i=0;i<9;i++){
+      var lvl = new level(num, canvasW, canvasH, i, this.scale);
+      lvl.reset(i, this.scaled);
+      this.levels.push(lvl);
+    }
+    this.level = this.levels[0];  
+    this.hero.e.currentLevel = 0;
   }
   
-  this.level = this.levels[0];
-  this.hero.e.currentLevel = 0;
+  this.genLevel(0);
 
   // Render & Logic
   this.update = function(delta, time) {

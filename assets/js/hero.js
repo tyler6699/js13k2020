@@ -96,9 +96,13 @@ function hero(w, h, x, y, angle, type, scale) {
               this.levelUp=true;
               this.level++;
               playSound(NOISEFX,.5);
+              this.roomsDone=0;
+              STAGE++;
+              cart.genLevel(STAGE);
+              console.log(STAGE);
               break;
             } else if(e.isAmmo() && !e.broke){ // AMMO
-              ad=randomNum(10,35);
+              ad=randomNum(10,25);
               this.e.gun.ammo += ad;
               this.e.showTextTime=1;
               this.e.showText="+"+ad;
