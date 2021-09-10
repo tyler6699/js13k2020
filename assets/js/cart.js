@@ -133,7 +133,7 @@ function Cart() {
     ctx.fillRect(20, 20, 300, 40);     
     ctx.fillStyle = "#a12161";
     l = this.hero.e.hp * 2.8;
-    ctx.fillRect(30,30, l, 20); 
+    ctx.fillRect(30, 30, l, 20); 
     ctx.restore();
   }
   

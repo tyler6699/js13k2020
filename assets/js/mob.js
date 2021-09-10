@@ -61,7 +61,7 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
     
     if(e.hp < e.maxHP){
       drawImg(ctx, e.image, 0, 32, e.width, 8, e.x, e.y+(e.height*e.scale+10), .8, e.scale);
-      drawRect(ctx, e.x, e.y+(e.height*e.scale+12),16,14,(48/e.maxHP)*e.hp,12,"#00dcf8",.8)
+      drawRect(ctx, e.x, e.y+(e.height*e.scale+8),16,14,(48/e.maxHP)*e.hp,12,"#00dcf8",.8)
     }
   }
   
