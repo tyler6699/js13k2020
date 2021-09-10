@@ -9,6 +9,7 @@ function Cart() {
   this.shakeTime=0;
     
   this.genLevel = function(num){
+    this.bkcol = ranColor();
     this.levels = []; // Array to get tiles surrounding an entity
     console.log(this.levels);
     for(i=0;i<9;i++){
@@ -51,7 +52,7 @@ function Cart() {
     renderStarField(TIME);
     
     // Render back
-    drawRect(ctx, 80, 120, 0, 0, 1080, 710, "#c5683f", .8);
+    drawRect(ctx, 80, 120, 0, 0, 1080, 710, this.bkcol, .8);
     
     this.level.draw(this.hero.e, delta);
 

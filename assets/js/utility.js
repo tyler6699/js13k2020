@@ -12,6 +12,15 @@ function rectanlge(x, y, w, h) {
   this.h = h;
 }
 
+function ranColor() {
+  var l = '0123456789ABCDEF';
+  var c = '#';
+  for (var i = 0; i < 6; i++) {
+    c += l[Math.floor(Math.random() * 16)];
+  }
+  return c;
+}
+
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
