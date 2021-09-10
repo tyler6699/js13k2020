@@ -183,6 +183,10 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
     return this.type == types.AMMO;
   }
   
+  this.isUpgrade = function(){
+    return this.type == types.UPGRADE;
+  }
+  
   this.setT = function(t){
     this.type = t;
     this.setType();
@@ -300,6 +304,11 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         this.isSolid = false;
         this.sx=64;
         this.sy=32;
+        break;
+      case types.UPGRADE:
+        this.isSolid = false;
+        this.sx=48;
+        this.sy=48;
         break;
      }
   }

@@ -125,10 +125,17 @@ function Bullet(ox,oy,dx,dy){
       // Draw
       ctx = mg.context;
       ctx.save();
+      //ctx.globalCompositeOperation = 'difference';
+      //ctx.globalCompositeOperation = 'source-over';
+      
       ctx.translate(this.v.x, this.v.y);
       ctx.rotate(this.angle);
+      ctx.globalAlpha = .5;
+      ctx.fillStyle = "white";       
+      ctx.fillRect((this.mhWidth+.5 *.5), (this.mhHeight+.5 * .5), (this.w+.5 * .5), (this.h+.5 * .5));
+      ctx.globalAlpha = .8;
       ctx.fillStyle = this.colour;
-      ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.w * .5), (this.h * .5));        
+      ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.w * .5), (this.h * .5));  
       ctx.restore();
     }
   }

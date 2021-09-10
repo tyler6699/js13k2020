@@ -92,6 +92,7 @@ function level(num, canvasW, canvasH, id, scale) {
     // Count ammo crates added
     ammo=0;
     tin=0;
+    upgrade = randomNum(0,100) > (95-STAGE);
     // Main level tiles
     for (r = 0; r < rows; r++) {
       for (c = 0; c < cols; c++) {
@@ -138,6 +139,11 @@ function level(num, canvasW, canvasH, id, scale) {
         if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type) && tin < 5){
             type = types.BARREL;
             tin++;
+        }
+        
+        if(upgrade && randomNum(0,100)> 70 && inBounds(r,c) && isAir(type)){
+          type=types.UPGRADE;
+          upgrade = false;
         }
         
         if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type)){

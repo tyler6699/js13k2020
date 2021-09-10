@@ -18,7 +18,8 @@ const types = {
   TREE:18,
   CUBE:19,
   PC:20,
-  AMMO:21
+  AMMO:21,
+  UPGRADE:22
 }
 
 const actions = {

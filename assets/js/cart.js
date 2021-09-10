@@ -63,6 +63,8 @@ function Cart() {
     ctx.fillStyle = gradient;
     ctx.font = "italic 40px Arial";
     ctx.fillText("AMMO " + this.hero.e.gun.ammo, 900, 50);
+    ctx.font = "italic 40px Arial";
+    ctx.fillText("LEVEL " + STAGE, 600, 50);
     
     // Reset mouse click checker
     processClick = false;

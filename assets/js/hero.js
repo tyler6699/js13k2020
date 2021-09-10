@@ -110,6 +110,14 @@ function hero(w, h, x, y, angle, type, scale) {
               e.sx=64;
               e.broke = true;
               playSound(COINFX,.5);
+            } else if(e.isUpgrade() && !e.broke){ // Upgrade
+              ad=randomNum(10,25);
+              this.e.gun.type ++;
+              this.e.showTextTime=1;
+              this.e.showText="UPGRADE!";
+              e.sx=64;
+              e.broke = true;
+              playSound(LEVEL,.5);
             } else if(obj.active && e.isSolid){
               canMove = false;
               break;
