@@ -30,6 +30,7 @@ function hero(w, h, x, y, angle, type, scale) {
   this.checkGun = function(){
     if(holdClick) holdClickT += delta;
     if(processClick || holdClickT > .25){
+      this.e.idle=0;
       ox = this.e.x - this.e.mhWScaled;
       oy = this.e.y - this.e.mhHScaled;
       dx = clickedAt.x;

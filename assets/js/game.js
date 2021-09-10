@@ -30,6 +30,8 @@ var atlas = new Image();
 atlas.src = "atlas.png";
 var shaky = true;
 var cart = new Cart();
+var v = speechSynthesis.getVoices();
+var talk = true;
 
 // Audio
 var start=false;
@@ -144,7 +146,7 @@ function updateGameArea() {
     y = (846/2)-128+Math.sin(t)*20;
     ctx.drawImage(cart.hero.e.image, 96, 16, 16, 13, x-80, y+40, 256, 208);
     ctx.drawImage(cart.hero.e.image, 32, 48, 16, 16, x, y, 256, 256);
-  } else if(cart.hero.levelUp) {
+  } else if(cart.hero.levelUp){
     mg.clear();
     warp(TIME/100);
     t = TIME/1e3;  
@@ -156,6 +158,7 @@ function updateGameArea() {
     if(cart.hero.levelUpTime>2){
       cart.hero.levelUpTime=0;
       cart.hero.levelUp=false;
+      speak("level " + STAGE + " completed.");
     }
   } else {
     mg.clear();

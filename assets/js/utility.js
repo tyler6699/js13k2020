@@ -21,6 +21,14 @@ function ranColor() {
   return c;
 }
 
+var voiceSelect = "Google UK English Female";
+function speak(t) {
+	var s = new SpeechSynthesisUtterance();
+	s.text = t;
+  s.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == voiceSelect; })[0];
+	speechSynthesis.speak(s);
+}
+
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }

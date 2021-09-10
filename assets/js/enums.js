@@ -19,7 +19,8 @@ const types = {
   CUBE:19,
   PC:20,
   AMMO:21,
-  UPGRADE:22
+  UPGRADE:22,
+  BOT:23
 }
 
 const actions = {

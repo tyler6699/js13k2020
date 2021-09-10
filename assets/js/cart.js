@@ -11,7 +11,6 @@ function Cart() {
   this.genLevel = function(num){
     this.bkcol = ranColor();
     this.levels = []; // Array to get tiles surrounding an entity
-    console.log(this.levels);
     for(i=0;i<9;i++){
       var lvl = new level(num, canvasW, canvasH, i, this.scale);
       lvl.reset(i, this.scaled);
@@ -40,9 +39,9 @@ function Cart() {
       this.hero.e.x += this.hero.gMove(1,0);
       this.hero.e.flip = false;
     }
-    if (up())     this.hero.e.y -= this.hero.gMove(0,-1);
-    if (down())   this.hero.e.y += this.hero.gMove(0,1);
-    if (space())  this.menu.curItm=actions.GUN;
+    if (up())    this.hero.e.y -= this.hero.gMove(0,-1);
+    if (down())  this.hero.e.y += this.hero.gMove(0,1);
+    if (space()) this.menu.curItm=actions.GUN;
 
     this.hero.checkDoor();
     this.hero.setCurrentTile(this.scaled);
@@ -63,8 +62,7 @@ function Cart() {
     ctx.fillStyle = gradient;
     ctx.font = "italic 40px Arial";
     ctx.fillText("AMMO " + this.hero.e.gun.ammo, 900, 50);
-    ctx.font = "italic 40px Arial";
-    ctx.fillText("LEVEL " + STAGE, 600, 50);
+    ctx.fillText("LEVEL " + (STAGE+1), 600, 50);
     
     // Reset mouse click checker
     processClick = false;
@@ -112,7 +110,7 @@ function Cart() {
     }
     
     // Level Done Condition
-    if(this.hero.roomsDone==9){
+    if(this.hero.roomsDone==1){
       l = this.levels[this.hero.e.currentLevel];
       l.showPortal = true;
       l.complete();

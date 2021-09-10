@@ -310,6 +310,11 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         this.sx=48;
         this.sy=48;
         break;
+      case types.BOT:
+        this.isSolid = true;
+        this.sx=80;
+        this.sy=48;
+        break;
      }
   }
   
