@@ -75,19 +75,22 @@ function hero(w, h, x, y, angle, type, scale) {
       
       for (var t = 0; t < this.e.colArr.length; t++) {
         obj = this.e.colArr[t];
+        e = obj.entity;
         
         if(obj.isTile()){
-          if(!stop && rectColiding(obj.entity.hb,rec)){
-            if(obj.entity.isPortal() && !this.levelUp){
+          if(!stop && rectColiding(e.hb,rec)){
+            if(e.isPortal() && !this.levelUp){
               canMove = false;
               this.levelUp=true;
               this.level++;
               playSound(NOISEFX,.5);
               break;
-            } else if(obj.entity.isAmmo()){
-              console.log("Ammo");
-              // ammo
-            } else if(obj.active && obj.entity.isSolid){
+            } else if(e.isAmmo() && !e.broke){ // AMMO
+              this.e.gun.ammo += randomNum(10,35);
+              e.sy=16;
+              e.sx=64;
+              e.broke = true;
+            } else if(obj.active && e.isSolid){
               canMove = false;
               break;
             } else if(obj.isDoor && obj.doorSet()){  
@@ -96,7 +99,7 @@ function hero(w, h, x, y, angle, type, scale) {
               break;
             }
             // Hurt Hero when on Oooze and moving
-            if(obj.entity.isBarrel()){
+            if(e.isBarrel()){
               this.e.hp-=.5;
             }
           }

@@ -103,7 +103,7 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
       }
     
       // Animate Image
-      if (this.image == null || this.isButton) {
+      if (this.image == null) {
         ctx.fillStyle = this.colour;
         ctx.fillRect((mhw *.5) * s, (mhh * .5) * s, (w * .5) * s, (h * .5) * s);
       // Image
@@ -294,7 +294,7 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         this.sy=16;
         break;
       case types.AMMO:
-        this.isSolid = true;
+        this.isSolid = false;
         this.sx=64;
         this.sy=32;
         break;
