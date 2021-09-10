@@ -36,3 +36,10 @@ const mobtype = {
   FOLLOW:0,
   SIMPLE:1
 }
+
+const guntype = {
+  ONESHOT:0,
+  TWOSHOT:1,
+  THREESHOT:2,
+  MULTISHOT:3
+}

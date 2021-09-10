@@ -3,6 +3,9 @@ function Gun(){
   this.bullets=[];
   this.rate=.1;
   this.wait=0;
+  this.type=guntype.ONESHOT;
+  this.angles = [0];
+  this.r=0.0174533;
   
   this.addBullets = function(ox,oy,dx,dy){
     // Remove old drawBullets
@@ -16,11 +19,22 @@ function Gun(){
       // Angle of mouse and hero centre
       var angle = Math.atan2(dy - oy, dx - ox);
       
-      // Get X and Y a fixed radius from the hero
-      var x = ox + radius * Math.cos(angle);
-      var y = oy + radius * Math.sin(angle);
+      if(this.type == guntype.ONESHOT){
+        this.angles = [0];
+      } else if(this.type==guntype.TWOSHOT){
+        this.angles = [-5,5];
+      } else if(this.type==guntype.THREESHOT){
+        this.angles = [0,15,-15];
+      } else if(this.type==guntype.MULTISHOT){
+        this.angles = [0,-20,-40,-60,20,40,60];
+      }
       
-      this.bullets.push(new Bullet(ox,oy,x,y));
+      this.angles.forEach((a, i) => { 
+        xx = ox + radius * Math.cos(angle+(a*this.r));
+        yy = oy + radius * Math.sin(angle+(a*this.r));
+        this.bullets.push(new Bullet(ox,oy,xx,yy));
+      }); 
+      
       cart.shakeTime=.2;
       playSound(SHOOT,.5);
       // Add more bullets that are a fixed distance appart
