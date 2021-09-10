@@ -47,6 +47,9 @@ function Cart() {
     // Render
     renderStarField(TIME);
     
+    // Render back
+    drawRect(ctx, 80, 120, 0, 0, 1080, 710, "#c5683f", .8);
+    
     this.level.draw(this.hero.e, delta);
 
     // Draw Text

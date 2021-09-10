@@ -81,7 +81,7 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
     this.idle+=delta;
     this.updateHitbox();
     
-    if(this.active) {
+    if(this.active && !this.isFloor()) {
       ctx = mg.context;
       ctx.save();
       ctx.translate(this.x, this.y);

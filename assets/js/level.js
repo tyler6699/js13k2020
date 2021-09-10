@@ -89,7 +89,7 @@ function level(canvasW, canvasH, id, scale) {
     
     // Count ammo crates added
     ammo=0;
-    
+    tin=0;
     // Main level tiles
     for (r = 0; r < rows; r++) {
       for (c = 0; c < cols; c++) {
@@ -133,8 +133,9 @@ function level(canvasW, canvasH, id, scale) {
           }
         }
         
-        if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type)){
+        if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type) && tin < 5){
             type = types.BARREL;
+            tin++;
         }
         
         if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type)){
@@ -153,7 +154,10 @@ function level(canvasW, canvasH, id, scale) {
         tile = new Tile(tileSize, xx, yy, angle, type, false, c, r);
         this.tiles.push(tile);
       }
-      ammo = r==rows-1&&c==cols ? 0 : ammo;
+      if(r==rows-1&&c==cols){
+        tin=0;
+        ammo=0;
+      }
     }
     
     function isAir(t){

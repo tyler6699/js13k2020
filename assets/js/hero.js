@@ -90,6 +90,7 @@ function hero(w, h, x, y, angle, type, scale) {
               e.sy=16;
               e.sx=64;
               e.broke = true;
+              playSound(COINFX,.5);
             } else if(obj.active && e.isSolid){
               canMove = false;
               break;
