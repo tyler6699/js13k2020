@@ -41,7 +41,7 @@ function Cart() {
     }
     if (up())    this.hero.e.y -= this.hero.gMove(0,-1);
     if (down())  this.hero.e.y += this.hero.gMove(0,1);
-    if (space()) this.menu.curItm=actions.GUN;
+    //if (space()) this.menu.curItm=actions.GUN;
 
     this.hero.checkDoor();
     this.hero.setCurrentTile(this.scaled);
@@ -110,7 +110,7 @@ function Cart() {
     }
     
     // Level Done Condition
-    if(this.hero.roomsDone==1){
+    if(this.hero.roomsDone==9){
       l = this.levels[this.hero.e.currentLevel];
       l.showPortal = true;
       l.complete();

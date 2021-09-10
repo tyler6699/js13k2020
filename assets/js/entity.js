@@ -210,7 +210,6 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
       case types.HERO:
         this.sx=96;
         this.sy=16;
-        this.isSolid = true;
         break;
       case types.WALL:
         this.sy=16;
@@ -235,7 +234,6 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         break;
       case types.DOOR_BLOCK:
         this.sx=112;
-        this.isSolid = true;
         break;
       case types.DOOR_WALL:
         this.sy=16;
@@ -296,7 +294,7 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         this.sy=16;
         break;
       case types.PC:
-        this.isSolid = true;
+        this.isSolid = false;
         this.sx=80;
         this.sy=16;
         break;
@@ -311,7 +309,6 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         this.sy=48;
         break;
       case types.BOT:
-        this.isSolid = true;
         this.sx=80;
         this.sy=48;
         break;

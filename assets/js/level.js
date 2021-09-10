@@ -3,7 +3,6 @@ function level(num, canvasW, canvasH, id, scale) {
   this.tiles = [];
   this.breakTiles=[];
   this.mvTiles = [];
-  this.bTiles = [];
   this.mobs = [];
   this.active = false;
   this.complete = false;
@@ -15,7 +14,6 @@ function level(num, canvasW, canvasH, id, scale) {
   var levelArray;
   
   this.draw = function(hero, delta){
-    this.bTiles.forEach(e => e.update(delta));
     this.dTiles.forEach(e => e.update(delta));
     this.tiles.forEach(e => e.update(delta));
     this.mobs.forEach(e => e.update(delta));
@@ -50,7 +48,6 @@ function level(num, canvasW, canvasH, id, scale) {
   
   this.reset = function(id, scaled){
     this.tiles = [];
-    this.bTiles = [];
     this.dTiles = [];
     this.mobs = [];
     this.showPortal=false;
@@ -63,10 +60,6 @@ function level(num, canvasW, canvasH, id, scale) {
       for (c = 0; c < cols; c++) {
         xx = c * scaled;
         yy = r * scaled;
-        
-        if(r > 1 && r < 13 && c > 0 && c < 18){
-          this.bTiles.push(new Tile(tileSize, xx, yy, 0, types.FLOOR, false, c, r));
-        }
         
         if(r > 1 && r < 12 && c > 0 && c < 18) {
           var type = null;
@@ -240,6 +233,7 @@ function level(num, canvasW, canvasH, id, scale) {
     noMobs = randomNum(0,3)+STAGE;
     // console.log("Level: " + id + " Mobs: " + noMobs);
     for (m = 0; m < noMobs; m++) {
+      // find a place to put the mobs
       // Add a random enemy
       mb = new mob(16, 16, 200, 200 + m * 80, 0, types.BOT, scale, randomNum(1,5));
       mb.isSolid = false;

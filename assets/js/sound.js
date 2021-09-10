@@ -49,7 +49,11 @@ getSound = function (name,i){
 }
 
 function getNoise(i){
-  return Math.random() * 2 - 1;
+  var n=7e4;
+  t=(i,n)=>(n-i)/n;
+  if (i > n) return null;
+  var q = t(i,n);
+  return Math.sin(i*0.001*Math.sin(0.009*i)+Math.sin(i/100));
 }
 
 function getJump(i){

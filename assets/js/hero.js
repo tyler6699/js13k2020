@@ -104,6 +104,7 @@ function hero(w, h, x, y, angle, type, scale) {
               break;
             } else if(e.isAmmo() && !e.broke){ // AMMO
               ad=randomNum(10,25);
+              if(this.e.gun.ammo==0)speak("Try not to run out of ammo!");
               this.e.gun.ammo += ad;
               this.e.showTextTime=1;
               this.e.showText="+"+ad;

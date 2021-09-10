@@ -10,6 +10,9 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
   this.time=0;
   this.tryXSpeed=this.spd;
   this.tryYSpeed=this.spd;
+  this.entity.gun = new Gun();
+  this.entity.gun.rate=randomNum(0,3)+.3;
+  this.entity.gun.wait=randomNum(0,2);
   
   this.update = function(delta) {  
     this.time+=delta;
@@ -31,6 +34,7 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
     col = Math.floor((x - this.entity.mhWScaled) / cart.scaled);
     index = col + (19*row);
     e = this.entity;
+    
     // basic follow
     if(this.type == mobtype.FOLLOW){
       //this.hitHero=false;
@@ -63,6 +67,10 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
       drawImg(ctx, e.image, 0, 32, e.width, 8, e.x, e.y+(e.height*e.scale+10), .8, e.scale);
       drawRect(ctx, e.x, e.y+(e.height*e.scale+8),16,14,(48/e.maxHP)*e.hp,12,"#00dcf8",.8)
     }
+    
+    // SHOOTING
+    this.entity.gun.addBullets(this.entity.x+32,this.entity.y+32,cart.hero.e.x+32,cart.hero.e.y+32,true);
+    this.entity.gun.drawBullets(delta, true);
   }
   
   this.move = function(x,y){

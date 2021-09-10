@@ -7,7 +7,7 @@ function Gun(){
   this.angles = [0];
   this.r=0.0174533;
   
-  this.addBullets = function(ox,oy,dx,dy){
+  this.addBullets = function(ox,oy,dx,dy, friendly=false){
     // Remove old drawBullets
     if(this.ammo>0 && this.wait<=0){
       this.wait=this.rate;
@@ -35,19 +35,22 @@ function Gun(){
         this.bullets.push(new Bullet(ox,oy,xx,yy));
       }); 
       
-      cart.shakeTime=.2;
-      playSound(SHOOT,.5);
-      this.ammo--;
-      if(this.ammo==0) speak("Out of ammo.");
+      if(!friendly){
+        cart.shakeTime=.2;
+        playSound(SHOOT,.5);
+        this.ammo--;
+        if(this.ammo==0) speak("Out of ammo.");
+      }
+
     }
   }
   
-  this.drawBullets = function(delta){
+  this.drawBullets = function(delta, friendly=false){
     if(this.wait>0){
       this.wait-=delta;
     }
     
-    this.bullets.forEach(e => e.draw(delta));
+    this.bullets.forEach(e => e.draw(delta, friendly));
 
     // Remove bullets
     this.bullets = this.bullets.filter(function (b) {
@@ -81,7 +84,7 @@ function Bullet(ox,oy,dx,dy){
   this.dy = Math.sin(dir);
   this.angle = Math.atan2(oy - dy, ox - dx);
 
-  this.checkHits = function(e){
+  this.checkHits = function(e, friendly=false){
     if(rectColiding(e.hb,this.hb) && e.hp>=0){
       e.hp--;
       this.active=false;
@@ -101,7 +104,7 @@ function Bullet(ox,oy,dx,dy){
     }
   }
   
-  this.draw = function(delta){
+  this.draw = function(delta, friendly = false){
     // Update Position
     if(this.active){ 
       // Previous position
@@ -120,7 +123,8 @@ function Bullet(ox,oy,dx,dy){
       this.hb.y = this.v.y + this.mhHeight;
       
       //Collision Test
-      cart.level.mobs.forEach(e => this.checkHits(e.entity));
+      if(!friendly)cart.level.mobs.forEach(e => this.checkHits(e.entity));
+      if(friendly) this.checkHits(cart.hero.e);
       cart.level.breakTiles.forEach(e => this.checkHits(e.entity));
       
       // Draw
