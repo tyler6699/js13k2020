@@ -219,13 +219,15 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
     
     
       // MOBS
-      noMobs = randomNum(0,3)+STAGE;
+      noMobs = randomNum(1,3)+STAGE;
       // console.log("Level: " + id + " Mobs: " + noMobs);
-      for (m = 0; m < noMobs; m++) {
-        // find a place to put the mobs
-        // Add a random enemy
-        mb = new mob(16, 16, 200, 200 + m * 80, 0, types.BOT, scale, randomNum(1,5));
-        mb.isSolid = false;
+      for (m = 0; m < noMobs*2; m++) {
+        if(m >= noMobs){
+          mb = new mob(9, 10, 200, 200 + m * 80, 0, types.TNY, scale, 0);
+          mb.type = mobtype.SIMPLE;
+        } else {
+          mb = new mob(16, 16, 200, 200 + m * 80, 0, types.BOT, scale, randomNum(1,5));
+        }
         this.mobs.push(mb);
       }
     }

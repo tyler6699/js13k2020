@@ -1,7 +1,7 @@
 function mob(w, h, x, y, angle, type, scale, maxHP) {
   this.entity = new entity(w, h, x, y, angle, type, "", scale, false, maxHP);
   this.type=mobtype.FOLLOW;
-  this.spd = randomNum(1,2);
+  this.spd = type == mobtype.TNY ? 1 : randomNum(1,3)-.5;
   this.colArr = [];
   this.noX=false;
   this.noY=false;
@@ -37,23 +37,26 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
     e = this.entity;
     
     // basic follow
+    ny = y < cart.hero.e.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd);
+    nx = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
+    
     if(this.type == mobtype.FOLLOW){
       //this.hitHero=false;
       if(this.noX && this.waitX>0){
         this.waitX-=delta;
         e.y = y += this.move(0,this.tryYSpeed);
       } else {
-        e.y = y < cart.hero.e.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd);
+        e.y = ny;
       }
       if(this.noY && this.waitY>0){
         this.waitY-=delta;
         e.x = x += this.move(this.tryXSpeed,0);
       } else {
-        e.x = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
+        e.x = nx;
       }
     } else if(this.type==mobtype.SIMPLE){
-      e.y = y < cart.hero.e.y ? y += this.move(0,this.spd) : y += this.move(0,-this.spd)
-      e.x = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
+      e.y = ny;
+      e.x = nx;
     }
     
     // Add surrounding tiles and other entities for collision checks

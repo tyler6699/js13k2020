@@ -20,7 +20,8 @@ const types = {
   PC:20,
   AMMO:21,
   UPGRADE:22,
-  BOT:23
+  BOT:23,
+  TNY:24
 }
 
 const actions = {

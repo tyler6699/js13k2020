@@ -312,6 +312,11 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         this.sx=80;
         this.sy=48;
         break;
+      case types.TNY:
+        xs=[96,105,114]
+        this.sx=xs[randomNum(0,2)];
+        this.sy=48;
+        break;
      }
   }
   
