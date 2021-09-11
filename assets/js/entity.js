@@ -277,7 +277,7 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         this.isSolid = false;
         break;
       case types.BARREL:
-        this.hp=5;
+        this.hp=3;
         this.breaks=true;
         this.sx=48;
         this.sy=16;
@@ -288,7 +288,7 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         this.sy=32;
         break;
       case types.CUBE:
-        this.hp=10;
+        this.hp=5;
         this.breaks=true;
         this.sx=32;
         this.sy=16;

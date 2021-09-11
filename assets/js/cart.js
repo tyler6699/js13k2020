@@ -9,15 +9,24 @@ function Cart() {
   this.shakeTime=0;
     
   this.genLevel = function(num){
-    this.bkcol = ranColor();
-    this.levels = []; // Array to get tiles surrounding an entity
-    for(i=0;i<9;i++){
-      var lvl = new level(num, canvasW, canvasH, i, this.scale);
+    if(num > 5){
+      speak("BOSS LEVEL");
+      this.levels = [];
+      var lvl = new level(num, canvasW, canvasH, i, this.scale, true);
       lvl.reset(i, this.scaled);
-      this.levels.push(lvl);
+      this.levels.push(lvl);  
+      this.level = lvl;
+    } else {
+      this.bkcol = ranColor();
+      this.levels = []; // Array to get tiles surrounding an entity
+      for(i=0;i<9;i++){
+        var lvl = new level(num, canvasW, canvasH, i, this.scale);
+        lvl.reset(i, this.scaled);
+        this.levels.push(lvl);
+      }
+      this.level = this.levels[0];  
+      this.hero.e.currentLevel = 0;
     }
-    this.level = this.levels[0];  
-    this.hero.e.currentLevel = 0;
   }
   
   this.genLevel(0);
@@ -113,7 +122,6 @@ function Cart() {
     if(this.hero.roomsDone==9){
       l = this.levels[this.hero.e.currentLevel];
       l.showPortal = true;
-      l.complete();
       this.hero.roomsDone = -1;
       tile = this.levels[this.hero.e.currentLevel].tiles[142];
       tile.entity.type = types.PC;

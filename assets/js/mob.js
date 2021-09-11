@@ -11,8 +11,9 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
   this.tryXSpeed=this.spd;
   this.tryYSpeed=this.spd;
   this.entity.gun = new Gun();
-  this.entity.gun.rate=randomNum(0,3)+.3;
-  this.entity.gun.wait=randomNum(0,2);
+  this.entity.gun.rate=randomNum(0,3)+.5-(STAGE/10);
+  if(this.entity.gun.rate<.1) this.entity.gun.rate=.2;
+  this.entity.gun.wait=randomNum(0,3)-STAGE;
   
   this.update = function(delta) {  
     this.time+=delta;

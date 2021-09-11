@@ -100,7 +100,6 @@ function hero(w, h, x, y, angle, type, scale) {
               this.roomsDone=0;
               STAGE++;
               cart.genLevel(STAGE);
-              console.log(STAGE);
               break;
             } else if(e.isAmmo() && !e.broke){ // AMMO
               ad=randomNum(10,25);

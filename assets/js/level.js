@@ -1,4 +1,4 @@
-function level(num, canvasW, canvasH, id, scale) {
+function level(num, canvasW, canvasH, id, scale, noDoors = false) {
   STAGE=num;
   this.tiles = [];
   this.breakTiles=[];
@@ -8,7 +8,6 @@ function level(num, canvasW, canvasH, id, scale) {
   this.complete = false;
   this.roomNo = id;
   this.gatesOpen = false;
-  this.doors=[0,0,0,0]; // 0=LEFT, 1=RIGHT, 2=TOP, 3=BOTTOM
   this.showPortal=false;
   var tileSize = 16;
   var levelArray;
@@ -39,11 +38,6 @@ function level(num, canvasW, canvasH, id, scale) {
     this.breakTiles = this.tiles.filter(function (t) {
       return t.entity.breaks == true;
     }); 
-  }
-
-  this.complete = function(){
-    //80,16
-    // SHOW COMPUTER
   }
   
   this.reset = function(id, scaled){
@@ -129,27 +123,29 @@ function level(num, canvasW, canvasH, id, scale) {
           }
         }
         
-        if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type) && tin < 5){
-            type = types.BARREL;
-            tin++;
-        }
-        
-        if(upgrade && randomNum(0,100)> 70 && inBounds(r,c) && isAir(type)){
-          type=types.UPGRADE;
-          upgrade = false;
-        }
-        
-        if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type)){
-            type = types.TREE;
-        }
-        
-        if(randomNum(0,100) > 99 && inBounds(r,c) && isAir(type)){
-            type = types.CUBE;
-        }
-        
-        if(randomNum(0,1000) > 985 && inBounds(r,c) && isAir(type) && ammo < 3){
-            type = types.AMMO;
-            ammo++;
+        if(!noDoors){
+          if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type) && tin < 5){
+              type = types.BARREL;
+              tin++;
+          }
+          
+          if(upgrade && randomNum(0,100)> 70 && inBounds(r,c) && isAir(type)){
+            type=types.UPGRADE;
+            upgrade = false;
+          }
+          
+          if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type)){
+              type = types.TREE;
+          }
+          
+          if(randomNum(0,100) > 99 && inBounds(r,c) && isAir(type)){
+              type = types.CUBE;
+          }
+          
+          if(randomNum(0,1000) > 985 && inBounds(r,c) && isAir(type) && ammo < 3){
+              type = types.AMMO;
+              ammo++;
+          }
         }
         
         tile = new Tile(tileSize, xx, yy, angle, type, false, c, r);
@@ -174,70 +170,64 @@ function level(num, canvasW, canvasH, id, scale) {
       return r > 2 && r<11 && c>1 && c<17;
     }
     
-    // DOORS
-    switch(id) {
-      case 0:
-        this.doorR();
-        this.doorB();
-        this.doors = [0,1,0,1];
-        break;
-      case 1:
-        this.doorR();
-        this.doorL();
-        this.doorB();
-        this.doors = [1,1,0,1];
-        break;
-      case 2:
-        this.doorL();
-        this.doorB();
-        this.doors = [1,0,0,1];
-        break;
-      case 3:
-        this.doorR();
-        this.doorB();
-        this.doorT();
-        this.doors = [0,1,1,1];
-        break;
-      case 4:
-        this.doorR();
-        this.doorL();
-        this.doorT();
-        this.doorB();
-        this.doors = [1,1,1,1];
-        break;
-      case 5:
-        this.doorL();
-        this.doorT();
-        this.doorB();
-        this.doors = [1,0,1,1];
-        break;
-      case 6:
-        this.doorR();
-        this.doorT();
-        this.doors = [0,1,1,0];
-        break;
-      case 7:
-        this.doorR();
-        this.doorL();
-        this.doorT();
-        this.doors = [1,1,1,0];
-        break;
-      case 8:
-        this.doorT();
-        this.doorL();
-        this.doors = [1,0,1,0];
-        break;
-    }
+    if(!noDoors){
+      // DOORS
+      switch(id) {
+        case 0:
+          this.doorR();
+          this.doorB();
+          break;
+        case 1:
+          this.doorR();
+          this.doorL();
+          this.doorB();
+          break;
+        case 2:
+          this.doorL();
+          this.doorB();
+          break;
+        case 3:
+          this.doorR();
+          this.doorB();
+          this.doorT();
+          break;
+        case 4:
+          this.doorR();
+          this.doorL();
+          this.doorT();
+          this.doorB();
+          break;
+        case 5:
+          this.doorL();
+          this.doorT();
+          this.doorB();
+          break;
+        case 6:
+          this.doorR();
+          this.doorT();
+          break;
+        case 7:
+          this.doorR();
+          this.doorL();
+          this.doorT();
+          break;
+        case 8:
+          this.doorT();
+          this.doorL();
+          break;
+      }
     
-    // MOBS
-    noMobs = randomNum(0,3)+STAGE;
-    // console.log("Level: " + id + " Mobs: " + noMobs);
-    for (m = 0; m < noMobs; m++) {
-      // find a place to put the mobs
-      // Add a random enemy
-      mb = new mob(16, 16, 200, 200 + m * 80, 0, types.BOT, scale, randomNum(1,5));
-      mb.isSolid = false;
-      this.mobs.push(mb);
+    
+      // MOBS
+      noMobs = randomNum(0,3)+STAGE;
+      // console.log("Level: " + id + " Mobs: " + noMobs);
+      for (m = 0; m < noMobs; m++) {
+        // find a place to put the mobs
+        // Add a random enemy
+        mb = new mob(16, 16, 200, 200 + m * 80, 0, types.BOT, scale, randomNum(1,5));
+        mb.isSolid = false;
+        this.mobs.push(mb);
+      }
     }
   }
   
