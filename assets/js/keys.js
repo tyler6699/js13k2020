@@ -15,6 +15,7 @@ var ONE = 49;
 var TWO = 50;
 var THREE = 51;
 var FOUR = 52;
+var R = 82;
 // NOISES
 var NOISEFX=0;
 var COINFX=1;

@@ -11,6 +11,13 @@ function hero(w, h, x, y, angle, type, scale) {
   this.levelUpTime=0;
   
   this.update = function(delta) {  
+    if(this.e.hp<= 0){
+      GAMEOVER=true;
+      speak("Oh no! You have failed to escape the planet.");
+      this.e.hp=100;
+      this.e.gun = new Gun();
+    }
+    
     if(this.e.idle > 3){
       this.e.sx=128;
       this.e.sy=0;

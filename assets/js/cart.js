@@ -167,12 +167,4 @@ function Cart() {
     });      
     ctx.restore();
   }
-  
-  this.reset = function(){
-    GAMEOVER=false;
-    WIN=false;
-    //this.hero = new hero(16, 16, canvasW/2, canvasH/2, 0, types.HERO, this.scale);
-    //this.level = new level(canvasW, canvasH, 0);
-    //this.level.reset(this.hero.e, this.scale);
-  }
 }

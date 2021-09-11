@@ -22,8 +22,7 @@ var COL1 = "990099";
 var COL2 = "05f2db";
 var BSPEED=1000;
 var WIN = false;
-var SCORE = 0;
-var AMMOSTART=50;
+var AMMOSTART=51;
 var SHOOTDIST = 600;
 var STAGE=1;
 var atlas = new Image();
@@ -69,6 +68,7 @@ var mg = {
       mg.keys[e.keyCode] = (e.type == "keydown");
       if(e.keyCode==ONE) shaky = !shaky;
       if(e.keyCode==TWO) cart.bkcol = ranColor();
+      if(e.keyCode==R) GAMEOVER=true;
     })
     // Mouse Buttons
     window.addEventListener('mousedown', function(e) {
@@ -118,6 +118,17 @@ function setclicks(){
 }
 
 function updateGameArea() {
+  if(GAMEOVER){
+    GAMEOVER=false;
+    WIN=false;
+    STAGE=1;
+    start=false;
+    gameStarted=false;
+    cart.hero.levelUpTime=0;
+    cart.hero.levelUp=false;
+    cart.genLevel(STAGE);
+  }
+  
   if(start){
     gameStarted=true;  
     if(audioCtx == null) audioCtx = new AudioContext();
