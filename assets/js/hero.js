@@ -14,8 +14,6 @@ function hero(w, h, x, y, angle, type, scale) {
     if(this.e.hp<= 0){
       GAMEOVER=true;
       speak("Oh no! You have failed to escape the planet.");
-      this.e.hp=100;
-      this.e.gun = new Gun();
     }
     
     if(this.e.idle > 3){

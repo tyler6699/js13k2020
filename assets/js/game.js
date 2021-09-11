@@ -119,6 +119,8 @@ function setclicks(){
 
 function updateGameArea() {
   if(GAMEOVER){
+    cart.hero.e.hp=100;
+    cart.hero.e.gun = new Gun();
     GAMEOVER=false;
     WIN=false;
     STAGE=1;
