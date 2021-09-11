@@ -114,7 +114,14 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
         } else {
           ctx.scale(1, 1);
         } 
-        ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w * s, h * s);
+        f=0; // float
+        z=0; // hover
+        if(this.type == types.BOT){
+          f=Math.sin(TIME/500)*10;
+          z=Math.cos(TIME/700)*5;
+          ctx.drawImage(img, 97, 56, 7, 2, w+hw+z, h*5, 30, 10);
+        }
+        ctx.drawImage(img, this.sx, this.sy, w, h, hw+z, hh+f, w * s, h * s);
       }
       ctx.restore();
       
