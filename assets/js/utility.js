@@ -62,12 +62,12 @@ function vec2(x,y){
 }
 
 function renderStarField(time){
-  mg.context.fillStyle='#FFF';
+  ctx.fillStyle='#FFF';
   for(let i=2e3;i--;){
     x = (Math.sin(i)*1e9-time/2e3*(i+1e3)/50)%(mg.canvas.width+9)-9;
     y = i*9%canvasW;
     s = i%5;
-    mg.context.fillRect(x,y,s,s);
+    ctx.fillRect(x,y,s,s);
   }
 }
 

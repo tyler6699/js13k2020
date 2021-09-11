@@ -123,30 +123,25 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
           }
         }
         
-        if(!noDoors){
-          if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type) && tin < 5){
-              type = types.BARREL;
-              tin++;
-          }
-          
-          if(upgrade && randomNum(0,100)> 70 && inBounds(r,c) && isAir(type)){
-            type=types.UPGRADE;
-            upgrade = false;
-          }
-          
-          if(randomNum(0,100) > 98 && inBounds(r,c) && isAir(type)){
-              type = types.TREE;
-          }
-          
-          if(randomNum(0,100) > 99 && inBounds(r,c) && isAir(type)){
-              type = types.CUBE;
-          }
-          
-          if(randomNum(0,1000) > 985 && inBounds(r,c) && isAir(type) && ammo < 3){
-              type = types.AMMO;
-              ammo++;
-          }
+        if(inBounds(r,c)){
+          if(!noDoors){
+            if(randomNum(0,100) > 98 && isAir(type) && tin < 5){
+                type = types.BARREL;
+                tin++;
+            }
+            if(upgrade && randomNum(0,100)> 70 && isAir(type)){
+              type=types.UPGRADE;
+              upgrade = false;
+            }
+            if(randomNum(0,100) > 98 && isAir(type)) type = types.TREE;
+            if(randomNum(0,100) > 99 && isAir(type)) type = types.CUBE;
+            if(randomNum(0,1000) > 985 && isAir(type) && ammo < 3){
+                type = types.AMMO;
+                ammo++;
+            }
+          }  
         }
+        
         
         tile = new Tile(tileSize, xx, yy, angle, type, false, c, r);
         this.tiles.push(tile);

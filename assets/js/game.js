@@ -50,9 +50,10 @@ var mg = {
     this.context.scale(1, 1);
 
     // PixelArt Sharp
-    this.context.mozImageSmoothingEnabled = false;
-    this.context.webkitImageSmoothingEnabled = false;
-    this.context.imageSmoothingEnabled = false;
+    ctx=this.context;
+    ctx.mozImageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = false;
     this.canvas.classList.add("screen");
     document.body.insertBefore(this.canvas, document.body.childNodes[6]);
     this.frameNo = 0;

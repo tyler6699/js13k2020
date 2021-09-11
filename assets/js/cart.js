@@ -83,18 +83,18 @@ function Cart() {
     mg.canvas.style.cursor='none';
     let mx = mousePos.x;
     let my = mousePos.y;
-    let mw = 2;
-    let mh = 15;
-    mg.context.globalCompositeOperation = 'difference';
-    mg.context.fillStyle='WHITE'
-    mg.context.fillRect(mx-mw,my-mh,mw*2,mh*2);
-    mg.context.fillRect(mx-mh,my-mw,mh*2,mw*2);
-    mg.context.globalCompositeOperation = 'source-over';
+    let mw = 4;
+    let mh = 20;
+    ctx.fillStyle='BLACK'
+    ctx.globalAlpha=.4;
+    w=mw*2;
+    h=mh*2;
+    ctx.fillRect(mx-mw,my-mh,w,h);
+    ctx.fillRect(mx-mh,my-mw,h,w);
     
     if(this.introT > 0){
       for(i = 0;i <= canvasW/33;i++){
         for(j = 0;j <= canvasH/33;j++){
-          ctx = mg.context;
           ctx.save();
           ctx.translate(i*32, j*32);
           col = i%2==0&&j%2==0 ? "#000" : "#FFF";
@@ -134,7 +134,6 @@ function Cart() {
   }
   
   this.renderHP = function(){
-    ctx = mg.context;
     ctx.save();
     ctx.translate(0, 0);
     ctx.globalAlpha = 1;
@@ -147,7 +146,6 @@ function Cart() {
   }
   
   this.renderMap = function(){
-    ctx = mg.context;
     ctx.save();
     ctx.translate(0, 0);
     ctx.globalAlpha = .8;

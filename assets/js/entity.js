@@ -82,7 +82,6 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
     this.updateHitbox();
     
     if(this.active && !this.isFloor()) {
-      ctx = mg.context;
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.rotate(this.angle);

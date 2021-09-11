@@ -128,11 +128,7 @@ function Bullet(ox,oy,dx,dy){
       cart.level.breakTiles.forEach(e => this.checkHits(e.entity));
       
       // Draw
-      ctx = mg.context;
       ctx.save();
-      //ctx.globalCompositeOperation = 'difference';
-      //ctx.globalCompositeOperation = 'source-over';
-      
       ctx.translate(this.v.x, this.v.y);
       ctx.rotate(this.angle);
       ctx.globalAlpha = .5;
