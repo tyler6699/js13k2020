@@ -146,7 +146,7 @@ function updateGameArea() {
     y = (846/2)-128+Math.sin(t)*20;
     ctx.drawImage(cart.hero.e.image, 96, 16, 16, 13, x-80, y+40, 256, 208);
     ctx.drawImage(cart.hero.e.image, 32, 48, 16, 16, x, y, 256, 256);
-  } else if(cart.hero.levelUp && STAGE <= 5){
+  } else if(cart.hero.levelUp && STAGE <= 4){
     mg.clear();
     warp(TIME/100);
     t = TIME/1e3;  

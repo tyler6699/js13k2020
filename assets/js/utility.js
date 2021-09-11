@@ -26,9 +26,9 @@ function speak(t) {
 	var s = new SpeechSynthesisUtterance();
 	s.text = t;
   //s.volume = parseFloat(volumeInput.value);
-  s.rate = parseFloat(1.2); 
+  //s.rate = parseFloat(1); 
   //s.pitch = parseFloat(pitchInput.value);
-  s.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == voiceSelect; })[0];
+  //s.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == voiceSelect; })[0];
 	speechSynthesis.speak(s);
 }
 

@@ -119,13 +119,14 @@ function Cart() {
     }
     
     // Level Done Condition
-    if(this.hero.roomsDone==9){
+    if(this.hero.roomsDone==9 && !l.showPortal){
       l = this.levels[this.hero.e.currentLevel];
       l.showPortal = true;
       this.hero.roomsDone = -1;
       tile = this.levels[this.hero.e.currentLevel].tiles[142];
       tile.entity.type = types.PC;
       tile.entity.setType();
+      speak("Terminal Available.");
     }
     
     if (map()) this.renderMap();
