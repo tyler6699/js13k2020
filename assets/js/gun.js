@@ -39,7 +39,10 @@ function Gun(){
         cart.shakeTime=.2;
         playSound(SHOOT,.5);
         this.ammo--;
-        if(this.ammo==0) speak("Out of ammo.");
+        if(this.ammo==0){
+          this.noAmmo++;
+          speak("Out of ammo.");
+        }
       }
 
     }

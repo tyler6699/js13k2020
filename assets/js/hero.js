@@ -9,6 +9,7 @@ function hero(w, h, x, y, angle, type, scale) {
   this.level=0;
   this.levelUp=false;
   this.levelUpTime=0;
+  this.noAmmo=0;
   
   this.update = function(delta) {  
     if(this.e.hp<= 0){

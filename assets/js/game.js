@@ -123,7 +123,7 @@ function updateGameArea() {
     cart.hero.e.gun = new Gun();
     GAMEOVER=false;
     WIN=false;
-    STAGE=1;
+    STAGE=0;
     start=false;
     gameStarted=false;
     cart.hero.levelUpTime=0;
