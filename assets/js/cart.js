@@ -7,6 +7,8 @@ function Cart() {
   this.introT=0;
   this.shake=0;
   this.shakeTime=0;
+  this.reset=false;
+  this.wait=2;
     
   this.genLevel = function(num){
     if(num == 5){
@@ -122,7 +124,20 @@ function Cart() {
     }
     
     // Level Done Condition
-    if(this.hero.roomsDone==9 && !l.showPortal){
+    if(STAGE==5 && this.level.mobs.length==0){
+      WIN=true;
+      this.wait-=delta;
+      if(WIN && this.wait <= 0 && !this.reset) {
+        speak("You have survived the planet, a ship is on its way to rescue space kitty!");
+        WIN=false;
+        this.reset=true;
+        this.wait=3;
+      }
+      
+      if(this.wait<=0&& this.reset) GAMEOVER=true;
+    }
+    
+    if(this.hero.roomsDone==9 && !l.showPortal && STAGE < 5){
       l = this.levels[this.hero.e.currentLevel];
       l.showPortal = true;
       this.hero.roomsDone = -1;

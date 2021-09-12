@@ -84,7 +84,7 @@ var mg = {
       holdClick = false;
       holdClickT = 0;
       processClick = true;
-      if(!start) start=true;
+      if(!start && TIME>2000) start=true;
       setclicks();
     })
     window.addEventListener('mousemove', function(e) {
@@ -119,6 +119,7 @@ function setclicks(){
 
 function updateGameArea() {
   if(GAMEOVER){
+    TIME=0;
     var h = cart.hero;
     h.e.hp=100;
     h.e.gun = new Gun();
@@ -133,7 +134,7 @@ function updateGameArea() {
     cart.genLevel(STAGE);
   }
   
-  if(start){
+  if(start && TIME>2000){
     this.cart.hero.e.active=true
     gameStarted=true;  
     if(audioCtx == null) audioCtx = new AudioContext();
@@ -151,7 +152,8 @@ function updateGameArea() {
     ctx = mg.context;
     ctx.save();
     drawBox(ctx,0.1,"#"+COL1,0,0,canvasW,canvasH)
-    writeTxt(ctx, 1, "italic 50px Arial","WHITE","[ CLICK TO START ]", 380, 720);
+    txt = TIME>2000 ? "[ CLICK TO START ]" : "[ LOADING ]";
+    writeTxt(ctx, 1, "italic 50px Arial","WHITE",txt, 380, 720);
     z=TIME/1600;
     writeTxt(ctx, 1, "italic 90px Arial","WHITE","SPACE KITTY", 300+Math.cos(z)*40, 150+Math.sin(z)*20);
     writeTxt(ctx, 1, "italic 60px Arial","WHITE","was not the imposter!", 300+Math.cos(z)*70, 200+Math.sin(z)*20);

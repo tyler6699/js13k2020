@@ -142,12 +142,11 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
     }
     
     if(boss){
-      for (m = 0; m < 50; m++) {
-          mb = new mob(9, 10, rndNo(124,1028), rndNo(124,644), 0, types.TNY, scale, 10);
+      for (m = 0; m < 35; m++) {
+          mb = new mob(9, 10, rndNo(124,1028), rndNo(124,644), 0, types.TNY, scale, 5);
           mb.type = mobtype.SIMPLE;
           this.mobs.push(mb);
       }
-      
       // mb = new mob(16, 16, rndNo(124,1028), rndNo(124,644), 0, types.BOT, scale, rndNo(1,3+STAGE));
     } else {
       if(!noDoors){
