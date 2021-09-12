@@ -119,15 +119,17 @@ function setclicks(){
 
 function updateGameArea() {
   if(GAMEOVER){
-    cart.hero.e.hp=100;
-    cart.hero.e.gun = new Gun();
+    var h = cart.hero;
+    h.e.hp=100;
+    h.e.gun = new Gun();
+    h.roomsDone = 0;
+    h.levelUpTime=0;
+    h.levelUp=false;
     GAMEOVER=false;
     WIN=false;
     STAGE=0;
     start=false;
     gameStarted=false;
-    cart.hero.levelUpTime=0;
-    cart.hero.levelUp=false;
     cart.genLevel(STAGE);
   }
   
