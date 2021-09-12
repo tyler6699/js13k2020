@@ -189,6 +189,10 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
     return this.type == types.AMMO;
   }
   
+  this.isHP= function(){
+    return this.type == types.HP;
+  }
+  
   this.isUpgrade = function(){
     return this.type == types.UPGRADE;
   }
@@ -210,118 +214,112 @@ function entity(w, h, x, y, angle, type, colour, scale, isButton = false, maxHP 
     this.alpha = 1;
     this.sy=0;
     this.sx=0;
-    this.isSolid = true;
+    this.isSolid = false;
     
     switch(this.type) {
       case types.HERO:
+        this.isSolid = true;
         this.sx=96;
         this.sy=16;
         break;
       case types.WALL:
         this.sy=16;
-        this.isSolid = false;
         break;
       case types.BLOCK:
+        this.isSolid = true;
         this.sx=16;
         break;
       case types.FLOOR:
         this.sx=32;
         this.sy=32;
         this.alpha = .9;
-        this.isSolid = false;
         break;
       case types.AIR:
         this.sx=144;
-        this.isSolid = false;
         break;
       case types.DOOR:
         this.sx=144;
-        this.isSolid = false;
         break;
       case types.DOOR_BLOCK:
+        this.isSolid = true;
         this.sx=112;
         break;
       case types.DOOR_WALL:
         this.sy=16;
         this.sx=112;
-        this.isSolid = false;
         break;
       case types.GRID_1:
         this.sx=96;
         this.sy=32;
-        this.isSolid = false;
         break;
       case types.GRID_2:
         this.sx=112;
         this.sy=32;
-        this.isSolid = false;
         break;
       case types.GRID_3:
         this.sx=80;
         this.sy=32;
-        this.isSolid = false;
         break;
       case types.GRID_4:
         this.sx=48;
         this.sy=32;
-        this.isSolid = false;
         break;
       case types.ROCK_1:
         this.sx=48;
-        this.isSolid = false;
         break;
       case types.ROCK_2:
         this.sx=64;
-        this.isSolid = false;
         break;
       case types.ROCK_3:
         this.sx=80;
-        this.isSolid = false;
         break;
       case types.ROCK_4:
         this.sx=96;
-        this.isSolid = false;
         break;
       case types.BARREL:
+        this.isSolid = true;
         this.hp=3;
         this.breaks=true;
         this.sx=48;
         this.sy=16;
         break;
       case types.TREE:
+        this.isSolid = true;
         this.breaks=true;
         this.sx=16;
         this.sy=32;
         break;
       case types.CUBE:
+        this.isSolid = true;
         this.hp=5;
         this.breaks=true;
         this.sx=32;
         this.sy=16;
         break;
       case types.PC:
-        this.isSolid = false;
         this.sx=80;
         this.sy=16;
         break;
       case types.AMMO:
-        this.isSolid = false;
         this.sx=64;
         this.sy=32;
         break;
       case types.UPGRADE:
-        this.isSolid = false;
         this.sx=48;
         this.sy=48;
         break;
       case types.BOT:
+        this.isSolid = true;
         this.sx=80;
         this.sy=48;
         break;
       case types.TNY:
+        this.isSolid = true;
         xs=[96,105,114]
-        this.sx=xs[randomNum(0,2)];
+        this.sx=xs[rndNo(0,2)];
         this.sy=48;
+        break;
+      case types.HP:
         break;
      }
   }

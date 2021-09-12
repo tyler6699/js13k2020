@@ -1,7 +1,7 @@
 function mob(w, h, x, y, angle, type, scale, maxHP) {
   this.entity = new entity(w, h, x, y, angle, type, "", scale, false, maxHP);
   this.type=mobtype.FOLLOW;
-  this.spd = type == mobtype.TNY ? 1 : randomNum(1,3)-.5;
+  this.spd = type == mobtype.TNY ? 1 : rndNo(1,3)-.5;
   this.colArr = [];
   this.noX=false;
   this.noY=false;
@@ -11,9 +11,9 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
   this.tryXSpeed=this.spd;
   this.tryYSpeed=this.spd;
   this.entity.gun = new Gun();
-  this.entity.gun.rate=randomNum(0,3)+.5-(STAGE/10);
+  this.entity.gun.rate=rndNo(0,3)+.5-(STAGE/10);
   if(this.entity.gun.rate<.1) this.entity.gun.rate=.2;
-  this.entity.gun.wait=randomNum(0,3)-STAGE;
+  this.entity.gun.wait=rndNo(0,3)-STAGE;
   
   this.update = function(delta) {  
     this.time+=delta;
@@ -24,8 +24,8 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
       this.noY=false;
       this.waitY=0;
       this.waitX=0;
-      this.tryXSpeed = randomNum(0,10)>5 ? this.spd : -this.spd;
-      this.tryYSpeed = randomNum(0,10)>5 ? this.spd : -this.spd;
+      this.tryXSpeed = rndNo(0,10)>5 ? this.spd : -this.spd;
+      this.tryYSpeed = rndNo(0,10)>5 ? this.spd : -this.spd;
     }
     var x = this.entity.x;
     var y = this.entity.y;

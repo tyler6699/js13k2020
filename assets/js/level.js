@@ -59,14 +59,15 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
           var type = null;
           
           // GRID Background Patterns
-          if(randomNum(0,100) > 80){
-            type = types.GRID_1;
-          } else if(randomNum(0,100) > 70){
-            type = types.GRID_2;
-          } else if(randomNum(0,100) > 70){
-            type = types.GRID_3;
-          } else if(randomNum(0,100) > 70){
-            type = types.GRID_4;
+          // GRID_1:4, GRID_2:5, GRID_3:6, GRID_4:7,
+          if(rndNo(0,100) > 80){
+            type = 4;
+          } else if(rndNo(0,100) > 70){
+            type = 5;
+          } else if(rndNo(0,100) > 70){
+            type = 6;
+          } else if(rndNo(0,100) > 70){
+            type = 7;
           }
           
           if(type != null){
@@ -79,7 +80,7 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
     // Count ammo crates added
     ammo=0;
     tin=0;
-    upgrade = randomNum(0,100) > (95-STAGE);
+    upgrade = rndNo(0,100) > (95-STAGE);
     // Main level tiles
     for (r = 0; r < rows; r++) {
       for (c = 0; c < cols; c++) {
@@ -104,38 +105,25 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
           type = types.AIR
           
           // ROCK DECOR
-          if(randomNum(0,100) > 90 && r > 2){
-            var rock = randomNum(0,3);
-            switch(rock) {
-              case 0:
-                type = types.ROCK_1;
-                break;
-              case 1:
-                type = types.ROCK_2;
-                break;
-              case 2:
-                type = types.ROCK_3;
-                break;
-              case 3:
-                type = types.ROCK_4;
-                break;
-            }
+          if(rndNo(0,100) > 90 && r > 2){
+            // ROCK_1:9 ROCK_2:10 ROCK_3:12 ROCK_4:13
+            type = [9,10,12,13][rndNo(0,3)];
           }
         }
         
         if(inBounds(r,c)){
           if(!noDoors){
-            if(randomNum(0,100) > 98 && isAir(type) && tin < 5){
+            if(rndNo(0,100) > 98 && isAir(type) && tin < 5){
                 type = types.BARREL;
                 tin++;
             }
-            if(upgrade && randomNum(0,100)> 70 && isAir(type)){
+            if(upgrade && rndNo(0,100)> 70 && isAir(type)){
               type=types.UPGRADE;
               upgrade = false;
             }
-            if(randomNum(0,100) > 98 && isAir(type)) type = types.TREE;
-            if(randomNum(0,100) > 99 && isAir(type)) type = types.CUBE;
-            if(randomNum(0,1000) > 985 && isAir(type) && ammo < 3){
+            if(rndNo(0,100) > 98 && isAir(type)) type = types.TREE;
+            if(rndNo(0,100) > 99 && isAir(type)) type = types.CUBE;
+            if(rndNo(0,1000) > 985 && isAir(type) && ammo < 3){
                 type = types.AMMO;
                 ammo++;
             }
@@ -214,14 +202,14 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
     
     
       // MOBS
-      noMobs = randomNum(1,3)+STAGE;
+      noMobs = rndNo(1,3)+STAGE;
       // console.log("Level: " + id + " Mobs: " + noMobs);
       for (m = 0; m < noMobs*2; m++) {
         if(m >= noMobs){
-          mb = new mob(9, 10, 200, 200 + m * 80, 0, types.TNY, scale, 0);
+          mb = new mob(9, 10, rndNo(124,1028), rndNo(124,644), 0, types.TNY, scale, 0);
           mb.type = mobtype.SIMPLE;
         } else {
-          mb = new mob(16, 16, 200, 200 + m * 80, 0, types.BOT, scale, randomNum(1,5));
+          mb = new mob(16, 16, rndNo(124,1028), rndNo(124,644), 0, types.BOT, scale, rndNo(1,5));
         }
         this.mobs.push(mb);
       }

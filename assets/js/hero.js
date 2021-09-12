@@ -16,7 +16,6 @@ function hero(w, h, x, y, angle, type, scale) {
       GAMEOVER=true;
       speak("Oh no! You have failed to escape the planet.");
     }
-    
     if(this.e.idle > 3){
       this.e.sx=128;
       this.e.sy=0;
@@ -107,18 +106,27 @@ function hero(w, h, x, y, angle, type, scale) {
               STAGE++;
               cart.genLevel(STAGE);
               break;
+            } else if(e.isHP() && !e.broke){ // AMMO
+              e.broke=true;
+              e.active=false;
+              hpUp = rndNo(10,40);
+              this.e.hp += hpUp;
+              if(this.e.hp > 100) this.e.hp = 100;
+              this.e.showTextTime=1;
+              this.e.showText="+"+hpUp+" health";
+              playSound(COINFX,.5);
             } else if(e.isAmmo() && !e.broke){ // AMMO
-              ad=randomNum(10,25);
+              ad=rndNo(10,25);
               if(this.e.gun.ammo==0)speak("Try not to run out of ammo!");
               this.e.gun.ammo += ad;
               this.e.showTextTime=1;
-              this.e.showText="+"+ad;
+              this.e.showText="Ammo +"+ad;
               e.sy=16;
               e.sx=64;
               e.broke = true;
               playSound(COINFX,.5);
             } else if(e.isUpgrade() && !e.broke){ // Upgrade
-              ad=randomNum(10,25);
+              ad=rndNo(10,25);
               this.e.gun.type ++;
               this.e.showTextTime=1;
               this.e.showText="UPGRADE!";

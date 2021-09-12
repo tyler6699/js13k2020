@@ -21,7 +21,8 @@ const types = {
   AMMO:21,
   UPGRADE:22,
   BOT:23,
-  TNY:24
+  TNY:24,
+  HP:25
 }
 
 const actions = {

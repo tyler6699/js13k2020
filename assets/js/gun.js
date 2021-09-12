@@ -93,6 +93,14 @@ function Bullet(ox,oy,dx,dy){
       this.active=false;
       
       if(e.hp < 0){
+        // Spawn HP
+        if(rndNo(0,100)>90){          
+          r = Math.floor((e.y - e.mhHScaled) / 64);
+          c = Math.floor((e.x - e.mhWScaled) / 64);
+          tile = cart.level.tiles[c + (19*r)];
+          tile.entity.type = types.HP;
+          tile.entity.setType();
+        }
         playSound(DIEFX,.5);
         if(e.isBarrel()){
           e.sx=0;
