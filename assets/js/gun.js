@@ -74,7 +74,7 @@ function Bullet(ox,oy,dx,dy, spd = null){
   this.dst=0;
   this.active=true;
   this.hb = new rectanlge(ox, oy, this.w, this.h);
-  this.colour="#a12161";
+  this.colour= spd != null ? ranColor() : "#a12161";
   this.dist=0;
   // 0 is perfect
   // .5 is awful
