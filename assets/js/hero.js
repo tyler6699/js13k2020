@@ -111,7 +111,7 @@ function hero(w, h, x, y, angle, type, scale) {
               e.active=false;
               hpUp = rndNo(10,40);
               this.e.hp += hpUp;
-              if(this.e.hp > 100) this.e.hp = 100;
+              if(this.e.hp > e.maxHP) this.e.hp = this.e.maxHP;
               this.e.showTextTime=1;
               this.e.showText="+"+hpUp+" health";
               playSound(COINFX,.5);

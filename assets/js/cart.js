@@ -71,7 +71,7 @@ function Cart() {
     ctx.fillStyle = gradient;
     ctx.font = "italic 40px Arial";
     ctx.fillText("AMMO " + this.hero.e.gun.ammo, 900, 50);
-    if(STAGE==5){
+    if(STAGE!=5){
       ctx.fillText("LEVEL " + (STAGE+1), 600, 50);
     } else {
       ctx.fillText("BOSS FIGHT", 600, 50);

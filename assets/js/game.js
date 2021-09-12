@@ -134,6 +134,7 @@ function updateGameArea() {
   }
   
   if(start){
+    this.cart.hero.e.active=true
     gameStarted=true;  
     if(audioCtx == null) audioCtx = new AudioContext();
   }
@@ -169,6 +170,7 @@ function updateGameArea() {
     t = TIME/1e3;  
     x = (1232/2)-128+Math.cos(t)*40;
     y = (846/2)-128+Math.sin(t)*20;
+    ctx.globalAlpha = 1;
     ctx.drawImage(cart.hero.e.image, 96, 16, 16, 13, x-80, y+40, 256, 208);
     ctx.drawImage(cart.hero.e.image, 32, 48, 16, 16, x, y, 256, 256);
     cart.hero.levelUpTime+=delta/1000;

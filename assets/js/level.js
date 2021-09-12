@@ -41,6 +41,8 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
   }
   
   this.reset = function(id, scaled){
+    boss = STAGE==5;
+    console.log("Boss: " + boss + " STAGE: " + STAGE);
     this.tiles = [];
     this.dTiles = [];
     this.mobs = [];
@@ -110,8 +112,8 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
             type = [9,10,12,13][rndNo(0,3)];
           }
         }
-        
-        if(inBounds(r,c)){
+      
+        if(inBounds(r,c) && !boss){
           if(!noDoors){
             if(rndNo(0,100) > 98 && isAir(type) && tin < 5){
                 type = types.BARREL;
@@ -129,8 +131,7 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
             }
           }  
         }
-        
-        
+      
         tile = new Tile(tileSize, xx, yy, angle, type, false, c, r);
         this.tiles.push(tile);
       }
@@ -140,80 +141,89 @@ function level(num, canvasW, canvasH, id, scale, noDoors = false) {
       }
     }
     
-    function isAir(t){
-        return t == types.AIR;
-    }
-    
-    function isEdge(r,c){
-      return (c == 1) || (c == 17) || (r==1 && c == 1) || (r==1 && c == 17) || (r==1 && c > 1 && c < 17) || 
-             (r==11 && c == 17) || (r==11 && c == 1) || (r==11 && c > 1 && c < 17);
-    }
-                
-    function inBounds(r,c){
-      return r > 2 && r<11 && c>1 && c<17;
-    }
-    
-    if(!noDoors){
-      // DOORS
-      switch(id) {
-        case 0:
-          this.doorR();
-          this.doorB();
-          break;
-        case 1:
-          this.doorR();
-          this.doorL();
-          this.doorB();
-          break;
-        case 2:
-          this.doorL();
-          this.doorB();
-          break;
-        case 3:
-          this.doorR();
-          this.doorB();
-          this.doorT();
-          break;
-        case 4:
-          this.doorR();
-          this.doorL();
-          this.doorT();
-          this.doorB();
-          break;
-        case 5:
-          this.doorL();
-          this.doorT();
-          this.doorB();
-          break;
-        case 6:
-          this.doorR();
-          this.doorT();
-          break;
-        case 7:
-          this.doorR();
-          this.doorL();
-          this.doorT();
-          break;
-        case 8:
-          this.doorT();
-          this.doorL();
-          break;
-      }
-    
-    
-      // MOBS
-      noMobs = rndNo(1,3)+STAGE;
-      // console.log("Level: " + id + " Mobs: " + noMobs);
-      for (m = 0; m < noMobs*2; m++) {
-        if(m >= noMobs){
-          mb = new mob(9, 10, rndNo(124,1028), rndNo(124,644), 0, types.TNY, scale, 0);
+    if(boss){
+      for (m = 0; m < 50; m++) {
+          mb = new mob(9, 10, rndNo(124,1028), rndNo(124,644), 0, types.TNY, scale, 10);
           mb.type = mobtype.SIMPLE;
-        } else {
-          mb = new mob(16, 16, rndNo(124,1028), rndNo(124,644), 0, types.BOT, scale, rndNo(1,5));
-        }
-        this.mobs.push(mb);
+          this.mobs.push(mb);
       }
-    }
+      
+      // mb = new mob(16, 16, rndNo(124,1028), rndNo(124,644), 0, types.BOT, scale, rndNo(1,3+STAGE));
+    } else {
+      if(!noDoors){
+        // DOORS
+        switch(id) {
+          case 0:
+            this.doorR();
+            this.doorB();
+            break;
+          case 1:
+            this.doorR();
+            this.doorL();
+            this.doorB();
+            break;
+          case 2:
+            this.doorL();
+            this.doorB();
+            break;
+          case 3:
+            this.doorR();
+            this.doorB();
+            this.doorT();
+            break;
+          case 4:
+            this.doorR();
+            this.doorL();
+            this.doorT();
+            this.doorB();
+            break;
+          case 5:
+            this.doorL();
+            this.doorT();
+            this.doorB();
+            break;
+          case 6:
+            this.doorR();
+            this.doorT();
+            break;
+          case 7:
+            this.doorR();
+            this.doorL();
+            this.doorT();
+            break;
+          case 8:
+            this.doorT();
+            this.doorL();
+            break;
+        }
+      
+        // MOBS
+        noMobs = rndNo(1,3)+STAGE;
+        // console.log("Level: " + id + " Mobs: " + noMobs);
+        for (m = 0; m < noMobs*2; m++) {
+          if(m >= noMobs){
+            mb = new mob(9, 10, rndNo(124,1028), rndNo(124,644), 0, types.TNY, scale, 0);
+            mb.type = mobtype.SIMPLE;
+          } else {
+            mb = new mob(16, 16, rndNo(124,1028), rndNo(124,644), 0, types.BOT, scale, rndNo(1,3+STAGE));
+          }
+          this.mobs.push(mb);
+        }
+      }
+    } // BOX CHECK
+  }
+  
+  function isAir(t){
+      return t == types.AIR;
+  }
+  
+  function isEdge(r,c){
+    return (c == 1) || (c == 17) || (r==1 && c == 1) || (r==1 && c == 17) || (r==1 && c > 1 && c < 17) || 
+           (r==11 && c == 17) || (r==11 && c == 1) || (r==11 && c > 1 && c < 17);
+  }
+              
+  function inBounds(r,c){
+    return r > 2 && r<11 && c>1 && c<17;
   }
   
   this.openDoors = function(){
