@@ -7,7 +7,7 @@ function Gun(){
   this.angles = [0];
   this.r=0.0174533;
   
-  this.addBullets = function(ox,oy,dx,dy, friendly=false){
+  this.addBullets = function(ox,oy,dx,dy, friendly=false, mt=null, spd=null){
     // Remove old drawBullets
     if(this.ammo>0 && this.wait<=0){
       this.wait=this.rate;
@@ -29,10 +29,12 @@ function Gun(){
         this.angles = [0,-20,-40,-60,20,40,60];
       }
       
+      if(mt==types.TNY) this.angles = [0,90,-90,180];
+    
       this.angles.forEach((a, i) => { 
         xx = ox + radius * Math.cos(angle+(a*this.r));
         yy = oy + radius * Math.sin(angle+(a*this.r));
-        this.bullets.push(new Bullet(ox,oy,xx,yy));
+        this.bullets.push(new Bullet(ox,oy,xx,yy, spd));
       }); 
       
       if(!friendly){
@@ -62,9 +64,9 @@ function Gun(){
   }
 }
 
-function Bullet(ox,oy,dx,dy){
+function Bullet(ox,oy,dx,dy, spd = null){
   this.scale = 4;
-  this.speed = BSPEED;
+  this.speed = spd != null ? spd : BSPEED;
   this.w = 50;
   this.h = 20;
   this.mhWidth = this.w / -2;

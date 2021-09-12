@@ -1,7 +1,19 @@
 function mob(w, h, x, y, angle, type, scale, maxHP) {
   this.entity = new entity(w, h, x, y, angle, type, "", scale, false, maxHP);
   this.type=mobtype.FOLLOW;
-  this.spd = type == mobtype.TNY ? 1 : rndNo(1,3)-.5;
+  this.entity.gun = new Gun();
+  this.entity.gun.rate=rndNo(0,3)+.5-(STAGE/10);
+  if(this.entity.gun.rate<.1) this.entity.gun.rate=.2;
+  
+  if(type == types.TNY){
+    this.bspd=150;
+    this.spd = .5;
+    this.entity.gun.rate=1;
+  } else {
+    this.bspd=800;
+    this.spd=rndNo(1,3)-.5;
+  }
+  
   this.colArr = [];
   this.noX=false;
   this.noY=false;
@@ -10,9 +22,8 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
   this.time=0;
   this.tryXSpeed=this.spd;
   this.tryYSpeed=this.spd;
-  this.entity.gun = new Gun();
-  this.entity.gun.rate=rndNo(0,3)+.5-(STAGE/10);
-  if(this.entity.gun.rate<.1) this.entity.gun.rate=.2;
+  
+
   this.entity.gun.wait=rndNo(0,3)-STAGE;
   
   this.update = function(delta) {  
@@ -41,7 +52,6 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
     nx = x < cart.hero.e.x ? x += this.move(this.spd,0) : x += this.move(-this.spd,0);
     
     if(this.type == mobtype.FOLLOW){
-      //this.hitHero=false;
       if(this.noX && this.waitX>0){
         this.waitX-=delta;
         e.y = y += this.move(0,this.tryYSpeed);
@@ -73,7 +83,7 @@ function mob(w, h, x, y, angle, type, scale, maxHP) {
     }
     
     // SHOOTING
-    this.entity.gun.addBullets(this.entity.x+32,this.entity.y+32,cart.hero.e.x+32,cart.hero.e.y+32,true);
+    this.entity.gun.addBullets(this.entity.x+32,this.entity.y+32,cart.hero.e.x+32,cart.hero.e.y+32,true,this.entity.type, this.bspd);
     this.entity.gun.drawBullets(delta, true);
   }
   

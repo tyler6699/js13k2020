@@ -106,7 +106,7 @@ function hero(w, h, x, y, angle, type, scale) {
               STAGE++;
               cart.genLevel(STAGE);
               break;
-            } else if(e.isHP() && !e.broke){ // AMMO
+            } else if(e.isHP() && !e.broke){ // HEALTH
               e.broke=true;
               e.active=false;
               hpUp = rndNo(10,40);
