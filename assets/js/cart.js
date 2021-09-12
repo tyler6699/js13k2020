@@ -9,7 +9,7 @@ function Cart() {
   this.shakeTime=0;
     
   this.genLevel = function(num){
-    if(num > 5){
+    if(num == 5){
       speak("BOSS LEVEL");
       this.levels = [];
       var lvl = new level(num, canvasW, canvasH, i, this.scale, true);
@@ -71,8 +71,11 @@ function Cart() {
     ctx.fillStyle = gradient;
     ctx.font = "italic 40px Arial";
     ctx.fillText("AMMO " + this.hero.e.gun.ammo, 900, 50);
-    ctx.fillText("LEVEL " + (STAGE+1), 600, 50);
-    
+    if(STAGE==5){
+      ctx.fillText("LEVEL " + (STAGE+1), 600, 50);
+    } else {
+      ctx.fillText("BOSS FIGHT", 600, 50);
+    }
     // Reset mouse click checker
     processClick = false;
 

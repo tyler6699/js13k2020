@@ -152,7 +152,8 @@ function updateGameArea() {
     drawBox(ctx,0.1,"#"+COL1,0,0,canvasW,canvasH)
     writeTxt(ctx, 1, "italic 50px Arial","WHITE","[ CLICK TO START ]", 380, 720);
     z=TIME/1600;
-    writeTxt(ctx, 1, "italic 90px Arial","WHITE","SPACE KITTY", 300+Math.cos(z)*40, 200+Math.sin(z)*20);
+    writeTxt(ctx, 1, "italic 90px Arial","WHITE","SPACE KITTY", 300+Math.cos(z)*40, 150+Math.sin(z)*20);
+    writeTxt(ctx, 1, "italic 60px Arial","WHITE","was not the imposter!", 300+Math.cos(z)*70, 200+Math.sin(z)*20);
     
     renderStarField(TIME);
     
